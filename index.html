@@ -310,6 +310,8 @@ table.mkba.editable input.cell{width:78px}
 .mreset{margin-top:10px;background:none;border:1.5px solid var(--line);border-radius:var(--r-pill);padding:7px 14px;font-family:var(--disp);font-weight:600;font-size:.82rem;color:var(--slate);cursor:pointer}
 .mreset:hover{border-color:var(--orange);color:var(--orange)}
 @media(max-width:680px){.model-grid{grid-template-columns:1fr}}
+.kv a[target]{color:var(--sage-600);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.kv a[target]:hover{color:var(--orange)}
 textarea.notes{width:100%;margin-top:12px;min-height:74px;resize:vertical;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-sm);color:#eef3ee;font-family:var(--body);font-size:.9rem;padding:10px 12px;line-height:1.5}
 textarea.notes::placeholder{color:#7e988a}
 .frow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
@@ -374,7 +376,7 @@ textarea.notes::placeholder{color:#7e988a}
         <span class="tgo">Kies je rol →</span>
       </button>
     </div>
-    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 11</span></p>
+    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 12</span></p>
   </div>
 </section>
 
@@ -398,7 +400,7 @@ textarea.notes::placeholder{color:#7e988a}
       <button class="facbtn alt" data-act="go" data-arg="analist">Analist · model-details</button>
     </div>
     <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt. <b>Facilitator &amp; Analist</b> zijn voor de begeleiding.</div>
-    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 11 — laden…</div>
+    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 12 — laden…</div>
   </div>
 </section>
 
@@ -2934,7 +2936,7 @@ const TOETS = `
 <div class="block">
   <span class="eyebrow">Hand-out · achtergrond</span>
   <h2 style="margin-top:8px">De maatschappelijke toets (brede-waarde-analyse)</h2>
-  <p class="lead">Een becijfering van de fusie op <strong>brede waarde</strong>: financieel + sociaal + ecologisch (F+S+E), met dezelfde methode als Schoenmaker &amp; De Groot Ruiz (ESB, 2017). Rijnlandse som — alle stakeholders even zwaar. Geen extern oordeel achteraf, maar munitie voor jullie afweging vanuit de bestuurskamer.</p>
+  <p class="lead">Een becijfering van de fusie op <strong>brede waarde</strong>: financieel + sociaal + ecologisch (F+S+E), met dezelfde methode als <a href="https://esb.nu/maatschappelijke-toetsing-van-overnames-is-nodig/" target="_blank" rel="noopener">De Adelhart Toorop, De Groot Ruiz &amp; Schoenmaker (ESB, 2017)</a>. Rijnlandse som — alle stakeholders even zwaar. Geen extern oordeel achteraf, maar munitie voor jullie afweging vanuit de bestuurskamer.</p>
 </div>
 <div class="numstrip">
   <span class="num"><b>≈ −€1,3 mrd</b> verwachte brede waarde (fusie)</span>
@@ -3027,6 +3029,7 @@ const IMPACT_MODEL = `
   <span class="eyebrow">Analist · impact-model (brede waarde)</span>
   <h2 style="margin-top:8px">Brede-waarde-toets — pas de posten aan</h2>
   <p class="lead">De vijf maatschappelijke effecten in <strong>€ mrd contante waarde</strong> (F+S+E). Pas de <strong>gele cellen</strong> aan; de kolomtotalen en het oordeel herrekenen live. Zelfde opzet als 04_mkba — gele cellen zijn aannames, bedoeld om te bevrágen.</p>
+  <p class="src">Methode: De Adelhart Toorop, De Groot Ruiz &amp; Schoenmaker (ESB, 2017) · zie tab <strong>Bronnen</strong>.</p>
 </div>
 <table class="mkba editable">
   <thead><tr><th>Effect (€ mrd, CW)</th><th>Voorzichtig</th><th>Verwacht</th><th>Optimistisch</th></tr></thead>
@@ -3263,11 +3266,46 @@ function renderRole(key){
 /* ====================================================================
    ANALIST — model-details (financieel + impact)
    ==================================================================== */
+const SOURCES = `
+<div class="block">
+  <span class="eyebrow">Analist · bronnen</span>
+  <h2 style="margin-top:8px">Bronnen &amp; verantwoording</h2>
+  <p class="lead">De feiten en concepten achter de casus. Externe bronnen zijn aanklikbaar; de modellen op de andere tabs zijn illustratieve onderwijs-schattingen op basis hiervan (zie de disclaimers per tab).</p>
+</div>
+<div class="block"><h2>De casus — dealfeiten</h2>
+  <ul class="kv">
+    <li><strong>AkzoNobel × Axalta — merger of equals</strong> (18 nov 2025): ruil 0,6539 · ~$25 mrd · dual HQ Amsterdam/Philadelphia · leiderschap. <a href="https://www.akzonobel.com/en/media/media-releases/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">AkzoNobel persbericht</a> · <a href="https://ir.axalta.com/news/press-releases/detail/671/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">Axalta IR</a></li>
+    <li><strong>04_mkba_akzo_axalta.xlsx</strong> — het brede-waarde-werkmodel (tab "MKBA 2026 MOE"), bron voor het impact-model. <em>Intern.</em></li>
+    <li><strong>Validatie_getallen_presentatie.xlsx</strong> — validatie van de cijfers in de lezing. <em>Intern.</em></li>
+  </ul>
+</div>
+<div class="block"><h2>Brede waarde &amp; maatschappelijke toetsing</h2>
+  <ul class="kv">
+    <li><strong>De Adelhart Toorop, De Groot Ruiz &amp; Schoenmaker (2017)</strong> — "Maatschappelijke toetsing van overnames is nodig", <em>ESB</em>. De methode achter de toets; analyseerde destijds AkzoNobel–PPG (≈ −€6 mrd). <a href="https://esb.nu/maatschappelijke-toetsing-van-overnames-is-nodig/" target="_blank" rel="noopener">esb.nu</a></li>
+    <li><strong>Sturen op integrale waarde</strong> — beslissen op F+S+E i.p.v. alleen winst (integrated value). <a href="https://esb.nu/bedrijven-moeten-sturen-op-integrale-waarde-en-niet-alleen-op-winst/" target="_blank" rel="noopener">esb.nu</a></li>
+  </ul>
+</div>
+<div class="block"><h2>Impact in geld — frameworks</h2>
+  <ul class="kv">
+    <li><strong>Impact-Weighted Accounts Framework (IWAF)</strong> — Impact Economy Foundation, m.m.v. Impact Institute, Harvard, RSM &amp; SMU. <a href="https://impacteconomyfoundation.org/impactweightedaccountsframework/" target="_blank" rel="noopener">impacteconomyfoundation.org</a></li>
+    <li><strong>True Price</strong> — marktprijs + verborgen sociale &amp; ecologische kosten; methode &amp; monetarisatiefactoren. <a href="https://www.trueprice.org/methodology/" target="_blank" rel="noopener">trueprice.org</a></li>
+    <li><strong>IFVI — International Foundation for Valuing Impacts</strong> — voortzetting van Harvards Impact-Weighted Accounts Initiative (Serafeim). <a href="https://ifvi.org/" target="_blank" rel="noopener">ifvi.org</a></li>
+  </ul>
+</div>
+<div class="block"><h2>Governance &amp; verslaggeving</h2>
+  <ul class="kv">
+    <li><strong>Nederlandse Corporate Governance Code 2022</strong> — lange-termijn waardecreatie &amp; dubbele materialiteit. Monitoring Commissie. <a href="https://www.mccg.nl/documenten/2022/12/20/corporate-governance-code-2022" target="_blank" rel="noopener">mccg.nl</a></li>
+    <li><strong>CSRD / ESRS</strong> — duurzaamheidsverslaggeving met assurance; dubbele materialiteit. EU-standaardzetter EFRAG. <a href="https://www.efrag.org/" target="_blank" rel="noopener">efrag.org</a></li>
+  </ul>
+</div>
+<div class="callout warn"><span class="lbl">Let op</span>Het financieel model en het impact-model op deze pagina zijn <strong>illustratieve onderwijs-schattingen</strong> op basis van publieke dealfeiten en de bovenstaande methoden — geen waardering, beleggingsadvies of volwaardige MKBA.</div>`;
+
 const ANALIST_TABS=[
   ['fin','Financieel model',FINMODEL],
   ['impact','Impact-model',IMPACT_MODEL],
   ['situatie','De situatie',SITUATIE],
-  ['spiek','Spiekkaart finance',SPIEKKAART]
+  ['spiek','Spiekkaart finance',SPIEKKAART],
+  ['bronnen','Bronnen',SOURCES]
 ];
 let analistBuilt=false;
 function buildAnalist(){
@@ -3556,7 +3594,7 @@ document.addEventListener('click',function(e){
 function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
-(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 11 · interactief ✓ — klik op een rol'; } })();
+(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 12 · interactief ✓ — klik op een rol'; } })();
 </script>
 </body>
 </html>
