@@ -34,10 +34,14 @@ button{font-family:var(--body);cursor:pointer}
 :focus-visible{outline:3px solid color-mix(in srgb,var(--orange) 55%,transparent);outline-offset:2px}
 
 /* ============ LOGIN ============ */
-#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+/* display is scoped to .active so the .view cascade can hide #login when
+   another view is shown — an unscoped `display:flex` here (ID specificity)
+   would override .view/.view.active and keep the login on top of every page. */
+#login{min-height:100vh;align-items:center;justify-content:center;padding:24px;
   background:
    radial-gradient(120% 80% at 90% 0%,rgba(252,89,1,.06),transparent 55%),
    radial-gradient(90% 70% at 0% 100%,rgba(42,77,54,.07),transparent 55%),var(--paper)}
+#login.active{display:flex}
 .login-card{width:100%;max-width:480px;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);padding:40px 36px}
 .login-card .mark{width:40px;height:40px;margin-bottom:22px}
 .login-card .eyebrow{display:block;margin-bottom:10px}
@@ -303,7 +307,7 @@ textarea.notes::placeholder{color:#7e988a}
     </div>
     <button class="facbtn" data-act="go" data-arg="facilitator">Facilitator / regie →</button>
     <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt.</div>
-    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 8 — laden…</div>
+    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 9 — laden…</div>
   </div>
 </section>
 
@@ -3258,7 +3262,7 @@ document.addEventListener('click',function(e){
 function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
-(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 8 · interactief ✓ — klik op een rol'; } })();
+(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 9 · interactief ✓ — klik op een rol'; } })();
 </script>
 </body>
 </html>
