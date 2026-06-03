@@ -43,6 +43,40 @@ button{font-family:var(--body);cursor:pointer}
    radial-gradient(90% 70% at 0% 100%,rgba(42,77,54,.07),transparent 55%),var(--paper)}
 #login.active{display:flex}
 .login-card{width:100%;max-width:480px;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-lg);padding:40px 36px}
+
+/* ============ LANDING ============ */
+#landing{min-height:100vh;align-items:center;justify-content:center;padding:24px;
+  background:
+   radial-gradient(120% 80% at 90% 0%,rgba(252,89,1,.06),transparent 55%),
+   radial-gradient(90% 70% at 0% 100%,rgba(42,77,54,.07),transparent 55%),var(--paper)}
+#landing.active{display:flex}
+.landing-wrap{width:100%;max-width:780px}
+.landing-head{text-align:center;margin-bottom:34px}
+.landing-head .eyebrow{display:block;margin-bottom:12px}
+.landing-head h1{font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.04;margin-bottom:14px}
+.landing-head .sub{color:var(--slate);font-size:1.08rem;max-width:42ch;margin:0 auto;line-height:1.5}
+.landing-tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.tile{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:7px;width:100%;font:inherit;color:inherit;text-decoration:none;cursor:pointer;
+  background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-md);padding:26px 24px 22px;
+  transition:transform .12s,box-shadow .15s,border-color .15s}
+.tile:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:var(--sage)}
+.tile:active{transform:translateY(-1px)}
+.tile .tnum{font-family:var(--disp);font-weight:700;font-size:.78rem;letter-spacing:.16em;color:var(--orange)}
+.tile h2{font-size:1.5rem;margin:2px 0}
+.tile p{color:var(--ink-soft);font-size:.97rem;line-height:1.5;flex:1;margin:0}
+.tile .tgo{font-family:var(--disp);font-weight:600;color:var(--green);font-size:.94rem;margin-top:8px}
+.tile:hover .tgo{color:var(--orange)}
+.landing-foot{text-align:center;color:var(--slate);font-size:.84rem;margin-top:28px}
+.landing-foot .bld{font-family:var(--mono,monospace);color:#9aa39d}
+@media(max-width:640px){.landing-tiles{grid-template-columns:1fr}}
+
+/* back-to-start + facilitation row on the case (role-picker) screen */
+.backstart{background:none;border:none;color:var(--slate);font-family:var(--disp);font-weight:600;font-size:.82rem;padding:0;margin-bottom:16px;cursor:pointer;letter-spacing:.02em}
+.backstart:hover{color:var(--orange)}
+.faclrow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.facbtn.alt{background:var(--sage-600)}
+.facbtn.alt:hover{background:var(--sage)}
+@media(max-width:480px){.faclrow{grid-template-columns:1fr}}
 .login-card .mark{width:40px;height:40px;margin-bottom:22px}
 .login-card .eyebrow{display:block;margin-bottom:10px}
 .login-card h1{font-size:2rem;margin-bottom:6px}
@@ -291,9 +325,36 @@ textarea.notes::placeholder{color:#7e988a}
 </head>
 <body>
 
-<!-- ===================== LOGIN ===================== -->
-<section id="login" class="view active">
+<!-- ===================== LANDING ===================== -->
+<section id="landing" class="view active">
+  <div class="landing-wrap">
+    <header class="landing-head">
+      <span class="eyebrow">2100 Masterclass</span>
+      <h1>Finance &amp; Impact<br>voor commissarissen</h1>
+      <p class="sub">Eerst de lezing, dan de casus. Kies waar je begint — je kunt altijd terug naar dit startscherm.</p>
+    </header>
+    <div class="landing-tiles">
+      <a class="tile" href="lezing.html">
+        <span class="tnum">01 · Lezing</span>
+        <h2>De lezing</h2>
+        <p>Finance &amp; Impact voor RvC's 101 — interactieve presentatie van ±30 min, met spreker-notities.</p>
+        <span class="tgo">Start de presentatie →</span>
+      </a>
+      <button type="button" class="tile" data-act="go" data-arg="casus">
+        <span class="tnum">02 · Casus</span>
+        <h2>De casus</h2>
+        <p>AkzoNobel × Axalta — fuseren of niet? Rollenspel met echte stemming, ±45 min.</p>
+        <span class="tgo">Kies je rol →</span>
+      </button>
+    </div>
+    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 10</span></p>
+  </div>
+</section>
+
+<!-- ===================== LOGIN (casus · rolkeuze) ===================== -->
+<section id="login" class="view">
   <div class="login-card">
+    <button class="backstart" data-act="home">← Terug naar start</button>
     <span class="eyebrow">2100 Masterclass · Casus</span>
     <h1>AkzoNobel × Axalta</h1>
     <p class="sub">Fuseren of niet? Kies je rol om te beginnen.</p>
@@ -305,9 +366,12 @@ textarea.notes::placeholder{color:#7e988a}
       <button class="rolebtn" style="--rb:var(--amber)" data-act="go" data-arg="axalta"><span class="d"></span>Board Axalta</button>
       <button class="rolebtn" style="--rb:var(--sage)" data-act="go" data-arg="aandeelhouders"><span class="d"></span>Grootaandeelhouders</button>
     </div>
-    <button class="facbtn" data-act="go" data-arg="facilitator">Facilitator / regie →</button>
-    <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt.</div>
-    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 9 — laden…</div>
+    <div class="faclrow">
+      <button class="facbtn" data-act="go" data-arg="facilitator">Facilitator · regie &amp; timer</button>
+      <button class="facbtn alt" data-act="go" data-arg="analist">Analist · model-details</button>
+    </div>
+    <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt. <b>Facilitator &amp; Analist</b> zijn voor de begeleiding.</div>
+    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 10 — laden…</div>
   </div>
 </section>
 
@@ -319,6 +383,7 @@ textarea.notes::placeholder{color:#7e988a}
     <span class="rolechip" id="roleChip"><span class="dot"></span><span id="roleChipTxt"></span></span>
     <button class="logout" data-act="printrole">Print</button>
     <button class="logout" data-act="logout">Andere rol</button>
+    <button class="logout" data-act="home">↩ Start</button>
   </div>
   <div class="wrap">
     <div class="role-head">
@@ -338,7 +403,8 @@ textarea.notes::placeholder{color:#7e988a}
     <span class="crumb">Facilitator · Regie</span>
     <span class="spacer"></span>
     <span class="rolechip" style="background:var(--orange)"><span class="dot"></span>Draaiboek</span>
-    <button class="logout" data-act="logout" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">Uitloggen</button>
+    <button class="logout" data-act="logout" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">← Casus</button>
+    <button class="logout" data-act="home" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">↩ Start</button>
   </div>
   <div class="fac-grid">
     <!-- LEFT: timer + track -->
@@ -413,6 +479,27 @@ textarea.notes::placeholder{color:#7e988a}
     </div>
   </div>
   <footer class="foot">Draaiboek 45 min · 6 groepen · operationaliseert de casus-opzet · Impact Institute × 2100</footer>
+</section>
+
+<!-- ===================== ANALIST (facilitatie · model-details) ===================== -->
+<section id="analistPage" class="view">
+  <div class="topbar">
+    <span class="crumb">Casus · Analist</span>
+    <span class="spacer"></span>
+    <span class="rolechip" style="background:var(--teal)"><span class="dot"></span>Model-details</span>
+    <button class="logout" data-act="go" data-arg="casus">← Casus</button>
+    <button class="logout" data-act="home">↩ Start</button>
+  </div>
+  <div class="wrap">
+    <div class="role-head">
+      <span class="stance open">Facilitatie · achter de schermen</span>
+      <h1>De faciliterende analist</h1>
+      <p class="tag">De cijfers áchter de casus — financieel model en impact-model, om vragen te pareren en het gesprek te voeden. Niet voor de deelnemers: dit is de "antwoordsleutel".</p>
+    </div>
+    <div class="tabs" id="analistTabs"></div>
+    <div id="analistPanels"></div>
+  </div>
+  <footer class="foot">Illustratieve onderwijsmodellen — bedoeld om te bevrágen, niet als waardering of advies · Impact Institute × 2100</footer>
 </section>
 
 <!-- ===================== MODAL ===================== -->
@@ -2858,6 +2945,44 @@ const TOETS = `
 <div class="callout"><span class="lbl">Voor de RvC &amp; de Minister</span><strong>RvC:</strong> weeg F+S+E en toets of de aanbeveling niet door bestuurs-eigenbelang is gekleurd (CEO-target ~€14,4 vs ~€11 mln nu). Optie: eis een maatschappelijke fairness-opinie vóór goedkeuring. <strong>Minister:</strong> de autonomie-post (~−€1 mrd) is je hefboom — maar anticipeer op het weerwoord (&gt;60% VS, "strategische onafhankelijkheid", NL-domicilie blijft).</div>
 <div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratieve onderwijs-schatting, géén volwaardige MKBA — de euro's zijn redeneer-aannames, bedoeld om te <em>bevrágen</em>. In het werkmodel (04_mkba, gele cellen) kun je elke aanname aanpassen en de totalen herrekenen. De kunst: welke aanname drijft de uitkomst, en wie heeft die gekozen?</div>`;
 
+const FINMODEL = `
+<div class="block">
+  <span class="eyebrow">Analist · achtergrond</span>
+  <h2 style="margin-top:8px">Het financiële model — is de fusie méér waard dan €73 cash?</h2>
+  <p class="lead">Een transparante <strong>waardebrug</strong> per AkzoNobel-aandeel: van de beurskoers naar de waarde ín de fusie, om de claim van het bestuur te toetsen dat de fusie méér oplevert dan het afgewezen cash-bod van €73. Zelfde geest als de impact-toets: <strong>redeneer-aannames</strong> om te bevrágen — geen koersdoel of waardering.</p>
+</div>
+<div class="numstrip">
+  <span class="num"><b>€73</b> afgewezen cash-bod (zeker)</span>
+  <span class="num"><b>~€52</b> beurskoers (standalone)</span>
+  <span class="num"><b>55%</b> + €2,5 mrd voor AkzoNobel</span>
+  <span class="num"><b>~$600 mln</b> synergie/jaar</span>
+  <span class="num"><b>~8×</b> kapitalisatie synergie</span>
+</div>
+<div class="block"><h2>De waardebrug — € per AkzoNobel-aandeel</h2>
+  <table class="mkba">
+    <thead><tr><th>Stap</th><th>Voorzichtig</th><th>Verwacht</th><th>Optimistisch</th></tr></thead>
+    <tbody>
+      <tr><td>Beurskoers standalone</td><td>52</td><td class="vw">52</td><td>52</td></tr>
+      <tr><td>+ Fundamentele opslag (markt onderschat standalone)</td><td>0</td><td class="pos vw">+4</td><td class="pos">+9</td></tr>
+      <tr><td>+ Aandeel in synergie (na risico &amp; integratiekosten)</td><td class="pos">+5</td><td class="pos vw">+11</td><td class="pos">+17</td></tr>
+      <tr><td>+ Superdividend €2,5 mrd (eenmalig, vóór closing)</td><td class="pos">+14</td><td class="pos vw">+14</td><td class="pos">+14</td></tr>
+      <tr class="tot"><td>= Waarde per aandeel in de fusie</td><td>~71</td><td class="vw">~81</td><td class="pos">~92</td></tr>
+      <tr><td>Ter vergelijking: zeker cash-bod</td><td>73</td><td>73</td><td>73</td></tr>
+    </tbody>
+  </table>
+  <p class="src">Illustratief · ~179 mln aandelen (≈ €9,3 mrd bij ~€52) · synergie ~$600 mln × ~8× ≈ €4,4 mrd bruto, 55% toe te rekenen aan AkzoNobel, minus integratie &amp; uitvoeringsrisico · superdividend €2,5 mrd ÷ aandelen ≈ €14. Bron-aannames: publieke dealfeiten + 04_mkba (aandeelhouderspost).</p>
+</div>
+<div class="card accent">
+  <h3>Wat drijft elke stap</h3>
+  <ul class="kv">
+    <li><strong>Fundamentele opslag (+€4):</strong> het bestuur claimt dat ~€52 de standalone-waarde onderschat — een DCF op hun eigen kasstroomprognose ligt hoger. Pure aanname, en de gevoeligste knop van het model.</li>
+    <li><strong>Aandeel in synergie (+€11):</strong> ~$600 mln × ~8× ≈ €4,4 mrd bruto; daarvan ~€2,4 mrd toe te rekenen aan AkzoNobel-houders (55%), minus integratiekosten en de kans dat synergie maar deels landt → ~€2,0 mrd ÷ ~179 mln aandelen.</li>
+    <li><strong>Superdividend (+€14):</strong> €2,5 mrd eenmalig vóór closing — het enige "harde", zekere bestanddeel in de brug.</li>
+  </ul>
+</div>
+<div class="callout"><span class="lbl">De kern: markt ≠ fundament</span>In het <strong>verwachte</strong> scenario (~€81) wint de fusie van de zekere €73 — maar bijna alles zit in <em>aannames</em> (opslag + synergie), niet in de harde €14 dividend. In het <strong>voorzichtige</strong> scenario (~€71: geen opslag, synergie deels) zakt de waarde ónder het cash-bod. Eén set aannames draait de conclusie om. Dát is het gesprek.</div>
+<div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratief onderwijsmodel, géén volwaardige waardering of beleggingsadvies. De €/aandeel-stappen zijn redeneer-aannames; het aandelenaantal (~179 mln) en de multiple (~8×) zijn ruwe ankers, te verfijnen. Spiegel dit aan de aandeelhouderspost in de brede-waarde-toets (tab Impact-model): die nettoot óók de gemiste cash-premie (€73 − ~€52) en kijkt naar de hele combinatie, niet alleen het AkzoNobel-aandeel.</div>`;
+
 /* ====================================================================
    ROLLEN
    ==================================================================== */
@@ -3004,11 +3129,18 @@ function codeToRole(raw){
 }
 function show(viewId){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('active')); document.getElementById(viewId).classList.add('active'); window.scrollTo(0,0); }
 function showLogin(){ show('login'); }
-function logout(){ stopTimer(); try{location.hash='';}catch(e){} showLogin(); }
+function showLanding(){ show('landing'); }
+/* "Andere rol" → terug naar de rolkeuze (casus-scherm) */
+function logout(){ stopTimer(); go('casus'); }
 
 /* go = render meteen + zet de hash als bonus (werkt ook als hash-navigatie geblokkeerd is) */
-function go(role){
-  const h = role==='facilitator' ? '#facilitator' : '#rol/'+role;
+function go(target){
+  let h;
+  if(target==='facilitator') h='#facilitator';
+  else if(target==='analist') h='#analist';
+  else if(target==='casus') h='#casus';
+  else if(target==='home'||target==='landing') h='';
+  else h='#rol/'+target;
   try{ if(location.hash!==h) location.hash=h; }catch(e){}
   applyHash(h);
 }
@@ -3040,6 +3172,33 @@ function renderRole(key){
     panelsEl.appendChild(p);
   });
   show('rolePage');
+}
+
+/* ====================================================================
+   ANALIST — model-details (financieel + impact)
+   ==================================================================== */
+const ANALIST_TABS=[
+  ['fin','Financieel model',FINMODEL],
+  ['impact','Impact-model',TOETS],
+  ['situatie','De situatie',SITUATIE],
+  ['spiek','Spiekkaart finance',SPIEKKAART]
+];
+let analistBuilt=false;
+function buildAnalist(){
+  document.documentElement.style.setProperty('--accent','var(--teal)');
+  if(analistBuilt) return;
+  const tabsEl=document.getElementById('analistTabs'); tabsEl.innerHTML='';
+  const panelsEl=document.getElementById('analistPanels'); panelsEl.innerHTML='';
+  ANALIST_TABS.forEach(([id,label,html],idx)=>{
+    const b=document.createElement('button'); b.className='tab'+(idx===0?' active':''); b.textContent=label;
+    b.onclick=()=>{ document.querySelectorAll('#analistTabs .tab').forEach(t=>t.classList.remove('active'));
+                    document.querySelectorAll('#analistPanels .panel').forEach(p=>p.classList.remove('active'));
+                    b.classList.add('active'); document.getElementById('apanel-'+id).classList.add('active'); window.scrollTo(0,0); };
+    tabsEl.appendChild(b);
+    const p=document.createElement('div'); p.className='panel'+(idx===0?' active':''); p.id='apanel-'+id; p.innerHTML=html;
+    panelsEl.appendChild(p);
+  });
+  analistBuilt=true;
 }
 
 /* ====================================================================
@@ -3245,11 +3404,13 @@ document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
    ==================================================================== */
 function applyHash(h){
   if(h==='#facilitator'){ buildFacStatic(); renderTimer(); show('facPage'); }
-  else if(h.startsWith('#rol/')){ const k=h.slice(5); if(ROLES[k]) renderRole(k); else showLogin(); }
-  else { showLogin(); }
+  else if(h==='#analist'){ buildAnalist(); show('analistPage'); }
+  else if(h==='#casus'){ show('login'); }
+  else if(h.startsWith('#rol/')){ const k=h.slice(5); if(ROLES[k]) renderRole(k); else show('login'); }
+  else { showLanding(); }
 }
 const ACTIONS={
-  go:a=>go(a), logout:()=>logout(), printrole:()=>printCurrentRole(),
+  go:a=>go(a), home:()=>{ stopTimer(); go('home'); }, logout:()=>logout(), printrole:()=>printCurrentRole(),
   toggletimer:()=>toggleTimer(), resettimer:()=>resetTimer(), togglesound:()=>toggleSound(),
   votebig:()=>showVoteBig(), votecopy:()=>copyVote(), voteprint:()=>printVote(), votereset:()=>resetVote(),
   genqr:()=>genQR(), printqr:()=>printQR(), printroles:()=>printRolkaarten(), closemodal:()=>closeModal()
@@ -3262,7 +3423,7 @@ document.addEventListener('click',function(e){
 function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
-(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 9 · interactief ✓ — klik op een rol'; } })();
+(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 10 · interactief ✓ — klik op een rol'; } })();
 </script>
 </body>
 </html>
