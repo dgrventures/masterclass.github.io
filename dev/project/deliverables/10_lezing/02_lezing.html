@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance &amp; Impact voor RvC's 101</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#16544a;--green-deep:#0e3b34;--green-soft:#dde9e4;
+  --orange:#e07a28;--orange-soft:#f6e2cf;
+  --cream:#fbf9f4;--ink:#16221e;--muted:#5d6b65;--line:#d9d3c6;
+  --serif:'Fraunces',Georgia,serif;--sans:'IBM Plex Sans',system-ui,sans-serif;--mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);overflow:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(120% 90% at 85% 5%, rgba(22,84,74,.06), transparent 55%),
+             radial-gradient(90% 70% at 5% 100%, rgba(224,122,40,.05), transparent 50%)}
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--orange);width:0;z-index:50;transition:width .35s ease}
+.deck{position:relative;height:100vh;width:100vw;z-index:1}
+.slide{position:absolute;inset:0;display:none;padding:5.5vh 8vw 11vh;flex-direction:column;justify-content:center}
+.slide.active{display:flex;animation:rise .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.kicker{display:flex;align-items:center;gap:.7rem;font-family:var(--mono);font-size:.76rem;letter-spacing:.13em;text-transform:uppercase;color:var(--green);margin-bottom:1rem;flex-wrap:wrap}
+.kicker .num{color:var(--muted)}.kicker .bar{width:30px;height:2px;background:var(--orange)}
+h1{font-family:var(--serif);font-weight:500;line-height:1.04;letter-spacing:-.01em}
+.slide h2{font-family:var(--serif);font-weight:500;font-size:clamp(1.7rem,3.9vw,3rem);line-height:1.07;letter-spacing:-.01em;max-width:22ch;margin-bottom:1.2rem}
+.lead{font-size:clamp(1rem,1.6vw,1.32rem);color:var(--muted);max-width:48ch;line-height:1.5}
+ul.points{list-style:none;display:flex;flex-direction:column;gap:.7rem;margin-top:.3rem;max-width:56ch}
+ul.points li{position:relative;padding-left:1.5rem;font-size:clamp(.98rem,1.45vw,1.2rem);line-height:1.4}
+ul.points li::before{content:"";position:absolute;left:0;top:.58em;width:8px;height:8px;background:var(--green);border-radius:1px}
+ul.points li.o::before{background:var(--orange)}
+.hl{color:var(--green);font-weight:600}.hl-o{color:var(--orange);font-weight:600}.dim{color:var(--muted)}
+.badge{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;padding:.3rem .55rem;border-radius:100px}
+.badge.intr{background:var(--orange);color:#fff}.badge.al{background:var(--green-soft);color:var(--green-deep)}
+.badge.az{background:var(--orange-soft);color:#9a4d12}.badge.ex{background:#ece7db;color:var(--muted)}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1.8rem;max-width:64ch}
+.card{background:rgba(255,255,255,.55);border:1px solid var(--line);border-radius:12px;padding:1rem 1.15rem}
+.card h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin-bottom:.45rem;color:var(--green-deep)}
+.card p,.card li{font-size:.95rem;color:var(--ink);line-height:1.4}
+.card ul{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.card.az h3{color:#9a4d12}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-top:.4rem;font-family:var(--mono);font-size:.88rem}
+.flow .step{background:#fff;border:1px solid var(--line);border-radius:8px;padding:.5rem .75rem;color:var(--green-deep)}
+.flow .arr{color:var(--orange);font-weight:600}
+.poll{margin-top:1.2rem;display:flex;gap:.5rem;flex-wrap:wrap;align-items:center}
+.poll .q{font-size:.88rem;color:var(--muted)}
+.poll .opt{font-family:var(--mono);font-size:.86rem;border:1.5px solid var(--green);color:var(--green);border-radius:100px;padding:.4rem .9rem}
+.figures{display:flex;gap:2.2rem;margin-top:1.1rem;flex-wrap:wrap}
+.fig .n{font-family:var(--serif);font-size:clamp(1.6rem,2.8vw,2.3rem);color:var(--orange);line-height:1}
+.fig .l{font-size:.86rem;color:var(--muted);margin-top:.25rem;max-width:18ch}
+/* financiële overzichten */
+.stmt{font-family:var(--mono);font-size:clamp(.82rem,1.1vw,1rem);min-width:300px;flex:1}
+.stmt .title{font-family:var(--sans);font-weight:600;color:var(--green-deep);font-size:.95rem;margin-bottom:.5rem;text-transform:none}
+.stmt .row{display:flex;justify-content:space-between;gap:1.5rem;padding:.34rem 0;border-bottom:1px dotted var(--line)}
+.stmt .row .amt{color:var(--ink)}
+.stmt .row.sub{color:var(--muted)}
+.stmt .row.tot{border-bottom:none;border-top:1.5px solid var(--green);margin-top:.2rem;font-weight:600;color:var(--green-deep)}
+.stmt .row.key{color:var(--orange);font-weight:600}.stmt .row.key .amt{color:var(--orange)}
+.stmts{display:flex;gap:2.4rem;flex-wrap:wrap;margin-top:.3rem;align-items:flex-start}
+.toelichting{font-size:.86rem;color:var(--muted);line-height:1.45;margin-top:1.1rem;max-width:64ch;border-left:2px solid var(--orange);padding-left:.85rem}
+.src{font-family:var(--mono);font-size:.66rem;color:var(--muted);margin-top:.8rem;letter-spacing:.04em}
+.formula{font-family:var(--mono);background:var(--green-deep);color:var(--cream);border-radius:12px;padding:1.1rem 1.3rem;margin-top:1rem;display:inline-flex;align-items:center;gap:.5rem;flex-wrap:wrap;font-size:clamp(.95rem,1.5vw,1.25rem)}
+.formula .eq{color:var(--orange)}
+.frac{display:inline-flex;flex-direction:column;text-align:center;vertical-align:middle;margin:0 .25rem}
+.frac .num{padding:0 .4rem .15rem}.frac .den{padding:.15rem .4rem 0;border-top:1.5px solid var(--orange)}
+.sum{font-size:1.6em;line-height:.8;color:var(--orange)}
+.note-inline{font-size:.9rem;color:var(--muted);margin-top:.8rem;max-width:54ch;line-height:1.45}
+.steps{counter-reset:s;display:flex;flex-direction:column;gap:.55rem;margin-top:.3rem;max-width:60ch}
+.steps li{list-style:none;position:relative;padding-left:2.5rem;font-size:clamp(.96rem,1.4vw,1.16rem);line-height:1.35}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:-.1rem;width:1.7rem;height:1.7rem;background:var(--green);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.85rem}
+.chrome{position:fixed;bottom:0;left:0;right:0;height:6.5vh;min-height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 8vw;font-family:var(--mono);font-size:.7rem;color:var(--muted);letter-spacing:.05em;z-index:40;border-top:1px solid var(--line);background:rgba(251,249,244,.85);backdrop-filter:blur(6px)}
+.chrome .counter{color:var(--green-deep);font-weight:500}.chrome .hint b{color:var(--orange)}
+.navzone{position:fixed;top:0;bottom:6.5vh;width:16vw;z-index:30;cursor:pointer}.navzone.left{left:0}.navzone.right{right:0}
+.navbtns{position:fixed;right:8vw;bottom:calc(6.5vh + 14px);display:flex;gap:.5rem;z-index:55}
+.navbtns button{font-family:var(--mono);font-size:1.3rem;line-height:1;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--green);background:#fff;color:var(--green);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s,transform .1s}
+.navbtns button:hover{background:var(--green);color:#fff}.navbtns button:active{transform:scale(.92)}
+#notes{position:fixed;left:0;right:0;bottom:0;z-index:60;transform:translateY(102%);transition:transform .32s ease;background:var(--green-deep);color:var(--cream);max-height:46vh;overflow:auto;border-top:3px solid var(--orange);padding:1.3rem 8vw 1.7rem}
+#notes.show{transform:translateY(0)}
+#notes .nk{font-family:var(--mono);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;color:var(--orange);margin-bottom:.6rem}
+#notes ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;max-width:92ch}
+#notes li{position:relative;padding-left:1.3rem;line-height:1.5;font-size:.98rem;color:#e9efe9}
+#notes li::before{content:"\2013";position:absolute;left:0;color:var(--orange)}
+.notes-src{display:none}
+@media (max-width:760px){.slide{padding:6vh 6vw 13vh}.cols{grid-template-columns:1fr;gap:.9rem}.stmts{gap:1.4rem}.navzone{width:20vw}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div class="deck" id="deck">
+
+  <!-- 1 -->
+  <section class="slide">
+    <div class="kicker"><span class="bar"></span><span>2100 Masterclass</span></div>
+    <h1 style="font-size:clamp(2.3rem,5.6vw,4.4rem);max-width:18ch">Finance &amp; Impact voor aankomende commissarissen</h1>
+    <p class="lead" style="margin-top:1.3rem">Een 101 voor de bestuurskamer — van jaarrekening tot integrale waarde.</p>
+    <div class="notes-src"><ul><li>Welkom. Kort wie je bent en waarom dit ertoe doet voor déze groep.</li><li>Belofte: je kunt straks een jaarrekening openslaan zonder te verdrinken, je weet welke vragen je stelt, en je hebt de fusievraag uit de casus zelf gespeeld.</li><li>90 min: 30 lezing, 45 casus, 15 reflectie.</li></ul></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">02</span><span class="bar"></span><span>Opening</span><span class="badge intr"><span class="dot"></span>Interactie</span></div>
+    <h2>"Veel commissarissen lezen óók niet vloeiend een jaarrekening."</h2>
+    <p class="lead">Finance is de <span class="hl">taal</span> van de bestuurskamer. Een vaardigheid, geen talent.</p>
+    <div class="poll"><span class="q">Poll — hoe comfortabel ben je met een jaarrekening?</span><span class="opt">1 · nooit gedaan</span><span class="opt">2</span><span class="opt">3</span><span class="opt">4 · fluitend</span></div>
+    <div class="notes-src"><ul><li>Ontwapen meteen: financiële geletterdheid is een vaardigheid — lang niet elke zittende commissaris beheerst het volledig.</li><li>Doe de poll. Benoem de spreiding: "mooi, dan zitten we hier goed."</li><li>Kernboodschap die de hele sessie draagt: een goede vraag is waardevoller dan schijnzekerheid.</li></ul></div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">03</span><span class="bar"></span><span>Opening</span></div>
+    <h2>De reis vandaag</h2>
+    <div class="flow"><span class="step">Rol RvC</span><span class="arr">&rarr;</span><span class="step">Finance-basis</span><span class="arr">&rarr;</span><span class="step">Impact</span><span class="arr">&rarr;</span><span class="step">Jouw rol</span><span class="arr">&rarr;</span><span class="step" style="border-color:var(--orange);color:var(--orange)">Casus</span></div>
+    <p class="lead" style="margin-top:1.4rem">We leren lezen aan een <span class="hl">eenvoudig voorbeeld</span>, en zien het daarna <span class="hl">écht</span> bij <span class="hl">Alliander</span> <span class="badge al">⚡</span>.</p>
+    <div class="notes-src"><ul><li>Laat de route zien. Twee gidsen: een eenvoudig (illustratief) voorbeeldbedrijf om de overzichten schoon te leren lezen, en dan Alliander voor de echte cijfers.</li><li>Maak expliciet dat de casus (AkzoNobel × Axalta) de eindbestemming is.</li></ul></div>
+  </section>
+
+  <!-- 4 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">04</span><span class="bar"></span><span>A · Rol van de RvC</span></div>
+    <h2>De RvC in één plaat</h2>
+    <ul class="points"><li><span class="hl">Toezicht</span> — op het bestuur en de algemene gang van zaken</li><li><span class="hl">Advies / klankbord</span> — met raad terzijde staan</li><li><span class="hl">Werkgever</span> — benoemen, beoordelen, belonen, ontslaan</li><li class="o">Kompas: het <span class="hl-o">vennootschappelijk belang</span> + lange-termijn waardecreatie</li></ul>
+    <div class="notes-src"><ul><li>De RvC bestuurt niet, maar houdt toezicht, staat met raad terzijde, en vervult de werkgeversrol.</li><li>Wettelijk anker: art. 2:140/2:250 BW — belang van de vennootschap en de verbonden onderneming (breder dan alleen aandeelhouders).</li><li>NL Corporate Governance Code (2022): lange-termijn waardecreatie, cultuur, stakeholders; "pas toe of leg uit".</li><li>Link naar de casus: bij een overname is dit kompas precies wat de RvC hanteert.</li></ul></div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">05</span><span class="bar"></span><span>A · Rol van de RvC</span></div>
+    <h2>De RvC en de jaarrekening</h2>
+    <div class="flow"><span class="step">Bestuur maakt op</span><span class="arr">&rarr;</span><span class="step">Accountant controleert</span><span class="arr">&rarr;</span><span class="step" style="border-color:var(--green);color:var(--green)">RvC houdt toezicht / keurt goed</span><span class="arr">&rarr;</span><span class="step">AVA stelt vast</span><span class="arr">&rarr;</span><span class="step">Deponeren</span></div>
+    <ul class="points" style="margin-top:1.3rem"><li class="o"><span class="hl-o">Auditcommissie</span> — verplicht bij organisaties van openbaar belang; ≥1 lid met financieel/verslaggevingsprofiel</li></ul>
+    <div class="notes-src"><ul><li>Loop de cyclus af. De jaarrekening wordt door álle bestuurders én commissarissen ondertekend — een handtekening met gewicht.</li><li>Auditcommissie: toezicht op financiële verslaggeving, interne beheersing &amp; risico, en de externe accountant.</li><li>≥1 lid met relevante kennis/ervaring — maar de hele RvC blijft verantwoordelijk; niet "wegdelegeren".</li></ul></div>
+  </section>
+
+  <!-- 6 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">06</span><span class="bar"></span><span>A · Rol van de RvC</span></div>
+    <h2>Niet-financieel telt nu óók mee</h2>
+    <ul class="points"><li><span class="hl">CSRD / ESRS</span> — duurzaamheidsinfo schuift het bestuursverslag in</li><li><span class="hl">Dubbele materialiteit</span> — impact-materialiteit én financiële materialiteit</li><li><span class="hl">Assurance</span> — de accountant controleert het, net als de cijfers</li><li class="dim">Op de radar: AI Act · CSDDD · Cyber Resilience Act · taxonomie</li></ul>
+    <div class="notes-src"><ul><li>Duurzaamheidsinformatie wordt onderdeel van de wettelijke verantwoording en wordt gecontroleerd (assurance).</li><li>Dubbele materialiteit: impact op mens en milieu, én hoe duurzaamheid de financiële positie raakt.</li><li>De RvC houdt hier net zo goed toezicht op: datakwaliteit, greenwashing, aansluiting op de strategie.</li><li>Scope/timing schuift na de EU-omnibus; conceptueel houden. Teaser — bij sectie C plug ik impact in finance.</li></ul></div>
+  </section>
+
+  <!-- 7 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">07</span><span class="bar"></span><span>B · Finance-basis</span></div>
+    <h2>De drie financiële overzichten</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr;max-width:none">
+      <div class="card"><h3>Balans</h3><p>De foto — wat bezit en financiert het bedrijf op één dag?</p></div>
+      <div class="card"><h3>Winst &amp; verlies</h3><p>De film — verdient het bedrijf geld over een periode?</p></div>
+      <div class="card"><h3>Kasstroom</h3><p>De brug — stroomt er ook echt kas?</p></div>
+    </div>
+    <p class="lead" style="margin-top:1.2rem"><span class="hl-o">"Winst is een mening, kas is een feit."</span> Eerst aan een voorbeeld, dan echt bij Alliander.</p>
+    <div class="notes-src"><ul><li>Drie overzichten, drie vragen. Ze sluiten op elkaar aan: winst loopt via het eigen vermogen de balans in; kas verbindt W&amp;V en balans.</li><li>Aanpak: telkens eerst een schoon voorbeeld, dan dezelfde structuur met de echte Alliander-cijfers ernaast.</li></ul></div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">08</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge ex">Voorbeeld · chocolademerk</span></div>
+    <h2>De balans</h2>
+    <div class="stmts">
+      <div class="stmt"><div class="title">Activa (€ mln)</div>
+        <div class="row"><span>Vaste activa</span><span class="amt">50</span></div>
+        <div class="row"><span>Voorraad (cacao)</span><span class="amt">30</span></div>
+        <div class="row"><span>Debiteuren</span><span class="amt">15</span></div>
+        <div class="row"><span>Liquide middelen</span><span class="amt">25</span></div>
+        <div class="row tot"><span>Totaal</span><span class="amt">120</span></div></div>
+      <div class="stmt"><div class="title">Eigen + vreemd vermogen (€ mln)</div>
+        <div class="row key"><span>Eigen vermogen</span><span class="amt">55</span></div>
+        <div class="row"><span>Langlopende schuld</span><span class="amt">35</span></div>
+        <div class="row"><span>Crediteuren</span><span class="amt">30</span></div>
+        <div class="row tot"><span>Totaal</span><span class="amt">120</span></div></div>
+    </div>
+    <div class="toelichting">Links de bezittingen, rechts hoe ze gefinancierd zijn — per definitie even groot. Twee kernvragen: hoeveel <b>buffer</b> (eigen vermogen, hier 46%) en hoeveel <b>schuld</b>? De hoge voorraad (cacao) legt werkkapitaal vast.</div>
+    <div class="notes-src"><ul><li>Schoon voorbeeld met ronde getallen. Wijs op de balansidentiteit: activa = eigen vermogen + vreemd vermogen.</li><li>Eigen vermogen 55 op 120 = solvabiliteit ~46% — gezonde buffer. Voorraad 30 = vastgelegd werkkapitaal (typisch voor een product-/voorraadbedrijf).</li><li>Foto op één dag — vraag altijd: welke kant beweegt het op?</li></ul></div>
+  </section>
+
+  <!-- 9 (NIEUW) -->
+  <section class="slide">
+    <div class="kicker"><span class="num">09</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge al">⚡ Alliander · echt</span></div>
+    <h2>De balans — in het echt</h2>
+    <ul class="points">
+      <li>Activa = vooral <span class="hl">het net</span> (kabels, stations, transformatoren) → enorme vaste activa</li>
+      <li>Gefinancierd met <span class="hl">eigen vermogen + obligaties</span> (een eeuwigdurende obligatie van €500 mln telt onder IFRS als eigen vermogen)</li>
+      <li>Capex wordt via de tarieven over <span class="hl">~40 jaar</span> terugverdiend → jaarlijks <span class="hl-o">financieringstekort</span></li>
+      <li class="o">Daarom: de <span class="hl-o">Staat</span> gaat eigen vermogen storten (Afsprakenkader 2023) om de investeringen mogelijk te houden</li>
+    </ul>
+    <div class="src">Bron: Alliander jaarverslag 2024 · exacte balanstotaal/eigen vermogen invullen bij finalisatie</div>
+    <div class="notes-src"><ul><li>Zelfde structuur als het voorbeeld, maar nu kapitaalintensief in het extreme: de balans wordt gedomineerd door netwerk-activa.</li><li>Bijzonderheid: een eeuwigdurende ("perpetual") obligatie telt onder IFRS als eigen vermogen — mooi voorbeeld dat de indeling een oordeel vergt.</li><li>Kernspanning: investeringen worden over ~40 jaar in de tarieven vergoed, maar je betaalt ze nú → structureel financieringstekort → eigen vermogen moet versterkt worden (de Staat stapt in). Bruggetje naar de governance-slide.</li></ul></div>
+  </section>
+
+  <!-- 10 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">10</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge ex">Voorbeeld · chocolademerk</span></div>
+    <h2>Winst &amp; verlies — en <span style="font-style:italic">opex</span></h2>
+    <div class="stmts">
+      <div class="stmt" style="max-width:340px">
+        <div class="title">W&amp;V (€ mln)</div>
+        <div class="row"><span>Omzet</span><span class="amt">150</span></div>
+        <div class="row sub"><span>Inkoopwaarde (incl. eerlijke cacaoprijs)</span><span class="amt">&minus;95</span></div>
+        <div class="row sub"><span>Operationele kosten (opex)</span><span class="amt">&minus;40</span></div>
+        <div class="row key"><span>EBITDA</span><span class="amt">15</span></div>
+        <div class="row sub"><span>Afschrijvingen</span><span class="amt">&minus;4</span></div>
+        <div class="row"><span>EBIT</span><span class="amt">11</span></div>
+        <div class="row sub"><span>Rente + belasting</span><span class="amt">&minus;3,5</span></div>
+        <div class="row tot"><span>Nettowinst</span><span class="amt">7,5</span></div>
+      </div>
+      <div style="flex:1;min-width:240px"><ul class="points"><li class="o"><span class="hl-o">Opex</span> = onderhoud, personeel → direct in de W&amp;V</li><li>EBITDA-marge = 15/150 = <span class="hl">10%</span></li><li>De eerlijke cacaoprijs <span class="hl">drukt de marge</span> — een bewuste keuze, geen zwakte</li></ul></div>
+    </div>
+    <div class="toelichting">Van omzet naar resultaat: kosten eraf tot EBITDA, dan afschrijvingen, rente en belasting. Goede commissarisvraag: is die lagere marge een kostenpost — of een investering in toekomstige merkwaarde?</div>
+    <div class="notes-src"><ul><li>Loop de trap af. Introduceer opex hier; onderscheid het straks van capex.</li><li>De clou: bewust meer betalen voor grondstof verlaagt de marge t.o.v. concurrenten — strategische keuze. Zet dit vast; het komt terug bij de IP&amp;L (true profit).</li></ul></div>
+  </section>
+
+  <!-- 11 (NIEUW) -->
+  <section class="slide">
+    <div class="kicker"><span class="num">11</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge al">⚡ Alliander · echt</span></div>
+    <h2>Winst &amp; verlies — in het echt (2024)</h2>
+    <div class="figures">
+      <div class="fig"><div class="n">€3.043 mln</div><div class="l">netto-omzet (2023: €2.725 mln)</div></div>
+      <div class="fig"><div class="n">€976 mln</div><div class="l">nettoresultaat — maar...</div></div>
+      <div class="fig"><div class="n">€197 mln</div><div class="l">nettoresultaat <b>excl. bijzondere posten</b></div></div>
+    </div>
+    <div class="toelichting"><b>"Winst is een mening."</b> De €976 mln wordt vrijwel volledig veroorzaakt door een eenmalige boekwinst van <b>€757 mln</b> op de verkoop van dochteronderneming Kenter. De onderliggende winst is €197 mln. Precies hier stelt een commissaris de góéde vraag: welk getal vertelt het echte verhaal?</div>
+    <div class="src">Bron: Alliander jaarverslag 2024, winst-en-verliesrekening</div>
+    <div class="notes-src"><ul><li>Dit is de payoff van "winst is een mening": het krantenkop-getal (€976 mln) is vertekend door een eenmalige bate (verkoop Kenter, boekwinst €757 mln).</li><li>De onderliggende winst (€197 mln, excl. bijzondere posten) is iets láger dan 2023 (€263 mln). Leer ze: zoek altijd naar de "bijzondere posten".</li><li>Omzet stijgt vooral door hogere gereguleerde tarieven (o.a. doorberekende TenneT-transportkosten ~€800 mln).</li></ul></div>
+  </section>
+
+  <!-- 12 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">12</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge ex">Voorbeeld · chocolademerk</span></div>
+    <h2>Kasstroom — en <span style="font-style:italic">capex</span></h2>
+    <div class="stmts">
+      <div class="stmt" style="max-width:340px"><div class="title">Kasstroom (€ mln)</div>
+        <div class="row"><span>Operationele kasstroom</span><span class="amt">+6</span></div>
+        <div class="row key"><span>Investeringen (capex)</span><span class="amt">&minus;7</span></div>
+        <div class="row"><span>Financiering (lening &minus; dividend)</span><span class="amt">+2</span></div>
+        <div class="row tot"><span>Netto kasmutatie</span><span class="amt">+1</span></div></div>
+      <div style="flex:1;min-width:240px"><ul class="points"><li class="o"><span class="hl-o">Capex</span> = investeringen in vaste activa → op de balans, afschrijven</li><li>Nettowinst was 7,5 — kas slechts +1: het verschil zit in werkkapitaal &amp; capex</li></ul></div>
+    </div>
+    <div class="toelichting">Capex vs. opex: capex komt op de balans en schrijft over jaren af; opex gaat direct door de W&amp;V. Hier overstijgt de capex de operationele kasstroom — het bedrijf trekt een lening aan om te groeien.</div>
+    <div class="notes-src"><ul><li>Drie stromen: operationeel, investering (capex), financiering. Verbind met de vorige slide: winst 7,5 maar kas +1 — "winst is een mening, kas is een feit".</li><li>Capex/opex helder neerzetten; dit zet de Alliander-slide op (waar capex enorm is).</li></ul></div>
+  </section>
+
+  <!-- 13 (NIEUW) -->
+  <section class="slide">
+    <div class="kicker"><span class="num">13</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge al">⚡ Alliander · echt</span></div>
+    <h2>Kasstroom &amp; capex — in het echt</h2>
+    <div class="figures">
+      <div class="fig"><div class="n">~€1,8 mrd</div><div class="l">investeringen 2024 (2021: €1 mrd — bijna verdubbeld)</div></div>
+      <div class="fig"><div class="n">&gt; operationele kasstroom</div><div class="l">capex overstijgt de kas uit operatie</div></div>
+    </div>
+    <ul class="points" style="margin-top:.6rem"><li>Gevolg: een <span class="hl-o">negatieve vrije kasstroom</span> → financiering met obligaties (o.a. nieuwe EMTN-lening €750 mln)</li><li>De verkoop van Kenter (€919 mln) hield de nettoschuld in 2024 nagenoeg vlak</li></ul>
+    <div class="src">Bron: Alliander jaarverslag 2024, financiële ontwikkelingen</div>
+    <div class="notes-src"><ul><li>Hier zie je het kapitaalintensieve profiel in het extreme: ~€1,8 mrd capex per jaar, en het loopt op.</li><li>De operationele kasstroom dekt die investeringen niet → negatieve vrije kasstroom → continu financieren op de kapitaalmarkt. Daarom is de kredietrating zo belangrijk.</li><li>Dit is precies het profiel dat ook bij AkzoNobel speelt (kapitaalintensieve industrie) — bruggetje naar de waarderingsslides.</li></ul></div>
+  </section>
+
+  <!-- 14 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">14</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge ex">Voorbeeld</span></div>
+    <h2>Kernratio's — de signaallampjes</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr;max-width:none">
+      <div class="card"><h3>Winstgevendheid</h3><ul><li>EBITDA-marge <b>10%</b> · nettomarge <b>5%</b></li><li>ROE / <b>ROIC</b> — rendement op kapitaal</li></ul></div>
+      <div class="card"><h3>Solvabiliteit</h3><ul><li>solvabiliteit <b>46%</b> · net debt/EBITDA <b>0,7×</b></li></ul></div>
+      <div class="card"><h3>Liquiditeit</h3><ul><li>current ratio <b>2,3</b></li></ul></div>
+      <div class="card"><h3>Dekking</h3><ul><li>rentedekking (EBIT / rente)</li></ul></div>
+    </div>
+    <div class="toelichting">Allemaal afgeleid uit de drie overzichten van het voorbeeld. Je hoeft ze niet zelf te rekenen — je moet ze kunnen lézen en de góéde vraag stellen. Ratio's zijn signaallampjes, geen antwoorden.</div>
+    <div class="notes-src"><ul><li>Reken kort voor uit het voorbeeld: marge 15/150=10%, solvabiliteit 55/120=46%, net debt (35−25)/EBITDA 15 = 0,7×, current ratio 70/30=2,3.</li><li>Boodschap: het gaat om interpreteren en doorvragen, niet om rekenen.</li></ul></div>
+  </section>
+
+  <!-- 15 (NIEUW) -->
+  <section class="slide">
+    <div class="kicker"><span class="num">15</span><span class="bar"></span><span>B · Finance-basis</span><span class="badge al">⚡ Alliander · echt</span></div>
+    <h2>Kernratio's — in het echt</h2>
+    <ul class="points">
+      <li>Nettomarge (excl. bijzondere posten) ≈ <span class="hl">197 / 3.043 = ~6,5%</span></li>
+      <li>Bij gereguleerd netbeheer is het rendement deels door de <span class="hl">ACM</span> bepaald → <span class="hl">ROIC vs. WACC</span> is dé vraag</li>
+      <li class="o">Solvabiliteit &amp; rating zijn cruciaal: de grote capex wordt met schuld gefinancierd → een goede <span class="hl-o">rating</span> houdt de rente laag</li>
+    </ul>
+    <div class="src">Bron: Alliander jaarverslag 2024 · exacte solvabiliteit / net debt-EBITDA invullen bij finalisatie</div>
+    <div class="notes-src"><ul><li>Bij een kapitaalintensief, gereguleerd bedrijf draait alles om ROIC vs. de kosten van kapitaal (WACC) — en de ACM bepaalt een groot deel van dat toegestane rendement.</li><li>De rating is "king": lagere rente op de vele schuld scheelt direct in het resultaat. Vandaar het belang van eigen vermogen (de Staat die instapt).</li><li>De marge is bewust bescheiden — bij een nutsbedrijf is stabiliteit belangrijker dan een hoge marge.</li></ul></div>
+  </section>
+
+  <!-- 16 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">16</span><span class="bar"></span><span>B · Waarde</span><span class="badge az"><span class="dot"></span>AkzoNobel</span></div>
+    <h2>Wat is "waarde"?</h2>
+    <ul class="points"><li>Boekwaarde <span class="dim">≠</span> marktwaarde <span class="dim">≠</span> intrinsieke waarde</li><li><span class="hl">Equity value</span> (voor aandeelhouders) vs. <span class="hl">Enterprise value</span> = equity + nettoschuld</li><li>Multiples: <span class="hl">P/E</span>, <span class="hl">EV/EBITDA</span> — de gecombineerde groep: ~$25 mrd EV</li><li class="o"><span class="hl-o">Waardecreatie = rendement boven de kosten van kapitaal</span> (ROIC &gt; WACC)</li></ul>
+    <div class="src">AkzoNobel FY2024: omzet €10,7 mrd · adj. EBITDA €1.478 mln · nettowinst €542 mln</div>
+    <div class="notes-src"><ul><li>Drie soorten waarde: boeken, beurs, intrinsiek (toekomstige kasstromen).</li><li>Equity value vs. enterprise value (incl. schuld). Multiples zijn snelle vergelijkingsmaten; de combinatie Akzo+Axalta heeft een EV van ~$25 mrd.</li><li>Kernidee dat de casus draagt: waarde ontstaat pas als het rendement bóven de kosten van kapitaal ligt — lange termijn.</li></ul></div>
+  </section>
+
+  <!-- 17 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">17</span><span class="bar"></span><span>B · Waarde</span><span class="badge az"><span class="dot"></span>AkzoNobel</span></div>
+    <h2>Marktwaarde vs. fundamentele waarde</h2>
+    <div class="cols" style="max-width:none">
+      <div class="card"><h3>Marktwaarde — wat de beurs zegt</h3><ul><li><b>Per aandeel:</b> de beurskoers (~€52)</li><li><b>Hele bedrijf:</b> koers × aantal aandelen</li></ul></div>
+      <div class="card az"><h3>Fundamentele (intrinsieke) waarde</h3><ul><li>De <b>toekomstige kasstromen</b>, verdisconteerd naar nu</li></ul></div>
+    </div>
+    <div class="formula"><span>Fundamentele waarde</span><span class="eq">=</span><span class="sum">Σ</span><span class="frac"><span class="num">vrije kasstroom<sub>&nbsp;t</sub></span><span class="den">(1 + r)<sup>&nbsp;t</sup></span></span></div>
+    <div class="note-inline">Casus: cash-bod <b>€73</b> · koers <b>~€52</b> · maar het bestuur claimt dat de échte lange-termijnwaarde hóger ligt. Dat verschil is precies waar de strijd over gaat.</div>
+    <div class="notes-src"><ul><li>Marktwaarde: per aandeel = de koers; hele bedrijf = marktkapitalisatie (of incl. schuld: enterprise value).</li><li>Fundamentele waarde = contante waarde van toekomstige vrije kasstromen, verdisconteerd met r (kosten van kapitaal).</li><li>Markt ≠ fundament. €73 en ~€52 zijn marktsignalen; het bestuur argumenteert met fundamentele, lange-termijnwaarde. Kern van de casus.</li></ul></div>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">18</span><span class="bar"></span><span>B · Waarde</span><span class="badge az"><span class="dot"></span>handig voor de casus</span></div>
+    <h2>Fundamentele waarde schatten met DCF</h2>
+    <ol class="steps"><li>Schat de <span class="hl">vrije kasstromen</span> voor de komende jaren</li><li>Bepaal de <span class="hl">disconteringsvoet</span> — de kosten van kapitaal (WACC)</li><li>Verdisconteer naar nu + tel een <span class="hl">eindwaarde</span> op</li><li>Optellen → ondernemingswaarde; <span class="dim">&minus; nettoschuld</span> = equity; <span class="dim">÷ aandelen</span> = per aandeel</li></ol>
+    <div class="formula" style="margin-top:.9rem"><span>Waarde</span><span class="eq">=</span><span class="sum">Σ</span><span class="frac"><span class="num">FCF<sub>&nbsp;t</sub></span><span class="den">(1 + WACC)<sup>&nbsp;t</sup></span></span><span class="eq">+</span><span class="frac"><span class="num">eindwaarde</span><span class="den">(1 + WACC)<sup>&nbsp;n</sup></span></span></div>
+    <div class="note-inline"><span class="hl-o">Casus-voorbeeld:</span> de fusie belooft ~<b>$600 mln</b> jaarlijkse synergie → hogere toekomstige FCF → hogere fundamentele waarde. Maar: klein verschil in groei/WACC = grote uitslag. Daarom kan elk kamp een ander getal verdedigen.</div>
+    <div class="notes-src"><ul><li>Vier stappen; dit is hét gereedschap waarmee álle casus-groepen argumenteren.</li><li>De ~$600 mln synergie verhoogt de FCF (stap 1) — het waardeverhaal van het bestuur. Eindwaarde (stap 3) is vaak het grootste deel.</li><li>Gevoeligheid: kleine wijziging in groei/WACC → grote waarde-uitslag. Daarom claimt het bestuur dat €73 de lange-termijnwaarde onderschat, terwijl een aandeelhouder met andere aannames lager uitkomt. Hier wordt om gevochten.</li></ul></div>
+  </section>
+
+  <!-- 19 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">19</span><span class="bar"></span><span>C · Brug naar impact</span></div>
+    <h2>Van financiële naar integrale waarde</h2>
+    <div class="formula" style="background:var(--green-soft);color:var(--green-deep);font-size:clamp(1.2rem,2.4vw,1.9rem)"><span>F</span><span class="eq" style="color:var(--orange)">&rarr;</span><span>F</span><span style="color:var(--orange)">+</span><span>S</span><span style="color:var(--orange)">+</span><span>E</span></div>
+    <p class="lead" style="margin-top:1.1rem">Financieel + sociaal + ecologisch. <span class="hl">Je kent impact al</span> — vandaag plug je het in finance.</p>
+    <div class="note-inline">Echt voorbeeld: Schoenmaker &amp; De Groot Ruiz schatten dat een <b>opsplitsing</b> van AkzoNobel (het bod in 2017) een maatschappelijk waardeverlies van <b>~€6 mrd</b> zou opleveren — zichtbaar pas als je naast F ook S en E meeweegt.</div>
+    <div class="notes-src"><ul><li>Thuiswedstrijd voor deze groep: jullie kennen impact al; de stap is het in waardetaal te zetten.</li><li>Integrale waarde = som van financiële, sociale en ecologische waarde optimaliseren (Schoenmaker &amp; Schramade).</li><li>Het €6 mrd-voorbeeld (ESB) laat zien dat een puur financieel bod maatschappelijke waarde kan vernietigen — exact de spanning in onze casus.</li></ul></div>
+  </section>
+
+  <!-- 20 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">20</span><span class="bar"></span><span>C · Brug naar impact</span></div>
+    <h2>De IP&amp;L — definities</h2>
+    <ul class="points">
+      <li><span class="hl">Impact-weighted accounts (IWAF)</span> — externe effecten zichtbaar maken in geld, náást de financiële cijfers</li>
+      <li><span class="hl">True price</span> = marktprijs + verborgen maatschappelijke kosten</li>
+      <li><span class="hl">True profit</span> = winst &minus; netto externe kosten → de "echte" winst</li>
+      <li class="o"><span class="hl-o">True fundamental value</span> = intrinsieke lange-termijnwaarde op F+S+E (DCF op integrale waarde)</li>
+    </ul>
+    <div class="notes-src"><ul><li>Eerst de begrippen — nog niet het bedrijf. IWAF (Impact Economy Foundation / Impact Institute, De Groot Ruiz) monetariseert impacts tot een geïntegreerd overzicht.</li><li>True price → true profit: zo wordt de bewust lagere marge van het chocoladevoorbeeld ineens een betere "echte" winst.</li><li>True fundamental value sluit de cirkel met de DCF: weerspiegelt €73 wel de échte waarde?</li></ul></div>
+  </section>
+
+  <!-- 21 (NIEUW) -->
+  <section class="slide">
+    <div class="kicker"><span class="num">21</span><span class="bar"></span><span>C · Brug naar impact</span><span class="badge al">⚡ Alliander · IP&amp;L</span></div>
+    <h2>De IP&amp;L — in het echt (Alliander)</h2>
+    <div class="cols" style="grid-template-columns:1fr 1fr 1fr;max-width:none">
+      <div class="card"><h3>Financieel</h3><ul><li>omzet €3.043 mln · lonen · belasting</li></ul></div>
+      <div class="card"><h3>Sociaal</h3><ul><li>werkgelegenheid (+~1.000 fte) · kennis · veiligheid · leveringszekerheid</li></ul></div>
+      <div class="card"><h3>Ecologisch</h3><ul><li>emissies (scope 1/2/3) · netverliezen</li></ul></div>
+    </div>
+    <p class="lead" style="margin-top:1.1rem">Gemonetariseerd met <span class="hl">Impact Institute</span> → <span class="hl-o">true profit → true fundamental value</span></p>
+    <div class="src">Bron: Alliander jaarverslag 2024, impact- &amp; waardecreatie-overzicht · gemonetariseerde euro's invullen bij finalisatie</div>
+    <div class="notes-src"><ul><li>Alliander publiceert dit echt: naast de financiële cijfers een gemonetariseerd overzicht van sociale baten (banen, kennis, leveringszekerheid) en ecologische kosten (emissies, netverliezen).</li><li>Tel je die op → integrale waarde → true profit. Dit is een IP&amp;L in de praktijk, gemeten met dezelfde methodiek als de definities op de vorige slide.</li><li>Brug terug naar de casus: weerspiegelt €73 de échte, lange-termijn (true fundamental) waarde? (Exacte euro's verversen uit het impactoverzicht.)</li></ul></div>
+  </section>
+
+  <!-- 22 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">22</span><span class="bar"></span><span>D · Waarde &amp; governance</span><span class="badge intr"><span class="dot"></span>Interactie</span></div>
+    <h2>Shareholder vs. stakeholder</h2>
+    <div class="cols" style="max-width:none">
+      <div class="card"><h3>Nederland</h3><ul><li>stakeholdermodel · vennootschappelijk belang</li><li>lange termijn · verweer mogelijk bij overname</li></ul></div>
+      <div class="card az"><h3>Verenigde Staten</h3><ul><li>shareholder primacy · Delaware</li><li><b>Revlon-duties</b>: beste prijs bij verkoop</li></ul></div>
+    </div>
+    <p class="lead" style="margin-top:1rem">⚡ Alliander: aandeelhouders zíjn publieke partijen — en de <span class="hl">Staat</span> wordt nu mede-aandeelhouder.</p>
+    <div class="poll"><span class="q">Handen — hoger cash-bod: wat weegt voor jou zwaarder?</span><span class="opt">directe aandeelhouderswaarde</span><span class="opt">lange-termijn / stakeholderwaarde</span></div>
+    <div class="notes-src"><ul><li>NL: bestuur/RvC dienen het vennootschappelijk belang; lange-termijn waardecreatie leidend; verweer mogelijk bij overname.</li><li>VS: shareholder primacy; bij verkoop dwingen Revlon-duties tot de beste prijs. (Nuance: Business Roundtable 2019.)</li><li>Alliander = uiterste van het stakeholdermodel: publieke aandeelhouders, en de Staat stapt in het eigen vermogen. Bij AkzoNobel (beursfonds) staan de belangen juist op scherp — dat speel je zo.</li><li>Handen-opsteken, tel, benoem. "Onthoud je keuze — straks zit je in een rol die misschien iets anders vraagt."</li></ul></div>
+  </section>
+
+  <!-- 23 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">23</span><span class="bar"></span><span>E · Jouw rol</span></div>
+    <h2>Jouw rol als (jong) lid</h2>
+    <ul class="points"><li><span class="hl">Algemeen lid</span>: jaarrekening kúnnen lezen + goede vragen stellen — geen accountant</li><li><span class="hl">Auditcommissie</span>: dieper financieel/verslaggevingsprofiel</li><li class="o"><span class="hl-o">"De naïeve vraag is vaak de beste."</span> Complementariteit &gt; duplicatie</li></ul>
+    <div class="notes-src"><ul><li>Algemeen lid hoeft geen accountant te zijn — geletterdheid en de juiste vragen volstaan. Auditcommissie gaat dieper.</li><li>Een jong lid brengt impact/duurzaamheid, digitaal, frisse blik — en de moed om de "domme" vraag te stellen die vaak de scherpste blijkt.</li><li>Nodig: financiële basis (vandaag gelegd), voorbereiding, boardroom courage. Niet doen alsof.</li></ul></div>
+  </section>
+
+  <!-- 24 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">24</span><span class="bar"></span><span>E · Jouw rol</span></div>
+    <h2>Zelf aan de slag</h2>
+    <p class="lead">"Wat weet ik / weet ik niet / zou ik moeten kunnen?"</p>
+    <ul class="points" style="margin-top:.9rem"><li>Commissarissenopleidingen &amp; leergangen</li><li>Abonnement <span class="hl">FD · FT · WSJ</span> — hoor de taal dagelijks</li><li>Gericht een geïntegreerd jaarverslag lezen (Alliander is toegankelijk)</li><li class="o">Werkervaring met finance-exposure: secretariaat auditcommissie, finance-rotatie</li></ul>
+    <div class="notes-src"><ul><li>Zelf-assessment: maak de drie lijstjes.</li><li>Concrete capaciteitsopbouw: leergangen; FD/FT/WSJ; jaarverslagen lezen; finance-exposure zoeken.</li><li>Geruststelling: je kúnt je dit eigen maken — vandaag was de eerste stap.</li></ul></div>
+  </section>
+
+  <!-- 25 -->
+  <section class="slide">
+    <div class="kicker"><span class="num">25</span><span class="bar"></span><span>F · Naar de casus</span></div>
+    <h1 style="font-size:clamp(2.1rem,5.2vw,3.8rem);max-width:16ch">De casus: fuseren of niet?</h1>
+    <p class="lead" style="margin-top:1.2rem"><span class="hl">AkzoNobel × Axalta.</span> Cash-bod afgewezen. Concept-fusieplan op tafel. <span class="hl-o">Stem jij voor?</span></p>
+    <div class="notes-src"><ul><li>Situatie: cash-bod van Nippon Paint + Sherwin-Williams (€73) van tafel; nu ligt de merger of equals met Axalta voor en de aandeelhouders moeten stemmen.</li><li>Leg de zes rollen kort uit, deel de groepen in, deel het materiaal uit, start de klok. Overgang naar 45 min casus.</li></ul></div>
+  </section>
+
+</div>
+
+<div class="navzone left" id="navL"></div>
+<div class="navzone right" id="navR"></div>
+<div class="chrome">
+  <span class="counter"><span id="cur">01</span> / <span id="tot">25</span></span>
+  <span>Finance &amp; Impact voor RvC's 101 · 2100</span>
+  <span class="hint">klik om door te gaan · <b>&larr;</b> <b>&rarr;</b> · <b>N</b> notities · <b>F</b> scherm</span>
+</div>
+<div class="navbtns"><button id="btnPrev" aria-label="Vorige">&#8249;</button><button id="btnNext" aria-label="Volgende">&#8250;</button></div>
+<div id="notes"><div class="nk">Presenter notes</div><div id="notesBody"></div></div>
+
+<script>
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;const tot=slides.length;
+document.getElementById('tot').textContent=String(tot).padStart(2,'0');
+const notes=document.getElementById('notes');const notesBody=document.getElementById('notesBody');
+let notesOn=false;
+function render(){
+  slides.forEach((s,n)=>s.classList.toggle('active',n===i));
+  document.getElementById('cur').textContent=String(i+1).padStart(2,'0');
+  document.getElementById('progress').style.width=((i+1)/tot*100)+'%';
+  const src=slides[i].querySelector('.notes-src');
+  notesBody.innerHTML=src?src.innerHTML:'<p>Geen notities.</p>';
+}
+function go(n){i=Math.max(0,Math.min(tot-1,n));render();}
+function next(){go(i+1);}function prev(){go(i-1);}
+function onKey(e){
+  const k=e.key.toLowerCase();
+  if(['arrowright',' ','pagedown'].includes(k)){e.preventDefault();next();}
+  else if(['arrowleft','pageup'].includes(k)){e.preventDefault();prev();}
+  else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(tot-1);}
+  else if(k==='n'){notesOn=!notesOn;notes.classList.toggle('show',notesOn);}
+  else if(k==='f'){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+}
+window.addEventListener('keydown',onKey);
+document.getElementById('navR').addEventListener('click',e=>{e.stopPropagation();next();});
+document.getElementById('navL').addEventListener('click',e=>{e.stopPropagation();prev();});
+document.getElementById('btnPrev').addEventListener('click',e=>{e.stopPropagation();prev();});
+document.getElementById('btnNext').addEventListener('click',e=>{e.stopPropagation();next();});
+document.getElementById('deck').addEventListener('click',e=>{if(e.target.closest('.opt'))return;next();});
+function grab(){try{window.focus();}catch(_){}}
+window.addEventListener('load',grab);document.addEventListener('click',grab);grab();
+render();
+</script>
+</body>
+</html>
