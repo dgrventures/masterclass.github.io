@@ -283,6 +283,33 @@ table.mkba tr.tot td.neg{color:var(--red)}table.mkba tr.tot td.pos{color:var(--s
 .verdict.voor{background:rgba(78,116,89,.35);color:#bfe6c8;box-shadow:inset 0 0 0 1.5px var(--sage-600)}
 .verdict.tegen{background:rgba(191,33,30,.28);color:#ffb9b8;box-shadow:inset 0 0 0 1.5px var(--red)}
 .verdict.cond{background:rgba(247,181,56,.22);color:#ffd98a;box-shadow:inset 0 0 0 1.5px var(--amber)}
+
+/* ============ ANALIST · interactieve modellen ============ */
+input.cell{width:84px;font-family:var(--mono,monospace);font-size:.92rem;padding:5px 8px;border:1.5px solid #E7C95E;border-radius:6px;background:#FFFBEA;color:var(--ink);text-align:right}
+input.cell:focus{border-color:var(--orange);background:#fff;outline:none}
+input.cell::-webkit-outer-spin-button,input.cell::-webkit-inner-spin-button{opacity:.4}
+.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:6px 0 18px}
+.mcol{background:var(--white);border:1px solid var(--line);border-radius:var(--r-md);box-shadow:var(--sh-sm);padding:16px 18px}
+.mcol h3{font-family:var(--disp);font-weight:600;font-size:1rem;color:var(--green);margin-bottom:12px}
+.mcol label{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:.9rem;color:var(--ink-soft);margin-bottom:9px;line-height:1.25}
+.mcol label input.cell{flex:none}
+table.calc{width:100%;border-collapse:collapse;font-size:.9rem}
+table.calc td{padding:6px 2px;border-bottom:1px solid var(--line-soft)}
+table.calc td:last-child{text-align:right;font-family:var(--mono,monospace);white-space:nowrap;color:var(--ink)}
+table.calc td:last-child b{color:var(--green)}
+table.calc tr.key td{border-bottom:none;padding-top:9px}
+table.calc tr.key td:first-child{color:var(--green);font-weight:700}
+table.calc tr.key td:last-child b{color:var(--orange);font-size:1.05rem}
+table.mkba.bridge td:last-child{text-align:right;font-family:var(--mono,monospace);font-weight:600}
+table.mkba.bridge tr.tot td:last-child b{font-size:1.12rem}
+table.mkba.editable td{padding:6px 8px}
+table.mkba.editable input.cell{width:78px}
+.mverdict{font-family:var(--disp);font-weight:700;font-size:1.02rem;text-align:center;padding:14px 16px;border-radius:var(--r-md);margin:14px 0 4px;line-height:1.35}
+.mverdict.voor{background:var(--green-tint);color:var(--green);box-shadow:inset 0 0 0 1.5px var(--sage-600)}
+.mverdict.tegen{background:var(--orange-tint);color:#7a3000;box-shadow:inset 0 0 0 1.5px var(--orange)}
+.mreset{margin-top:10px;background:none;border:1.5px solid var(--line);border-radius:var(--r-pill);padding:7px 14px;font-family:var(--disp);font-weight:600;font-size:.82rem;color:var(--slate);cursor:pointer}
+.mreset:hover{border-color:var(--orange);color:var(--orange)}
+@media(max-width:680px){.model-grid{grid-template-columns:1fr}}
 textarea.notes{width:100%;margin-top:12px;min-height:74px;resize:vertical;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.14);border-radius:var(--r-sm);color:#eef3ee;font-family:var(--body);font-size:.9rem;padding:10px 12px;line-height:1.5}
 textarea.notes::placeholder{color:#7e988a}
 .frow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
@@ -347,7 +374,7 @@ textarea.notes::placeholder{color:#7e988a}
         <span class="tgo">Kies je rol →</span>
       </button>
     </div>
-    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 10</span></p>
+    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 11</span></p>
   </div>
 </section>
 
@@ -371,7 +398,7 @@ textarea.notes::placeholder{color:#7e988a}
       <button class="facbtn alt" data-act="go" data-arg="analist">Analist · model-details</button>
     </div>
     <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt. <b>Facilitator &amp; Analist</b> zijn voor de begeleiding.</div>
-    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 10 — laden…</div>
+    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 11 — laden…</div>
   </div>
 </section>
 
@@ -2946,42 +2973,101 @@ const TOETS = `
 <div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratieve onderwijs-schatting, géén volwaardige MKBA — de euro's zijn redeneer-aannames, bedoeld om te <em>bevrágen</em>. In het werkmodel (04_mkba, gele cellen) kun je elke aanname aanpassen en de totalen herrekenen. De kunst: welke aanname drijft de uitkomst, en wie heeft die gekozen?</div>`;
 
 const FINMODEL = `
+<div id="finModel">
 <div class="block">
-  <span class="eyebrow">Analist · achtergrond</span>
-  <h2 style="margin-top:8px">Het financiële model — is de fusie méér waard dan €73 cash?</h2>
-  <p class="lead">Een transparante <strong>waardebrug</strong> per AkzoNobel-aandeel: van de beurskoers naar de waarde ín de fusie, om de claim van het bestuur te toetsen dat de fusie méér oplevert dan het afgewezen cash-bod van €73. Zelfde geest als de impact-toets: <strong>redeneer-aannames</strong> om te bevrágen — geen koersdoel of waardering.</p>
+  <span class="eyebrow">Analist · financieel model</span>
+  <h2 style="margin-top:8px">Waardebrug per aandeel — speel met de aannames</h2>
+  <p class="lead">Pas de <strong>gele aannames</strong> aan; de berekening, de waardebrug en het oordeel t.o.v. de zekere €73 cash bewegen live mee. Illustratief — redeneer-aannames om te bevrágen, geen waardering of advies.</p>
 </div>
-<div class="numstrip">
-  <span class="num"><b>€73</b> afgewezen cash-bod (zeker)</span>
-  <span class="num"><b>~€52</b> beurskoers (standalone)</span>
-  <span class="num"><b>55%</b> + €2,5 mrd voor AkzoNobel</span>
-  <span class="num"><b>~$600 mln</b> synergie/jaar</span>
-  <span class="num"><b>~8×</b> kapitalisatie synergie</span>
+<div class="model-grid">
+  <div class="mcol">
+    <h3>Aannames</h3>
+    <label>Beurskoers standalone (€)<input class="cell" type="number" id="f_koers" data-def="52" value="52"></label>
+    <label>Fundamentele opslag (€)<input class="cell" type="number" id="f_opslag" data-def="4" value="4"></label>
+    <label>Synergie per jaar ($ mln)<input class="cell" type="number" id="f_syn" data-def="600" value="600"></label>
+    <label>Multiple op synergie (×)<input class="cell" type="number" id="f_mult" data-def="8" value="8"></label>
+    <label>Wisselkoers ($ per €)<input class="cell" type="number" step="0.01" id="f_fx" data-def="1.09" value="1.09"></label>
+    <label>Aandeel AkzoNobel (%)<input class="cell" type="number" id="f_own" data-def="55" value="55"></label>
+    <label>Realisatie na risico &amp; integratie (%)<input class="cell" type="number" id="f_real" data-def="85" value="85"></label>
+    <label>Aantal aandelen (mln)<input class="cell" type="number" id="f_sh" data-def="179" value="179"></label>
+    <label>Superdividend (€ mrd)<input class="cell" type="number" step="0.1" id="f_div" data-def="2.5" value="2.5"></label>
+    <label>Zeker cash-bod (€)<input class="cell" type="number" id="f_cash" data-def="73" value="73"></label>
+    <button class="mreset" data-act="finreset">↺ Herstel aannames</button>
+  </div>
+  <div class="mcol">
+    <h3>Berekening — synergie → €/aandeel</h3>
+    <table class="calc">
+      <tr><td>Synergie bruto · syn × multiple</td><td>$ <b id="o_syngross">—</b> mln</td></tr>
+      <tr><td>In euro · ÷ wisselkoers</td><td>€ <b id="o_syneur">—</b> mrd</td></tr>
+      <tr><td>Aandeel AkzoNobel · × %</td><td>€ <b id="o_synown">—</b> mrd</td></tr>
+      <tr><td>Na realisatie · × %</td><td>€ <b id="o_synnet">—</b> mrd</td></tr>
+      <tr class="key"><td>Synergie per aandeel</td><td>€ <b id="o_synps">—</b></td></tr>
+      <tr class="key"><td>Superdividend per aandeel</td><td>€ <b id="o_divps">—</b></td></tr>
+    </table>
+  </div>
 </div>
 <div class="block"><h2>De waardebrug — € per AkzoNobel-aandeel</h2>
-  <table class="mkba">
-    <thead><tr><th>Stap</th><th>Voorzichtig</th><th>Verwacht</th><th>Optimistisch</th></tr></thead>
-    <tbody>
-      <tr><td>Beurskoers standalone</td><td>52</td><td class="vw">52</td><td>52</td></tr>
-      <tr><td>+ Fundamentele opslag (markt onderschat standalone)</td><td>0</td><td class="pos vw">+4</td><td class="pos">+9</td></tr>
-      <tr><td>+ Aandeel in synergie (na risico &amp; integratiekosten)</td><td class="pos">+5</td><td class="pos vw">+11</td><td class="pos">+17</td></tr>
-      <tr><td>+ Superdividend €2,5 mrd (eenmalig, vóór closing)</td><td class="pos">+14</td><td class="pos vw">+14</td><td class="pos">+14</td></tr>
-      <tr class="tot"><td>= Waarde per aandeel in de fusie</td><td>~71</td><td class="vw">~81</td><td class="pos">~92</td></tr>
-      <tr><td>Ter vergelijking: zeker cash-bod</td><td>73</td><td>73</td><td>73</td></tr>
-    </tbody>
-  </table>
-  <p class="src">Illustratief · ~179 mln aandelen (≈ €9,3 mrd bij ~€52) · synergie ~$600 mln × ~8× ≈ €4,4 mrd bruto, 55% toe te rekenen aan AkzoNobel, minus integratie &amp; uitvoeringsrisico · superdividend €2,5 mrd ÷ aandelen ≈ €14. Bron-aannames: publieke dealfeiten + 04_mkba (aandeelhouderspost).</p>
+  <table class="mkba bridge"><tbody>
+    <tr><td>Beurskoers standalone</td><td>€ <b id="b_koers">—</b></td></tr>
+    <tr><td>+ Fundamentele opslag (markt onderschat)</td><td>€ <b id="b_opslag">—</b></td></tr>
+    <tr><td>+ Synergie per aandeel</td><td>€ <b id="b_synps">—</b></td></tr>
+    <tr><td>+ Superdividend per aandeel</td><td>€ <b id="b_divps">—</b></td></tr>
+    <tr class="tot"><td>= Waarde per aandeel in de fusie</td><td>€ <b id="b_total">—</b></td></tr>
+    <tr><td>Zeker cash-bod (vergelijking)</td><td>€ <b id="b_cash">—</b></td></tr>
+  </tbody></table>
 </div>
+<div class="mverdict" id="f_verdict">—</div>
+<div class="callout"><span class="lbl">De kern: markt ≠ fundament</span>Bijna alle waarde boven de koers zit in <em>aannames</em> (opslag + synergie), niet in het harde dividend (~€14). Zet de realisatie op 50% en de opslag op 0 → de uitkomst zakt richting of ónder de €73. Eén set aannames draait de conclusie om — dát is het gesprek.</div>
+<div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratief onderwijsmodel, géén volwaardige waardering of beleggingsadvies. Het aandelenaantal (~179 mln) en de multiple (~8×) zijn ruwe ankers, te verfijnen. Spiegel aan de aandeelhouderspost in het impact-model: die nettoot óók de gemiste cash-premie (€73 − ~€52) en kijkt naar de hele combinatie, niet alleen het AkzoNobel-aandeel.</div>
+</div>`;
+
+const IMPACT_MODEL = `
+<div id="impactModel">
+<div class="block">
+  <span class="eyebrow">Analist · impact-model (brede waarde)</span>
+  <h2 style="margin-top:8px">Brede-waarde-toets — pas de posten aan</h2>
+  <p class="lead">De vijf maatschappelijke effecten in <strong>€ mrd contante waarde</strong> (F+S+E). Pas de <strong>gele cellen</strong> aan; de kolomtotalen en het oordeel herrekenen live. Zelfde opzet als 04_mkba — gele cellen zijn aannames, bedoeld om te bevrágen.</p>
+</div>
+<table class="mkba editable">
+  <thead><tr><th>Effect (€ mrd, CW)</th><th>Voorzichtig</th><th>Verwacht</th><th>Optimistisch</th></tr></thead>
+  <tbody>
+    <tr><td>Werknemers</td>
+      <td><input class="cell" type="number" step="0.1" data-imp="lo" data-def="-2.5" value="-2.5"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="mid" data-def="-0.5" value="-0.5"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="hi" data-def="0.2" value="0.2"></td></tr>
+    <tr><td>Consumenten (prijzen)</td>
+      <td><input class="cell" type="number" step="0.1" data-imp="lo" data-def="-5.0" value="-5.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="mid" data-def="-1.0" value="-1.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="hi" data-def="0.0" value="0.0"></td></tr>
+    <tr><td>Klimaat (CO₂)</td>
+      <td><input class="cell" type="number" step="0.1" data-imp="lo" data-def="-2.0" value="-2.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="mid" data-def="-0.3" value="-0.3"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="hi" data-def="1.0" value="1.0"></td></tr>
+    <tr><td>Aandeelhouders</td>
+      <td><input class="cell" type="number" step="0.1" data-imp="lo" data-def="-2.0" value="-2.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="mid" data-def="1.5" value="1.5"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="hi" data-def="4.0" value="4.0"></td></tr>
+    <tr><td>Autonomie (NL)</td>
+      <td><input class="cell" type="number" step="0.1" data-imp="lo" data-def="-3.0" value="-3.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="mid" data-def="-1.0" value="-1.0"></td>
+      <td><input class="cell" type="number" step="0.1" data-imp="hi" data-def="-0.1" value="-0.1"></td></tr>
+    <tr class="tot"><td>Totaal — brede waarde</td><td id="it_lo">—</td><td id="it_mid">—</td><td id="it_hi">—</td></tr>
+  </tbody>
+</table>
+<button class="mreset" data-act="impactreset">↺ Herstel posten</button>
+<div class="mverdict" id="i_verdict">—</div>
 <div class="card accent">
-  <h3>Wat drijft elke stap</h3>
+  <h3>Wat drijft elke post</h3>
   <ul class="kv">
-    <li><strong>Fundamentele opslag (+€4):</strong> het bestuur claimt dat ~€52 de standalone-waarde onderschat — een DCF op hun eigen kasstroomprognose ligt hoger. Pure aanname, en de gevoeligste knop van het model.</li>
-    <li><strong>Aandeel in synergie (+€11):</strong> ~$600 mln × ~8× ≈ €4,4 mrd bruto; daarvan ~€2,4 mrd toe te rekenen aan AkzoNobel-houders (55%), minus integratiekosten en de kans dat synergie maar deels landt → ~€2,0 mrd ÷ ~179 mln aandelen.</li>
-    <li><strong>Superdividend (+€14):</strong> €2,5 mrd eenmalig vóór closing — het enige "harde", zekere bestanddeel in de brug.</li>
+    <li><strong>Werknemers:</strong> synergie (~$600 mln) deels uit footprint/SG&amp;A → ~2.000 netto banen weg (verwacht), tot ~5.000 (voorzichtig); maatschappelijke waarde ~€70.000 per baan. Een fusie van gelijken snijdt minder diep dan een vijandige overname.</li>
+    <li><strong>Consumenten:</strong> complementaire portefeuilles → beperkte overlap; mededingingstoezicht remt het prijseffect. Veel kleiner dan bij PPG (directe #1+#2).</li>
+    <li><strong>Klimaat:</strong> symmetrische profielen, geen groot duurzaamheidsvoordeel dat erodeert; schaal kan groene R&amp;D juist helpen (CO₂-prijs ~€110/ton).</li>
+    <li><strong>Aandeelhouders:</strong> ~$600 mln synergie gekapitaliseerd (~8×) ≈ €4–5 mrd bruto, minus integratiekosten en risico, tegenover de gemiste cash-premie (€73 vs ~€52). Zie ook het financieel model.</li>
+    <li><strong>Autonomie (NL):</strong> HQ deels naar Philadelphia, enkel-NYSE (delisting Euronext). Mitigatie: NL-domicilie, één HQ Amsterdam, 55% behoud; basis al &gt;60% VS. Hardst te monetariseren, deels kwalitatief.</li>
   </ul>
 </div>
-<div class="callout"><span class="lbl">De kern: markt ≠ fundament</span>In het <strong>verwachte</strong> scenario (~€81) wint de fusie van de zekere €73 — maar bijna alles zit in <em>aannames</em> (opslag + synergie), niet in de harde €14 dividend. In het <strong>voorzichtige</strong> scenario (~€71: geen opslag, synergie deels) zakt de waarde ónder het cash-bod. Eén set aannames draait de conclusie om. Dát is het gesprek.</div>
-<div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratief onderwijsmodel, géén volwaardige waardering of beleggingsadvies. De €/aandeel-stappen zijn redeneer-aannames; het aandelenaantal (~179 mln) en de multiple (~8×) zijn ruwe ankers, te verfijnen. Spiegel dit aan de aandeelhouderspost in de brede-waarde-toets (tab Impact-model): die nettoot óók de gemiste cash-premie (€73 − ~€52) en kijkt naar de hele combinatie, niet alleen het AkzoNobel-aandeel.</div>`;
+<div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratieve onderwijs-schatting, géén volwaardige MKBA — de euro's zijn redeneer-aannames. Disconto 3% · horizon 4 jr (midden) / 8 jr (extremen). Ter vergelijking: de PPG-overname (2017) scoorde ≈ −€6 mrd. De kunst: welke aanname drijft de uitkomst, en wie heeft die gekozen?</div>
+</div>`;
 
 /* ====================================================================
    ROLLEN
@@ -3179,7 +3265,7 @@ function renderRole(key){
    ==================================================================== */
 const ANALIST_TABS=[
   ['fin','Financieel model',FINMODEL],
-  ['impact','Impact-model',TOETS],
+  ['impact','Impact-model',IMPACT_MODEL],
   ['situatie','De situatie',SITUATIE],
   ['spiek','Spiekkaart finance',SPIEKKAART]
 ];
@@ -3198,8 +3284,54 @@ function buildAnalist(){
     const p=document.createElement('div'); p.className='panel'+(idx===0?' active':''); p.id='apanel-'+id; p.innerHTML=html;
     panelsEl.appendChild(p);
   });
+  panelsEl.addEventListener('input', recomputeModels);
+  recomputeModels();
   analistBuilt=true;
 }
+
+/* ---- interactieve modellen: rekenlogica ---- */
+function nlNum(x,d){ if(!isFinite(x)) return '—'; const s=Math.abs(x).toFixed(d); let p=s.split('.'); p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,'.'); return (x<0?'−':'')+(p[1]?p[0]+','+p[1]:p[0]); }
+function fval(id){ const el=document.getElementById(id); return el?(parseFloat(el.value)||0):0; }
+function setTxt(id,t){ const el=document.getElementById(id); if(el) el.textContent=t; }
+function computeFin(){
+  if(!document.getElementById('f_koers')) return;
+  const koers=fval('f_koers'), opslag=fval('f_opslag'), syn=fval('f_syn'), mult=fval('f_mult'),
+        fx=fval('f_fx')||1, own=fval('f_own')/100, real=fval('f_real')/100, sh=fval('f_sh')||1,
+        div=fval('f_div'), cash=fval('f_cash');
+  const synGross=syn*mult;              // $ mln
+  const synEur=synGross/fx/1000;        // € mrd
+  const synOwn=synEur*own;              // € mrd
+  const synNet=synOwn*real;             // € mrd
+  const synPs=synNet*1000/sh;           // € per aandeel
+  const divPs=div*1000/sh;              // € per aandeel
+  const total=koers+opslag+synPs+divPs;
+  setTxt('o_syngross',nlNum(synGross,0)); setTxt('o_syneur',nlNum(synEur,1));
+  setTxt('o_synown',nlNum(synOwn,1)); setTxt('o_synnet',nlNum(synNet,1));
+  setTxt('o_synps',nlNum(synPs,1)); setTxt('o_divps',nlNum(divPs,1));
+  setTxt('b_koers',nlNum(koers,1)); setTxt('b_opslag',nlNum(opslag,1));
+  setTxt('b_synps',nlNum(synPs,1)); setTxt('b_divps',nlNum(divPs,1));
+  setTxt('b_total',nlNum(total,1)); setTxt('b_cash',nlNum(cash,1));
+  const diff=total-cash, ve=document.getElementById('f_verdict');
+  if(ve){ ve.className='mverdict '+(diff>=0?'voor':'tegen');
+    ve.textContent = diff>=0
+      ? 'Fusie wint: € '+nlNum(total,1)+' > € '+nlNum(cash,1)+' cash  (+€ '+nlNum(diff,1)+' per aandeel)'
+      : 'Cash wint: € '+nlNum(total,1)+' < € '+nlNum(cash,1)+' cash  (−€ '+nlNum(Math.abs(diff),1)+' per aandeel)'; }
+}
+function computeImpact(){
+  if(!document.getElementById('it_mid')) return;
+  const sumCol=col=>{ let s=0; document.querySelectorAll('#impactModel input[data-imp="'+col+'"]').forEach(i=>s+=parseFloat(i.value)||0); return s; };
+  const lo=sumCol('lo'), mid=sumCol('mid'), hi=sumCol('hi');
+  [['it_lo',lo],['it_mid',mid],['it_hi',hi]].forEach(([id,v])=>{ const c=document.getElementById(id); if(c){ c.textContent='€ '+nlNum(v,1); c.className=v<0?'neg':'pos'; } });
+  const ve=document.getElementById('i_verdict');
+  if(ve){ ve.className='mverdict '+(mid>=0?'voor':'tegen');
+    ve.textContent=(mid>=0
+      ? 'Verwacht: +€ '+nlNum(mid,1)+' mrd — de fusie schept (illustratief) brede waarde'
+      : 'Verwacht: −€ '+nlNum(Math.abs(mid),1)+' mrd — de fusie vernietigt (illustratief) brede waarde')
+      +'  ·  band € '+nlNum(lo,1)+' tot € '+nlNum(hi,1)+' mrd'; }
+}
+function recomputeModels(){ computeFin(); computeImpact(); }
+function resetFin(){ document.querySelectorAll('#finModel input.cell').forEach(i=>{ i.value=i.dataset.def; }); computeFin(); }
+function resetImpact(){ document.querySelectorAll('#impactModel input.cell').forEach(i=>{ i.value=i.dataset.def; }); computeImpact(); }
 
 /* ====================================================================
    FACILITATOR DASHBOARD
@@ -3413,7 +3545,8 @@ const ACTIONS={
   go:a=>go(a), home:()=>{ stopTimer(); go('home'); }, logout:()=>logout(), printrole:()=>printCurrentRole(),
   toggletimer:()=>toggleTimer(), resettimer:()=>resetTimer(), togglesound:()=>toggleSound(),
   votebig:()=>showVoteBig(), votecopy:()=>copyVote(), voteprint:()=>printVote(), votereset:()=>resetVote(),
-  genqr:()=>genQR(), printqr:()=>printQR(), printroles:()=>printRolkaarten(), closemodal:()=>closeModal()
+  genqr:()=>genQR(), printqr:()=>printQR(), printroles:()=>printRolkaarten(), closemodal:()=>closeModal(),
+  finreset:()=>resetFin(), impactreset:()=>resetImpact()
 };
 document.addEventListener('click',function(e){
   if(e.target && e.target.id==='modal'){ closeModal(); return; }
@@ -3423,7 +3556,7 @@ document.addEventListener('click',function(e){
 function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
-(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 10 · interactief ✓ — klik op een rol'; } })();
+(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 11 · interactief ✓ — klik op een rol'; } })();
 </script>
 </body>
 </html>
