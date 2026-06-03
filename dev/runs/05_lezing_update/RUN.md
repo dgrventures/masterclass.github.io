@@ -2,7 +2,7 @@
 
 - **Workstream tag:** JB
 - **Date:** 2026-06-04
-- **Commit:** `260604-JB04-lezing-v2` *(fill in after committing)*
+- **Commit:** `260604-JB04-lezing-v2` (`f49bd20`, gepusht naar `main`)
 - **Status:** done
 
 ## Goal
