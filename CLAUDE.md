@@ -95,14 +95,22 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
   folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
   generated `src/output/*`, `docs/*` or root copies — edit the parts and re-assemble.
-- **Publishing the lecture** (JB track): copy its source into the bundle, then to the
-  served copies:
+- **Publishing the lecture** (JB track): run its publish script. It stamps the
+  shared build number into `02_lezing.html` and writes the canonical bundle
+  `src/output/lezing.html` plus the served copies `docs/lezing.html` + repo-root
+  `lezing.html`:
 
   ```bash
-  cp …/src/deliverables/10_lezing/02_lezing.html …/src/output/lezing.html
-  cp …/src/output/lezing.html docs/lezing.html
-  cp …/src/output/lezing.html lezing.html
+  node projectapps/masterclass_fin/src/deliverables/10_lezing/publish.mjs
   ```
+- **Build number (shared):** the footer/diag build number for *both* the casus and
+  the lecture lives in
+  [`projectapps/masterclass_fin/src/build.json`](projectapps/masterclass_fin/src/build.json).
+  It is injected wherever the literal placeholder `__BUILD__` appears, by
+  `assemble.mjs` (casus) and `publish.mjs` (lecture), both via the shared
+  [`src/build.mjs`](projectapps/masterclass_fin/src/build.mjs). To bump it, edit
+  **only** `build.json`, then re-run **both** scripts. Never hand-edit `__BUILD__`
+  in the sources or a number in the generated files.
 - **Versions:** to keep a deployed state, copy the served files into
   `projectapps/masterclass_fin/versions/version_<YYMMDD>_<label>/output/`
   (see [`versions/README.md`](projectapps/masterclass_fin/versions/README.md)).

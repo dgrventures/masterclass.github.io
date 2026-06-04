@@ -373,4 +373,4 @@ document.addEventListener('click',function(e){
 function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
-(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 12 · interactief ✓ — klik op een rol'; } })();
+(function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build __BUILD__ · interactief ✓ — klik op een rol'; } })();
