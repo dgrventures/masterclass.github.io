@@ -109,8 +109,14 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   It is injected wherever the literal placeholder `__BUILD__` appears, by
   `assemble.mjs` (casus) and `publish.mjs` (lecture), both via the shared
   [`src/build.mjs`](projectapps/masterclass_fin/src/build.mjs). To bump it, edit
-  **only** `build.json`, then re-run **both** scripts. Never hand-edit `__BUILD__`
-  in the sources or a number in the generated files.
+  **only** `build.json`, then re-publish both artifacts in one command:
+
+  ```bash
+  node projectapps/masterclass_fin/src/publish-all.mjs
+  ```
+
+  (the wrapper just runs `assemble.mjs` + the lecture `publish.mjs`). Never
+  hand-edit `__BUILD__` in the sources or a number in the generated files.
 - **Versions:** to keep a deployed state, copy the served files into
   `projectapps/masterclass_fin/versions/version_<YYMMDD>_<label>/output/`
   (see [`versions/README.md`](projectapps/masterclass_fin/versions/README.md)).
