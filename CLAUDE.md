@@ -124,10 +124,14 @@ commit:       YYMMDD-<TAG><NN>-<slug>
 ```
 
 - `YYMMDD` — date (e.g. `260604`).
-- `<TAG>` — **workstream tag** identifying the track (not a person):
-  - `CW` — casus-website app (`22_casepage`) & repo/infra (CLAUDE.md, runs system).
-  - `JB` — lezing / lecture track (`10_lezing`).
-  - New track → pick a short new tag and add it here.
+- `<TAG>` — **track** (a workstream, not a person). Registry + owned paths:
+  [`dev/tracks/README.md`](dev/tracks/README.md). In brief:
+  - `MA` — master/manager: repo-wide, infra, planning, integration. **Default** for
+    cross-cutting work (this convention update is `MA`).
+  - `CW` — casus-website app (`22_casepage` + published `index.html`/`src`).
+  - `JB` — lezing / lecture (`10_lezing` + `lezing.html`/`src`).
+  - `DS` — design/style: shared style resources (`dev/shared/style/`). *(planned)*
+  - New track → register it in `dev/tracks/README.md`.
 - `<NN>` — **shared global counter** across all tracks: the next integer above the
   highest `NN` used by *any* track. Numbers are unique in principle; when two
   tracks run at once a collision (e.g. `07_CW` and `07_JB`) is tolerated, not an error.
@@ -137,13 +141,33 @@ Example: run `07_CW_run-convention/` ↔ commit `260604-CW07-run-convention`.
 Branch off `main` only if asked; otherwise commit to `main`. Commit/push only when
 the user requests it.
 
-### Parallel sessions
+### Tracks, isolation & locks
 
-More than one session may work different tracks at once. Coordinate via the shared
-counter and distinct tags. Renumbering **run folders** retroactively is safe (a
-normal forward commit). Rewriting **pushed commit messages** requires history
-rewrite + `git push --force` — do this only as a deliberate, coordinated cleanup
-when no other session is active; never force-push while another track is live.
+- **One session = one track per run.** A Claude window drives one track; `MA` is the
+  default for cross-cutting work. Declare the track in the RUN.md header.
+- **Tracks own non-overlapping paths** (see [`dev/tracks/README.md`](dev/tracks/README.md))
+  so parallel work doesn't collide. That ownership matters more than the tag.
+- **Isolation (hybrid).** Code-heavy tracks (`CW`, `JB`, `DS`) work on their own git
+  branch/worktree and merge to `main`; `MA` commits small planning/docs/integration
+  straight to `main`. A convention alone can't stop two sessions clobbering one
+  working tree — branches/worktrees are the real fix.
+- **Lock = a per-run attribute** (`Lock: yes/no` in the RUN.md), **not** a tag. A
+  locked run needs exclusive repo access — whole-repo operations that can't be
+  branched cleanly (sweeping refactor, history cleanup, the assemble/build change).
+  Protocol (cooperative — only works if every session honours it):
+  1. At run start, check [`dev/LOCK`](dev/LOCK). If present and not yours, **hold**.
+  2. A locked run **creates** `dev/LOCK` (track · run · time · scope) at start and
+     **removes** it at finish (commit both).
+  3. Don't start another track's run while a lock is held.
+- **Planning** (architecture, backlog, roadmap) lives in
+  [`dev/planning/`](dev/planning/) — `MA`-owned, append-mostly, parallel-safe.
+
+### Parallel sessions — history hygiene
+
+Renumbering **run folders** retroactively is safe (a normal forward commit).
+Rewriting **pushed commit messages** requires history rewrite + `git push --force`
+— do this only as a deliberate, coordinated cleanup when no other session is active;
+never force-push while another track is live.
 
 ---
 
