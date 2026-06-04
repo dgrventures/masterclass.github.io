@@ -42,7 +42,7 @@ never edited.
 Two trees, keyed by project name, plus a shared reusable tree:
 - **Reusable across projects:** `dev/general/` (this folder, `workflow.md`, `design.md`, `skills/`).
 - **Project working materials:** `dev/projects/<project>/` — `plan/` (brief·context·backlog·architecture),
-  `tracks/`, `data/` (input·process·projectdeliverables), `runs/`.
+  `tracks/`, `projectdata/` (input·process·projectdeliverables), `runs/`.
 - **Project app / product:** `projectapps/<project>/` — `src/deliverables/` (the apps/outputs),
   `specs/`, `versions/`.
 - **Per-project glue + paths:** the repo-root `CLAUDE.md`.

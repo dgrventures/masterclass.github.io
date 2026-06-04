@@ -30,9 +30,9 @@ src/
 ## Lecture (JB)
 `…/src/deliverables/10_lezing/02_lezing.html` → `node …/10_lezing/publish.mjs` → `…/src/output/lezing.html` + `docs/lezing.html`.
 Its non-app source materials (examples, validation xlsx) live in
-`dev/projects/masterclass_fin/data/projectdeliverables/10_lezing/`.
+`dev/projects/masterclass_fin/projectdata/projectdeliverables/10_lezing/`.
 
-## Project data (`dev/projects/masterclass_fin/data/`)
+## Project data (`dev/projects/masterclass_fin/projectdata/`)
 - `input/` — raw inputs (empty placeholder).
 - `process/` — working/intermediate artefacts (empty placeholder).
 - `projectdeliverables/` — source materials **not** consumed by the app:

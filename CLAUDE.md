@@ -61,7 +61,7 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
         │   ├── backlog/backlog.md
         │   └── architecture.md    This project's concrete architecture
         ├── tracks/README.md    Track registry
-        ├── data/
+        ├── projectdata/
         │   ├── input/.gitkeep · process/.gitkeep
         │   └── projectdeliverables/  Source materials NOT used by the app (21_casus, 10_lezing/*.md+xlsx)
         └── runs/               Numbered work sessions (see §4); _template/, NN_TAG_slug/
@@ -237,7 +237,7 @@ never force-push while another track is live.
 
 - **Dutch for deliverables, English for meta.** (Repeating §0 because it matters.)
 - **Numbers must trace to a source.** Deal facts and figures are anchored in the
-  brief (§6) and in `projectapps/masterclass_fin/src/deliverables/10_lezing/Validatie_getallen_presentatie.xlsx`.
+  brief (§6) and in `dev/projects/masterclass_fin/projectdata/projectdeliverables/10_lezing/Validatie_getallen_presentatie.xlsx`.
   Don't invent or silently change figures — cross-check, and flag mismatches.
 - **The deliverables are real teaching materials.** Favour clarity and pedagogical
   accuracy over cleverness; keep the finance-primary / impact-as-bridge framing.
