@@ -1,8 +1,8 @@
 # Architecture
 
 How the repo is structured and where it's heading. `MA`-owned; planning is
-independent of execution. See also [`backlog.md`](backlog.md) and
-[`../tracks/README.md`](../tracks/README.md).
+independent of execution. See also [`backlog.md`](../../project/plan/backlog/backlog.md)
+and [`tracks/README.md`](../../project/tracks/README.md).
 
 ---
 
@@ -21,7 +21,7 @@ independent of execution. See also [`backlog.md`](backlog.md) and
     `dev/shared/style/tokens.css`. **Done** — run `MA09`.
   - lezing → `dev/project/deliverables/10_lezing/02_lezing.html` (still monolithic).
   - Publish: casus → `node …/src/assemble.mjs`; lezing → `cp`
-    (see [`/CLAUDE.md`](../../CLAUDE.md) §2).
+    (see [`/CLAUDE.md`](../../../CLAUDE.md) §2).
 
 The casus split below is **implemented**; this section documents the realised design.
 
@@ -84,6 +84,7 @@ runs); publish. Lezing can adopt the same shared tokens later (`DS`).
 ---
 
 ## Conventions index
-- Runs / commits / tags / locks → [`/CLAUDE.md`](../../CLAUDE.md) §4 + [`../runs/README.md`](../runs/README.md).
-- Tracks & owned paths → [`../tracks/README.md`](../tracks/README.md).
-- Deploy / publish → [`/CLAUDE.md`](../../CLAUDE.md) §2.
+- Runs / commits / tags / locks → [`/CLAUDE.md`](../../../CLAUDE.md) §4 + [`../runs/README.md`](../../runs/README.md).
+- Tracks & owned paths → [`tracks/README.md`](../../project/tracks/README.md).
+- Reusable method → [`../workflow.md`](../workflow.md) · [`../design.md`](../design.md).
+- Deploy / publish → [`/CLAUDE.md`](../../../CLAUDE.md) §2.

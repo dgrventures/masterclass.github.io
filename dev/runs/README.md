@@ -27,8 +27,10 @@ predate the tag split — left as-is; the convention applies from `07` onward.
 
 ## Starting a run
 
-1. **Read context first:** the [project brief](../project/brief/00_project_brief_masterclass_finance_impact.md)
-   and the [handoff](00_handoff_claudechat/HANDOFF.md) (its §5 lists open work).
+1. **Read context first:** the [project brief](../project/plan/brief/00_project_brief_masterclass_finance_impact.md)
+   and the [handoff](00_handoff_claudechat/HANDOFF.md) (its §5 lists open work). Brief
+   lives in [`../project/plan/brief/`](../project/plan/brief/); tracks in
+   [`../project/tracks/`](../project/tracks/).
 2. Create `dev/runs/<NN>_<TAG>_<slug>/` with the next free global number.
 3. Copy the template into it:
    ```bash

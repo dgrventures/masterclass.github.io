@@ -23,7 +23,7 @@ impact, weak on finance** → spend scarce time on **finance basics**, use
 
 The **single source of truth** for scope, learning goals, deal facts, and the
 content skeleton is
-[`dev/project/brief/00_project_brief_masterclass_finance_impact.md`](dev/project/brief/00_project_brief_masterclass_finance_impact.md).
+[`dev/project/plan/brief/00_project_brief_masterclass_finance_impact.md`](dev/project/plan/brief/00_project_brief_masterclass_finance_impact.md).
 Read it before doing substantive work. Project state and open work items live in
 the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_claudechat/HANDOFF.md).
 
@@ -36,13 +36,21 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
 ├── index.html                 DEPLOYED case website (published copy — do not hand-edit)
 ├── src/index.html             Mirror of the deployed file (published copy)
 ├── CLAUDE.md                   This file
+├── specs/                     Specs (placeholder)
 └── dev/                        All working materials (not served, except via copies)
     ├── about.md
-    ├── skills/
-    │   └── impact-institute-design.skill   Brand/design kit (zipped Claude skill)
-    ├── project/
-    │   ├── brief/              Source of truth (project brief)
-    │   ├── context/            Supporting reference material
+    ├── general/                REUSABLE across projects (§ see dev/general/README.md)
+    │   ├── workflow.md         Generalized workflow (runs/tracks/locks/isolation/publish)
+    │   ├── design.md           Generalized design approach (house style, split+assemble)
+    │   ├── skills/             Packaged Claude skills (impact-institute-design.skill)
+    │   └── architecture/       architecture.md + general artefacts
+    ├── shared/style/           Shared brand tokens (tokens.css) — inlined at assemble
+    ├── project/                PROJECT-specific
+    │   ├── plan/
+    │   │   ├── brief/          Source of truth (project brief)
+    │   │   ├── context/        Supporting reference material
+    │   │   └── backlog/        backlog.md
+    │   ├── tracks/             Track registry (README.md)
     │   └── deliverables/       The actual outputs ↓
     │       ├── 10_lezing/      Lecture deck (.html, 29 slides) + examples + validation
     │       ├── 21_casus/       Case materials: opzet, draaiboek, rolkaarten, MKBA, spiekkaart
@@ -50,7 +58,7 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
     └── runs/                   Numbered work sessions (see §4)
         ├── _template/          Templates for new runs
         ├── 00_handoff_claudechat/
-        └── NN_slug/
+        └── NN_TAG_slug/
 ```
 
 ### Deployment & the case website
@@ -81,7 +89,7 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
 ## 3. Design & house style
 
 Impact Institute brand. A packaged Claude skill lives at
-[`dev/skills/impact-institute-design.skill`](dev/skills/impact-institute-design.skill)
+[`dev/general/skills/impact-institute-design.skill`](dev/general/skills/impact-institute-design.skill)
 (a zip: README, SKILL.md, `colors_and_type.css`, self-hosted fonts, UI-kit
 previews). **Use it for any new visual asset, slide, or website work.**
 
@@ -89,7 +97,7 @@ To use it, unzip and read the README + `colors_and_type.css`, then copy the
 fonts/CSS you need into the artifact (assets are self-hosted):
 
 ```bash
-unzip -o dev/skills/impact-institute-design.skill -d /tmp/iid
+unzip -o dev/general/skills/impact-institute-design.skill -d /tmp/iid
 ```
 
 Brand cues already in the deck: green title (#2A4D36 → #1E3A28 gradient),
@@ -128,13 +136,13 @@ commit:       YYMMDD-<TAG><NN>-<slug>
 
 - `YYMMDD` — date (e.g. `260604`).
 - `<TAG>` — **track** (a workstream, not a person). Registry + owned paths:
-  [`dev/tracks/README.md`](dev/tracks/README.md). In brief:
+  [`dev/project/tracks/README.md`](dev/project/tracks/README.md). In brief:
   - `MA` — master/manager: repo-wide, infra, planning, integration. **Default** for
     cross-cutting work (this convention update is `MA`).
   - `CW` — casus-website app (`22_casepage` + published `index.html`/`src`).
   - `JB` — lezing / lecture (`10_lezing` + `lezing.html`/`src`).
   - `DS` — design/style: shared style resources (`dev/shared/style/`). *(planned)*
-  - New track → register it in `dev/tracks/README.md`.
+  - New track → register it in `dev/project/tracks/README.md`.
 - `<NN>` — **shared global counter** across all tracks: the next integer above the
   highest `NN` used by *any* track. Numbers are unique in principle; when two
   tracks run at once a collision (e.g. `07_CW` and `07_JB`) is tolerated, not an error.
@@ -148,7 +156,7 @@ the user requests it.
 
 - **One session = one track per run.** A Claude window drives one track; `MA` is the
   default for cross-cutting work. Declare the track in the RUN.md header.
-- **Tracks own non-overlapping paths** (see [`dev/tracks/README.md`](dev/tracks/README.md))
+- **Tracks own non-overlapping paths** (see [`dev/project/tracks/README.md`](dev/project/tracks/README.md))
   so parallel work doesn't collide. That ownership matters more than the tag.
 - **Isolation (hybrid).** Code-heavy tracks (`CW`, `JB`, `DS`) work on their own git
   branch/worktree and merge to `main`; `MA` commits small planning/docs/integration
@@ -162,8 +170,10 @@ the user requests it.
   2. A locked run **creates** `dev/LOCK` (track · run · time · scope) at start and
      **removes** it at finish (commit both).
   3. Don't start another track's run while a lock is held.
-- **Planning** (architecture, backlog, roadmap) lives in
-  [`dev/planning/`](dev/planning/) — `MA`-owned, append-mostly, parallel-safe.
+- **Planning** is `MA`-owned and parallel-safe: brief, context & backlog in
+  [`dev/project/plan/`](dev/project/plan/); architecture in
+  [`dev/general/architecture/`](dev/general/architecture/); the reusable method in
+  [`dev/general/workflow.md`](dev/general/workflow.md).
 
 ### Parallel sessions — history hygiene
 
