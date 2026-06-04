@@ -31,7 +31,7 @@ Working method (runs, tracks, locks, deploy) is in [`/CLAUDE.md`](../../../CLAUD
 
 - **Tracks** (who owns which paths): [`tracks/README.md`](tracks/README.md) — `MA`, `PLAN`, `CW`, `JB`, `DS`.
 - **Runs** (one focused session = one commit): [`runs/`](runs/) (see [`runs/README.md`](runs/README.md)).
-  Most recent: JB27 (PDF-export publish, build 13), JB26 (PDF-export source), MA25 (remove-2100).
+  Most recent: MA28 (source migrated to Azure DevOps), JB27 (PDF-export publish, build 13).
 - **Open work:** [`plan/backlog/backlog.md`](plan/backlog/backlog.md).
 - **Architecture:** [`plan/architecture.md`](plan/architecture.md) (this project) ·
   [`../../general/architecture/`](../../general/architecture/) (reusable patterns).

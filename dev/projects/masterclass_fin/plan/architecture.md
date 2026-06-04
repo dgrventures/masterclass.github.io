@@ -1,14 +1,41 @@
 # Project architecture — masterclass.github.io
 
-This repo's concrete structure. Reusable patterns are in
-[`../../../general/architecture/architecture.md`](../../../general/architecture/architecture.md).
+This repo's concrete structure. Reusable patterns and the platform ADRs are in
+[`../../../general/architecture/`](../../../general/architecture/) and in
+`referenceprojects/inspiration/projectapp-architecture/architecture/ARCHITECTURE.md`.
 
-## Deploy
-- **Canonical deploy bundle:** `projectapps/masterclass_fin/src/output/` = `index.html`
-  (casus) + `lezing.html` (lecture) + `intro.html` (casus-intro).
-- **Copied to `docs/` only** — the served folder (Pages → branch `main`, folder `/docs`;
-  `docs/.nojekyll` serves raw HTML). **No repo-root copies** (removed in `MA21`). No build on Pages.
-- Served at <https://dgrventures.github.io/masterclass.github.io/>.
+## Source repos
+
+| Repo | URL | Role |
+| --- | --- | --- |
+| Azure DevOps (canonical) | `https://dev.azure.com/dgrv/II_L2_Workspaces/_git/masterclass` | All new development from run `MA28` onwards |
+| GitHub (reference) | `https://github.com/dgrventures/masterclass.github.io` | Frozen at run `MA28`; GitHub Pages stays live as a working reference |
+
+All new work happens in the Azure DevOps repo. The GitHub repo is not updated further.
+
+## Deploy targets
+
+| Target | Trigger | Status |
+| --- | --- | --- |
+| GitHub Pages (`docs/`) | push to GitHub `main` | Live reference — `https://dgrventures.github.io/masterclass.github.io/` |
+| Azure Static Web Apps (planned) | Azure Pipelines on Azure DevOps `main` | Planned — next runs (`MA29`+) |
+
+### Azure SWA plan (to be implemented)
+
+- **Platform:** Azure Static Web Apps, Standard plan, EU region (West Europe).
+- **Auth:** Entra Easy Auth, tenant-locked (`openIdIssuer` → our tenant ID).
+  Roles: `staff` (facilitators) and `participant` (2100 programme members, B2B guests).
+- **Build:** Vite + `vite-plugin-singlefile`; `npm run build` → `dist/` for SWA;
+  `npm run build:single` → portable single-file handoff.
+- **JS passcode gate** kept as a second factor (easy to remove later).
+- **Pipeline:** `azure-pipelines.yml` (Azure DevOps → SWA deploy token).
+- **Manual prerequisites** (before deploy):
+  1. Create Azure SWA resource (EU region, Standard plan).
+  2. Create Entra app registration; note tenant ID, client ID, client secret.
+  3. Set `SWA_DEPLOYMENT_TOKEN`, `AAD_CLIENT_ID`, `AAD_CLIENT_SECRET` as
+     pipeline/SWA application settings.
+  4. Invite participants as B2B guests → assign `participant` role.
+  5. Invite staff → assign `staff` role.
 
 ## Casus app — source & build (CW / DS)
 Lives under `projectapps/masterclass_fin/src/deliverables/22_casepage/`:
