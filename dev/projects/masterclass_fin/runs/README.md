@@ -22,13 +22,14 @@ dev/projects/masterclass_fin/runs/<NN>_<TAG>_<slug>/      ↔  commit  YYMMDD-<T
 - `slug` — short kebab description (`run-convention`, `pptx-export`).
 
 The folder name and its commit share the same `NN`, `TAG`, and `slug`.
-Tagless legacy folders (`00_handoff_claudechat`, `01_setupclaudecode` … `05_*`)
-predate the tag split — left as-is; the convention applies from `07` onward.
+Tagless legacy folders (`01_setupclaudecode` … `05_*`) predate the tag split — left
+as-is; the convention applies from `07` onward. (The `00_handoff_claudechat` import is
+archived in [`../archive/`](../archive/).)
 
 ## Starting a run
 
 1. **Read context first:** the [project brief](../plan/brief/00_project_brief_masterclass_finance_impact.md)
-   and the [handoff](00_handoff_claudechat/HANDOFF.md) (its §5 lists open work). Brief
+   and the [project state](../STATE.md) (open work is in [`../plan/backlog/backlog.md`](../plan/backlog/backlog.md)). Brief
    lives in [`../plan/brief/`](../plan/brief/); tracks in
    [`../tracks/`](../tracks/).
 2. Create `dev/projects/masterclass_fin/runs/<NN>_<TAG>_<slug>/` with the next free global number.

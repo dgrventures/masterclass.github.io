@@ -24,8 +24,10 @@ impact, weak on finance** → spend scarce time on **finance basics**, use
 The **single source of truth** for scope, learning goals, deal facts, and the
 content skeleton is
 [`dev/projects/masterclass_fin/plan/brief/00_project_brief_masterclass_finance_impact.md`](dev/projects/masterclass_fin/plan/brief/00_project_brief_masterclass_finance_impact.md).
-Read it before doing substantive work. Project state and open work items live in
-the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.md`](dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.md).
+Read it before doing substantive work. Current project state lives in
+[`dev/projects/masterclass_fin/STATE.md`](dev/projects/masterclass_fin/STATE.md); open
+work items are in [`dev/projects/masterclass_fin/plan/backlog/backlog.md`](dev/projects/masterclass_fin/plan/backlog/backlog.md).
+(The original chat handoff is archived at [`dev/projects/masterclass_fin/archive/00_handoff_claudechat/HANDOFF.md`](dev/projects/masterclass_fin/archive/00_handoff_claudechat/HANDOFF.md).)
 
 ---
 
