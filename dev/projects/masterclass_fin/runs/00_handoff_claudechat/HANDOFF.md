@@ -2,6 +2,12 @@
 
 *Handoff voor voortzetting in Claude Code. Bevat: wat het project is, alle bestanden, wat af is, wat nog open staat, en de validatie-/cijferbronnen. Alle inhoud is in het Nederlands; deze handoff-instructies zijn in het Engels.*
 
+> **Snapshot van de oorspronkelijke chat-handoff.** Bestandsnamen, paden en build-nummers
+> hieronder weerspiegelen die beginstaat en zijn deels achterhaald (bv. `casus-akzonobel-axalta.html`
+> → nu de geassembleerde `index.html`; build 8 → nu 12; de repo is geherstructureerd in runs `MA09`–`MA14`).
+> **De actuele staat staat in de runs** (`dev/projects/masterclass_fin/runs/`), niet hier.
+> Alleen rechtstreeks gemelde feiten worden bijgewerkt; zie de inline *(update …)*-notities.
+
 ---
 
 ## 1. What this project is
@@ -26,7 +32,7 @@ Didactic frame: Schoenmaker & De Groot Ruiz, *"Maatschappelijke toetsing van ove
 | `00_project_brief_masterclass_finance_impact.md` | Master brief + detailed content skeleton mapped to the 6 learning goals. **The source of truth.** | Done (v0.2) |
 | `01a_voorbeeld_alliander.md` | The running example used through the lecture: Alliander (regulated grid operator, publishes a real IP&L via Impact Institute, capital-intensive like Akzo). | Done |
 | `01b_voorbeeld_tonys.md` | Alternative running example: Tony's Chocolonely (true price, Mission Lock). **Not used** — kept as fallback. | Reserve |
-| `02_lezing.html` | The lecture deck — **29 slides**, Impact Institute house style, green title slide, presenter notes per slide. Includes 4 case-intro slides (26–29). | Done; not yet exported to .pptx |
+| `02_lezing.html` | The lecture deck — Impact Institute house style, green title slide, presenter notes per slide. *(update MA19: now **24 slides** — self-contained finance, ending on self-assessment. The case briefing was split into a separate intro deck `23_casusintro/intro.html`, surfaced as the "02 · Intro casus" entry tile + a link on every case page.)* | Done; not yet exported to .pptx |
 | `03_casus_opzet.md` | Case setup: scenario, 6 groups, flow, vote mechanic. | Done |
 | `04_mkba_akzo_axalta.xlsx` | MKBA / broad-value model. Sheets: `Toelichting`, `MKBA 2026 MOE` (yellow cells = assumptions, recalc on edit), `Vergelijking` (2017 PPG vs 2026 MoE). Method: F+S+M, 3% discount, 4yr mid / 8yr extremes, jobs calculator, +autonomy effect. | Done |
 | `04_mkba_samenvatting_1A4.md` | 1-page table hand-out of the MKBA for RvC + Minister. | Done |
@@ -62,7 +68,7 @@ Shareholder vote: **5 seats, 1 vote each, simple majority (3 of 5) decides** —
 
 ## 5. What is DONE vs OPEN
 
-**Done:** brief, lecture deck (29 slides .html), all case materials (opzet, draaiboek, rolkaarten, algemene intro, spiekkaart), MKBA model + 1-A4 summary, validation workbook, and a working case website (build 8).
+**Done:** brief, lecture deck (.html — 24 slides since MA19, + a separate casus-intro deck), all case materials (opzet, draaiboek, rolkaarten, algemene intro, spiekkaart), MKBA model + 1-A4 summary, validation workbook, and a working case website (build 8 at handoff; build 12 now).
 
 **Open / next steps (in priority order, from where we left off):**
 1. **PowerPoint export** — `02_lezing.html` still needs to be turned into `03_lezing.pptx` (the brief's stated final lecture deliverable). Use the `pptx` skill; carry over the green title slide, house style, and presenter notes.
