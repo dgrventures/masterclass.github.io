@@ -82,8 +82,8 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   `data.js` (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
   Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
 - **The canonical deploy bundle is** [`projectapps/masterclass_fin/src/output/`](projectapps/masterclass_fin/src/output/)
-  — `index.html` (casus) + `lezing.html` (lecture). It is **copied** to `docs/` (served)
-  and repo-root (legacy). Ideally Pages serves the bundle directly one day.
+  — `index.html` (casus) + `lezing.html` (lecture) + `intro.html` (casus-intro deck). It is
+  **copied** to `docs/` (served) and repo-root (legacy). Ideally Pages serves the bundle directly one day.
 - **Publishing the casus app:** run the assemble step. It inlines the parts into one
   self-contained file written to `src/output/index.html` (canonical) **and** copied to
   `docs/index.html` + repo-root `index.html`:
@@ -103,19 +103,32 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   ```bash
   node projectapps/masterclass_fin/src/deliverables/10_lezing/publish.mjs
   ```
-- **Build number (shared):** the footer/diag build number for *both* the casus and
-  the lecture lives in
+
+  The lecture is **self-contained finance** (24 slides, ending on self-assessment); the
+  case briefing is no longer part of it — it lives in the casus-intro deck below.
+- **Publishing the casus-intro** (the case briefing as its own short deck — same deck
+  engine as the lecture): run its publish script. It stamps the shared build number into
+  `intro.html` and writes `src/output/intro.html` + `docs/intro.html` + repo-root `intro.html`:
+
+  ```bash
+  node projectapps/masterclass_fin/src/deliverables/23_casusintro/publish.mjs
+  ```
+
+  The entry page links to it as the "02 · Intro casus" tile, and every case page topbar
+  has a `↗ Casus-intro` link to it.
+- **Build number (shared):** the footer/diag build number for the casus, the lecture
+  **and** the casus-intro lives in
   [`projectapps/masterclass_fin/src/build.json`](projectapps/masterclass_fin/src/build.json).
   It is injected wherever the literal placeholder `__BUILD__` appears, by
-  `assemble.mjs` (casus) and `publish.mjs` (lecture), both via the shared
+  `assemble.mjs` (casus) and the `publish.mjs` scripts (lecture, intro), all via the shared
   [`src/build.mjs`](projectapps/masterclass_fin/src/build.mjs). To bump it, edit
-  **only** `build.json`, then re-publish both artifacts in one command:
+  **only** `build.json`, then re-publish all artifacts in one command:
 
   ```bash
   node projectapps/masterclass_fin/src/publish-all.mjs
   ```
 
-  (the wrapper just runs `assemble.mjs` + the lecture `publish.mjs`). Never
+  (the wrapper runs `assemble.mjs` + the lecture and intro `publish.mjs` steps). Never
   hand-edit `__BUILD__` in the sources or a number in the generated files.
 - **Versions:** to keep a deployed state, copy the served files into
   `projectapps/masterclass_fin/versions/version_<YYMMDD>_<label>/output/`

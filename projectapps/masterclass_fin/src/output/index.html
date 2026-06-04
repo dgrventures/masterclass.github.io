@@ -59,7 +59,7 @@ button{font-family:var(--body);cursor:pointer}
 .landing-head .eyebrow{display:block;margin-bottom:12px}
 .landing-head h1{font-size:clamp(2.1rem,6vw,3.3rem);line-height:1.04;margin-bottom:14px}
 .landing-head .sub{color:var(--slate);font-size:1.08rem;max-width:42ch;margin:0 auto;line-height:1.5}
-.landing-tiles{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.landing-tiles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 .tile{display:flex;flex-direction:column;align-items:flex-start;text-align:left;gap:7px;width:100%;font:inherit;color:inherit;text-decoration:none;cursor:pointer;
   background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--sh-md);padding:26px 24px 22px;
   transition:transform .12s,box-shadow .15s,border-color .15s}
@@ -72,7 +72,7 @@ button{font-family:var(--body);cursor:pointer}
 .tile:hover .tgo{color:var(--orange)}
 .landing-foot{text-align:center;color:var(--slate);font-size:.84rem;margin-top:28px}
 .landing-foot .bld{font-family:var(--mono,monospace);color:#9aa39d}
-@media(max-width:640px){.landing-tiles{grid-template-columns:1fr}}
+@media(max-width:820px){.landing-tiles{grid-template-columns:1fr}}
 
 /* back-to-start + facilitation row on the case (role-picker) screen */
 .backstart{background:none;border:none;color:var(--slate);font-family:var(--disp);font-weight:600;font-size:.82rem;padding:0;margin-bottom:16px;cursor:pointer;letter-spacing:.02em}
@@ -118,7 +118,7 @@ button{font-family:var(--body);cursor:pointer}
 .rolechip{display:inline-flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:600;font-size:.82rem;
   padding:6px 13px;border-radius:var(--r-pill);color:#fff;letter-spacing:.02em}
 .rolechip .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.85)}
-.logout{font-family:var(--disp);font-weight:600;font-size:.8rem;color:var(--green);background:transparent;border:1.5px solid var(--line);border-radius:var(--r-pill);padding:7px 14px}
+.logout{font-family:var(--disp);font-weight:600;font-size:.8rem;color:var(--green);background:transparent;border:1.5px solid var(--line);border-radius:var(--r-pill);padding:7px 14px;text-decoration:none;display:inline-block}
 .logout:hover{border-color:var(--orange);color:var(--orange)}
 
 /* ============ ROLE PAGE ============ */
@@ -365,7 +365,7 @@ textarea.notes::placeholder{color:#7e988a}
     <header class="landing-head">
       <span class="eyebrow">2100 Masterclass</span>
       <h1>Finance &amp; Impact<br>voor commissarissen</h1>
-      <p class="sub">Eerst de lezing, dan de casus. Kies waar je begint — je kunt altijd terug naar dit startscherm.</p>
+      <p class="sub">Eerst de lezing, dan de casus-intro, dan de casus zelf. Kies waar je begint — je kunt altijd terug naar dit startscherm.</p>
     </header>
     <div class="landing-tiles">
       <a class="tile" href="lezing.html">
@@ -374,8 +374,14 @@ textarea.notes::placeholder{color:#7e988a}
         <p>Finance &amp; Impact voor RvC's 101 — interactieve presentatie van ±30 min, met spreker-notities.</p>
         <span class="tgo">Start de presentatie →</span>
       </a>
+      <a class="tile" href="intro.html">
+        <span class="tnum">02 · Intro casus</span>
+        <h2>De casus-intro</h2>
+        <p>AkzoNobel × Axalta — de situatie, de deal, de zes rollen en de spelregels. Korte presentatie vóór het rollenspel.</p>
+        <span class="tgo">Bekijk de intro →</span>
+      </a>
       <button type="button" class="tile" data-act="go" data-arg="casus">
-        <span class="tnum">02 · Casus</span>
+        <span class="tnum">03 · Casus</span>
         <h2>De casus</h2>
         <p>AkzoNobel × Axalta — fuseren of niet? Rollenspel met echte stemming, ±45 min.</p>
         <span class="tgo">Kies je rol →</span>
@@ -416,6 +422,7 @@ textarea.notes::placeholder{color:#7e988a}
     <span class="spacer"></span>
     <span class="rolechip" id="roleChip"><span class="dot"></span><span id="roleChipTxt"></span></span>
     <button class="logout" data-act="printrole">Print</button>
+    <a class="logout" href="intro.html" target="_blank" rel="noopener">↗ Casus-intro</a>
     <button class="logout" data-act="logout">Andere rol</button>
     <button class="logout" data-act="home">↩ Start</button>
   </div>
@@ -438,6 +445,7 @@ textarea.notes::placeholder{color:#7e988a}
     <span class="spacer"></span>
     <span class="rolechip" style="background:var(--orange)"><span class="dot"></span>Draaiboek</span>
     <button class="logout" data-act="logout" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">← Casus</button>
+    <a class="logout" href="intro.html" target="_blank" rel="noopener" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">↗ Casus-intro</a>
     <button class="logout" data-act="home" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">↩ Start</button>
   </div>
   <div class="fac-grid">
@@ -522,6 +530,7 @@ textarea.notes::placeholder{color:#7e988a}
     <span class="spacer"></span>
     <span class="rolechip" style="background:var(--teal)"><span class="dot"></span>Model-details</span>
     <button class="logout" data-act="go" data-arg="casus">← Casus</button>
+    <a class="logout" href="intro.html" target="_blank" rel="noopener">↗ Casus-intro</a>
     <button class="logout" data-act="home">↩ Start</button>
   </div>
   <div class="wrap">
