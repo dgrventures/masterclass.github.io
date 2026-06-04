@@ -1,8 +1,8 @@
 # RUN NN — <short title>
 
-- **Workstream tag:** <TAG>
+- **Workstream tag:** <TAG>  (CW = casus-website & infra · JB = lezing)
 - **Date:** YYYY-MM-DD
-- **Commit:** `YYMMDD-<TAG><NN>-<label>` *(fill in after committing)*
+- **Commit:** `YYMMDD-<TAG><NN>-<slug>` *(matches folder `<NN>_<TAG>_<slug>`; fill in after committing)*
 - **Status:** in progress | done
 
 ## Goal

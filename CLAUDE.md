@@ -103,7 +103,8 @@ produces or updates deliverables, and logs what happened.
 
 **To start a run, follow [`dev/runs/README.md`](dev/runs/README.md).** In short:
 
-1. Pick the next number `NN` and create `dev/runs/NN_slug/`.
+1. Pick the next free **global** number `NN` (see counter rule below) and create
+   `dev/runs/NN_TAG_slug/`.
 2. Copy [`dev/runs/_template/RUN.md`](dev/runs/_template/RUN.md) into it and fill
    in the goal.
 3. Do the work — edit deliverables under `dev/project/deliverables/`, not in the
@@ -112,20 +113,37 @@ produces or updates deliverables, and logs what happened.
 5. Finish the `RUN.md`: what changed, decisions, what's still open.
 6. Commit using the convention below.
 
-### Commit convention
+### Run & commit convention — one run = one commit
+
+The run folder name and the commit message carry the **same** `NN`, `TAG`, and
+`slug`, so each run maps 1:1 to its commit:
 
 ```
-YYMMDD-<TAG><NN>-<label>
+run folder:   dev/runs/<NN>_<TAG>_<slug>/
+commit:       YYMMDD-<TAG><NN>-<slug>
 ```
 
 - `YYMMDD` — date (e.g. `260604`).
-- `<TAG>` — **workstream tag** identifying the track (not a person). Reuse the
-  existing tag for a track; pick a short new one for a new track.
-- `<NN>` — run number within that workstream, zero-padded (`01`, `02`, …).
-- `<label>` — short kebab/word label (e.g. `pilot`, `pptx-export`).
+- `<TAG>` — **workstream tag** identifying the track (not a person):
+  - `CW` — casus-website app (`22_casepage`) & repo/infra (CLAUDE.md, runs system).
+  - `JB` — lezing / lecture track (`10_lezing`).
+  - New track → pick a short new tag and add it here.
+- `<NN>` — **shared global counter** across all tracks: the next integer above the
+  highest `NN` used by *any* track. Numbers are unique in principle; when two
+  tracks run at once a collision (e.g. `07_CW` and `07_JB`) is tolerated, not an error.
+- `<slug>` — short kebab label (e.g. `pptx-export`, `run-convention`).
 
-Example: `260604-JB02-pilot`. Branch off `main` only if the user asks; otherwise
-commit to `main`. Commit/push only when the user requests it.
+Example: run `07_CW_run-convention/` ↔ commit `260604-CW07-run-convention`.
+Branch off `main` only if asked; otherwise commit to `main`. Commit/push only when
+the user requests it.
+
+### Parallel sessions
+
+More than one session may work different tracks at once. Coordinate via the shared
+counter and distinct tags. Renumbering **run folders** retroactively is safe (a
+normal forward commit). Rewriting **pushed commit messages** requires history
+rewrite + `git push --force` — do this only as a deliberate, coordinated cleanup
+when no other session is active; never force-push while another track is live.
 
 ---
 
