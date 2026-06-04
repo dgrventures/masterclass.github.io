@@ -1,7 +1,7 @@
 # Architecture (reusable patterns)
 
 Project-agnostic build/deploy patterns. The concrete, project-specific architecture
-of *this* repo lives in [`../../project/plan/architecture.md`](../../project/plan/architecture.md).
+of *this* repo lives in [`../../projects/masterclass_fin/plan/architecture.md`](../../projects/masterclass_fin/plan/architecture.md).
 See also [`../workflow.md`](../workflow.md) and [`../design.md`](../design.md).
 
 ---
@@ -33,12 +33,15 @@ src/
 - Shared tokens are inlined at assemble time, so the shipped file has no external deps.
 
 ## Output versions
-Deployable output the user chooses to keep is snapshotted under a top-level
+Deployable output the user chooses to keep is snapshotted under the project's
 `versions/` folder — see `design.md`. Snapshots are copies of the deployed artefacts,
 never edited.
 
 ## Where things live (general convention)
-- Reusable-across-projects: `dev/general/` (this folder, `workflow.md`, `design.md`, `skills/`).
-- Project-specific: `dev/project/` (`plan/` = brief·context·backlog·architecture; `tracks/`;
-  `data/` = input·process·projectdeliverables; `deliverables/` = the apps/outputs).
-- Per-project glue + paths: the repo-root `CLAUDE.md`.
+Two trees, keyed by project name, plus a shared reusable tree:
+- **Reusable across projects:** `dev/general/` (this folder, `workflow.md`, `design.md`, `skills/`).
+- **Project working materials:** `dev/projects/<project>/` — `plan/` (brief·context·backlog·architecture),
+  `tracks/`, `data/` (input·process·projectdeliverables), `runs/`.
+- **Project app / product:** `projectapps/<project>/` — `src/deliverables/` (the apps/outputs),
+  `specs/`, `versions/`.
+- **Per-project glue + paths:** the repo-root `CLAUDE.md`.

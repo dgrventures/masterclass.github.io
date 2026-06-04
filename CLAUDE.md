@@ -23,9 +23,9 @@ impact, weak on finance** → spend scarce time on **finance basics**, use
 
 The **single source of truth** for scope, learning goals, deal facts, and the
 content skeleton is
-[`dev/project/plan/brief/00_project_brief_masterclass_finance_impact.md`](dev/project/plan/brief/00_project_brief_masterclass_finance_impact.md).
+[`dev/projects/masterclass_fin/plan/brief/00_project_brief_masterclass_finance_impact.md`](dev/projects/masterclass_fin/plan/brief/00_project_brief_masterclass_finance_impact.md).
 Read it before doing substantive work. Project state and open work items live in
-the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_claudechat/HANDOFF.md).
+the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.md`](dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.md).
 
 ---
 
@@ -36,33 +36,35 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
 ├── index.html                 DEPLOYED casus app (generated — do not hand-edit)
 ├── lezing.html                DEPLOYED lecture (generated — JB track)
 ├── CLAUDE.md                   This file
-├── specs/.gitkeep             Specs (placeholder)
-├── versions/                  Kept output snapshots (see versions/README.md)
-└── dev/                        All working materials (not served)
+├── projectapps/               THE APPS / PRODUCT (per project)
+│   └── masterclass_fin/
+│       ├── specs/.gitkeep      Specs (placeholder)
+│       ├── versions/           Kept output snapshots (see versions/README.md)
+│       └── src/deliverables/
+│           ├── 10_lezing/02_lezing.html   Lecture source (→ lezing.html)
+│           └── 22_casepage/    CANONICAL casus app:
+│               ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
+│               ├── shared/style/      tokens.css (brand tokens, inlined)
+│               ├── pages/             assembled index.html (generated)
+│               └── assemble.mjs       inlines parts → pages/ + root index.html
+└── dev/                        WORKING MATERIALS (not served)
     ├── about.md
     ├── general/                REUSABLE across projects (see dev/general/README.md)
     │   ├── workflow.md         Generalized workflow (runs/tracks/locks/isolation/publish)
     │   ├── design.md           Generalized design approach (house style, split+assemble)
     │   ├── skills/             Packaged Claude skills (impact-institute-design.skill)
     │   └── architecture/       Reusable build/deploy patterns
-    ├── project/                PROJECT-specific
-    │   ├── plan/
-    │   │   ├── brief/          Source of truth (project brief)
-    │   │   ├── context/.gitkeep   Supporting reference material
-    │   │   ├── backlog/backlog.md
-    │   │   └── architecture.md    This project's concrete architecture
-    │   ├── tracks/README.md    Track registry
-    │   ├── data/
-    │   │   ├── input/.gitkeep · process/.gitkeep
-    │   │   └── projectdeliverables/  Source materials NOT used by the app (21_casus, 10_lezing/*.md+xlsx)
-    │   └── deliverables/
-    │       ├── 10_lezing/02_lezing.html       Lecture source (→ lezing.html)
-    │       └── 22_casepage/src/   CANONICAL casus app:
-    │           ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
-    │           ├── shared/style/      tokens.css (brand tokens, inlined)
-    │           ├── pages/             assembled index.html (generated)
-    │           └── assemble.mjs       inlines parts → pages/ + root index.html
-    └── runs/                   Numbered work sessions (see §4); _template/, NN_TAG_slug/
+    └── projects/masterclass_fin/   PROJECT-specific
+        ├── plan/
+        │   ├── brief/          Source of truth (project brief)
+        │   ├── context/.gitkeep   Supporting reference material
+        │   ├── backlog/backlog.md
+        │   └── architecture.md    This project's concrete architecture
+        ├── tracks/README.md    Track registry
+        ├── data/
+        │   ├── input/.gitkeep · process/.gitkeep
+        │   └── projectdeliverables/  Source materials NOT used by the app (21_casus, 10_lezing/*.md+xlsx)
+        └── runs/               Numbered work sessions (see §4); _template/, NN_TAG_slug/
 ```
 
 ### Deployment & the case website
@@ -72,25 +74,26 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
   website is named `index.html` (GitHub Pages serves `index.html` at the directory
   root). Pushing to `main` publishes it. There is no build step.
 - **The canonical casus-app source is the split parts in**
-  [`dev/project/deliverables/22_casepage/src/appdeliverables/`](dev/project/deliverables/22_casepage/src/appdeliverables/):
-  `style.css` (+ shared [`../shared/style/tokens.css`](dev/project/deliverables/22_casepage/src/shared/style/)),
+  [`projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/`](projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/):
+  `style.css` (+ shared [`../shared/style/tokens.css`](projectapps/masterclass_fin/src/deliverables/22_casepage/shared/style/)),
   `data.js` (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
   Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
 - **Publishing** the casus app = run the assemble step, which inlines the parts into one
-  self-contained file written to `src/pages/index.html` (canonical artefact) **and**
+  self-contained file written to `the app's pages/index.html` (canonical artefact) **and**
   repo-root `index.html` (what Pages serves):
 
   ```bash
-  node dev/project/deliverables/22_casepage/src/assemble.mjs
+  node projectapps/masterclass_fin/src/deliverables/22_casepage/assemble.mjs
   ```
 
   The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
   folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
-  generated `index.html` / `src/pages/index.html` — edit the parts and re-assemble.
-- The **lecture** publishes by plain `cp dev/project/deliverables/10_lezing/02_lezing.html lezing.html`
+  generated `index.html` / `the app's pages/index.html` — edit the parts and re-assemble.
+- The **lecture** publishes by plain `cp projectapps/masterclass_fin/src/deliverables/10_lezing/02_lezing.html lezing.html`
   (JB track). There is no longer a repo-root `src/` mirror.
 - **Versions:** to keep a deployed state, copy the served files into
-  `versions/version_<YYMMDD>_<label>/output/` (see [`versions/README.md`](versions/README.md)).
+  `projectapps/masterclass_fin/versions/version_<YYMMDD>_<label>/output/`
+  (see [`versions/README.md`](projectapps/masterclass_fin/versions/README.md)).
 
 ---
 
@@ -116,17 +119,17 @@ them.
 
 ## 4. Runs — how we execute work
 
-Work is organised into **runs**: numbered folders under `dev/runs/`. A run is one
+Work is organised into **runs**: numbered folders under `dev/projects/masterclass_fin/runs/`. A run is one
 focused work session that takes a goal (usually an open item from the handoff),
 produces or updates deliverables, and logs what happened.
 
-**To start a run, follow [`dev/runs/README.md`](dev/runs/README.md).** In short:
+**To start a run, follow [`dev/projects/masterclass_fin/runs/README.md`](dev/projects/masterclass_fin/runs/README.md).** In short:
 
 1. Pick the next free **global** number `NN` (see counter rule below) and create
-   `dev/runs/NN_TAG_slug/`.
-2. Copy [`dev/runs/_template/RUN.md`](dev/runs/_template/RUN.md) into it and fill
+   `dev/projects/masterclass_fin/runs/NN_TAG_slug/`.
+2. Copy [`dev/projects/masterclass_fin/runs/_template/RUN.md`](dev/projects/masterclass_fin/runs/_template/RUN.md) into it and fill
    in the goal.
-3. Do the work — edit deliverables under `dev/project/deliverables/`, not in the
+3. Do the work — edit deliverables under `projectapps/masterclass_fin/src/deliverables/`, not in the
    run folder. The run folder holds the **log**, not the output.
 4. If the case website changed, run the publish step (§2).
 5. Finish the `RUN.md`: what changed, decisions, what's still open.
@@ -138,19 +141,19 @@ The run folder name and the commit message carry the **same** `NN`, `TAG`, and
 `slug`, so each run maps 1:1 to its commit:
 
 ```
-run folder:   dev/runs/<NN>_<TAG>_<slug>/
+run folder:   dev/projects/masterclass_fin/runs/<NN>_<TAG>_<slug>/
 commit:       YYMMDD-<TAG><NN>-<slug>
 ```
 
 - `YYMMDD` — date (e.g. `260604`).
 - `<TAG>` — **track** (a workstream, not a person). Registry + owned paths:
-  [`dev/project/tracks/README.md`](dev/project/tracks/README.md). In brief:
+  [`dev/projects/masterclass_fin/tracks/README.md`](dev/projects/masterclass_fin/tracks/README.md). In brief:
   - `MA` — master/manager: repo-wide, infra, planning, integration. **Default** for
     cross-cutting work (this convention update is `MA`).
   - `CW` — casus-website app (`22_casepage` + published `index.html`/`src`).
   - `JB` — lezing / lecture (`10_lezing` + `lezing.html`/`src`).
-  - `DS` — design/style: shared style resources (`…/22_casepage/src/shared/style/`). *(planned)*
-  - New track → register it in `dev/project/tracks/README.md`.
+  - `DS` — design/style: shared style resources (`…/22_casepage/shared/style/`). *(planned)*
+  - New track → register it in `dev/projects/masterclass_fin/tracks/README.md`.
 - `<NN>` — **shared global counter** across all tracks: the next integer above the
   highest `NN` used by *any* track. Numbers are unique in principle; when two
   tracks run at once a collision (e.g. `07_CW` and `07_JB`) is tolerated, not an error.
@@ -164,7 +167,7 @@ the user requests it.
 
 - **One session = one track per run.** A Claude window drives one track; `MA` is the
   default for cross-cutting work. Declare the track in the RUN.md header.
-- **Tracks own non-overlapping paths** (see [`dev/project/tracks/README.md`](dev/project/tracks/README.md))
+- **Tracks own non-overlapping paths** (see [`dev/projects/masterclass_fin/tracks/README.md`](dev/projects/masterclass_fin/tracks/README.md))
   so parallel work doesn't collide. That ownership matters more than the tag.
 - **Isolation (hybrid).** Code-heavy tracks (`CW`, `JB`, `DS`) work on their own git
   branch/worktree and merge to `main`; `MA` commits small planning/docs/integration
@@ -179,7 +182,7 @@ the user requests it.
      **removes** it at finish (commit both).
   3. Don't start another track's run while a lock is held.
 - **Planning** is `MA`-owned and parallel-safe: brief, context & backlog in
-  [`dev/project/plan/`](dev/project/plan/); architecture in
+  [`dev/projects/masterclass_fin/plan/`](dev/projects/masterclass_fin/plan/); architecture in
   [`dev/general/architecture/`](dev/general/architecture/); the reusable method in
   [`dev/general/workflow.md`](dev/general/workflow.md).
 
@@ -196,7 +199,7 @@ never force-push while another track is live.
 
 - **Dutch for deliverables, English for meta.** (Repeating §0 because it matters.)
 - **Numbers must trace to a source.** Deal facts and figures are anchored in the
-  brief (§6) and in `dev/project/deliverables/10_lezing/Validatie_getallen_presentatie.xlsx`.
+  brief (§6) and in `projectapps/masterclass_fin/src/deliverables/10_lezing/Validatie_getallen_presentatie.xlsx`.
   Don't invent or silently change figures — cross-check, and flag mismatches.
 - **The deliverables are real teaching materials.** Favour clarity and pedagogical
   accuracy over cleverness; keep the finance-primary / impact-as-bridge framing.

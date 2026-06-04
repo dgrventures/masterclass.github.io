@@ -6,19 +6,19 @@
  * folder (no fetch / no ES-module import, both blocked on file://). Run:
  *   node assemble.mjs
  *
- * Layout (this folder = .../22_casepage/src):
+ * Layout (this folder = .../22_casepage):
  *   appdeliverables/  shell.html, style.css, data.js, app.js, vendor-qrcode.js  (edit here)
  *   shared/style/tokens.css                                                     (shared brand tokens)
  *   pages/            assembled index.html (canonical built artefact)
  *   assemble.mjs      this script
  * Also writes repo-root index.html (what GitHub Pages serves). The assembled
- * files are generated — never hand-edit them. See dev/project/plan/architecture.md.
+ * files are generated — never hand-edit them. See dev/projects/masterclass_fin/plan/architecture.md.
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const dir   = path.dirname(fileURLToPath(import.meta.url));      // .../22_casepage/src
+const dir   = path.dirname(fileURLToPath(import.meta.url));      // .../22_casepage
 const parts = path.join(dir, 'appdeliverables');
 const tokens = path.join(dir, 'shared', 'style', 'tokens.css');
 const root  = path.resolve(dir, '../../../../..');              // repo root

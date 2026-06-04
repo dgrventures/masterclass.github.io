@@ -1,14 +1,14 @@
 # Backlog
 
 Open work, roughly prioritised. `MA`-owned; any track can pull an item into a run.
-Done items move to the relevant run log (`dev/runs/`), not here.
+Done items move to the relevant run log (`dev/projects/masterclass_fin/runs/`), not here.
 
 ## Now / next
 - [x] **Casus refactor → split + assemble** (`MA`, locked) — *done, runs `MA09`+`MA11`.*
       Carved into `src/appdeliverables/{shell.html,style.css,data.js,app.js,vendor}` +
       `src/shared/style/tokens.css` + `src/pages/`; behaviour verified identical.
 - [ ] **Refine financial-model defaults** (`CW`). Now editable in
-      `…/22_casepage/src/appdeliverables/data.js` (FINMODEL `data-def`s). Reconcile share
+      `…/22_casepage/appdeliverables/data.js` (FINMODEL `data-def`s). Reconcile share
       count (~179 mln), multiple (~8×), realisatie (85%), opslag (€4) against `04_mkba`.
 - [ ] **PPTX export of the lecture** (`JB`, handoff §5.1): `02_lezing.html` → `.pptx`,
       keeping green title slide, house style, presenter notes.
@@ -17,7 +17,7 @@ Done items move to the relevant run log (`dev/runs/`), not here.
 - [ ] **Facilitator argument cards** (`CW`/`JB`, handoff §5.3): counter-arguments per group.
 - [ ] **Share/export scenario** on the analyst page (`CW`): copy current assumptions +
       outcome to clipboard for the facilitator.
-- [ ] **Adopt shared style tokens in the lezing** (`DS`/`JB`) from `…/22_casepage/src/shared/style/`.
+- [ ] **Adopt shared style tokens in the lezing** (`DS`/`JB`) from `…/22_casepage/shared/style/`.
 - [ ] **Migrate `JB` to a branch/worktree** (currently commits to `main`).
 
 ## Later / optional

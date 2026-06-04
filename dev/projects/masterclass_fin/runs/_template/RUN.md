@@ -1,6 +1,6 @@
 # RUN NN — <short title>
 
-- **Track:** <TAG>  (MA = master/infra/planning · CW = casus-website · JB = lezing · DS = design/style — see dev/project/tracks/)
+- **Track:** <TAG>  (MA = master/infra/planning · CW = casus-website · JB = lezing · DS = design/style — see dev/projects/masterclass_fin/tracks/)
 - **Lock:** no | yes (exclusive repo access — create/remove `dev/LOCK`; see CLAUDE.md §4)
 - **Date:** YYYY-MM-DD
 - **Commit:** `YYMMDD-<TAG><NN>-<slug>` *(matches folder `<NN>_<TAG>_<slug>`; fill in after committing)*

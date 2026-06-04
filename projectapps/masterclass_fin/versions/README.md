@@ -11,7 +11,7 @@ versions/version_<YYMMDD>_<label>/output/
 
 - A snapshot is a **copy of the deployed artefacts** at a moment in time — never edited.
   It is *output*, not source: regenerate source via the parts in
-  `dev/project/deliverables/22_casepage/src/`.
+  `projectapps/masterclass_fin/src/deliverables/22_casepage/`.
 - Create one only when the user wants to keep that state. Naming: date `YYMMDD` +
   short label (e.g. `version_260603_run05`).
 - These are reference/archive; nothing builds from them.

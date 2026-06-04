@@ -4,7 +4,7 @@ A project-agnostic way of running work with one or more Claude sessions. The
 per-project application lives in that project's `CLAUDE.md`; this is the method.
 
 ## Runs
-A **run** is one focused work session. Each run gets a folder `dev/runs/<NN>_<TAG>_<slug>/`
+A **run** is one focused work session. Each run gets a folder `dev/projects/masterclass_fin/runs/<NN>_<TAG>_<slug>/`
 holding a `RUN.md` log (goal, scope, what changed, decisions, verification, open
 items). Outputs live in the project's deliverables, not the run folder — the run
 folder is the *log*. One run maps 1:1 to one commit.
@@ -12,7 +12,7 @@ folder is the *log*. One run maps 1:1 to one commit.
 ## Tracks
 A **track** is a workstream identity: a tag + the paths it owns + how it isolates.
 Tracks exist so parallel sessions touch **non-overlapping** files. Register them in
-`dev/project/tracks/README.md`. A typical set:
+`dev/projects/masterclass_fin/tracks/README.md`. A typical set:
 - `MA` — master/manager: repo-wide, infra, planning, integration. **Default** for
   cross-cutting work.
 - one tag per major deliverable/area (owns that area's paths).
@@ -24,7 +24,7 @@ highest any track has used. Unique in principle; a same-number collision between
 tracks (`07_CW` and `07_JB`) is tolerated, not an error.
 
 ```
-run folder   dev/runs/<NN>_<TAG>_<slug>/   ↔   commit  YYMMDD-<TAG><NN>-<slug>
+run folder   dev/projects/masterclass_fin/runs/<NN>_<TAG>_<slug>/   ↔   commit  YYMMDD-<TAG><NN>-<slug>
 ```
 
 ## Isolation (hybrid)
