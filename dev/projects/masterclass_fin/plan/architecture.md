@@ -5,9 +5,10 @@ This repo's concrete structure. Reusable patterns are in
 
 ## Deploy
 - **Canonical deploy bundle:** `projectapps/masterclass_fin/src/output/` = `index.html`
-  (casus) + `lezing.html` (lecture). Repo-root `index.html`/`lezing.html` are **copies**
-  of the bundle (for now; GitHub Pages serves root and can't serve a subfolder — ideally
-  point Pages at the bundle later). No build on Pages.
+  (casus) + `lezing.html` (lecture).
+- Copied to **`docs/`** (the served folder — set Pages → branch `main`, folder `/docs`;
+  `docs/.nojekyll` disables Jekyll) and to **repo root** (legacy copy, kept until Pages is
+  switched to `/docs`, then droppable). No build on Pages.
 - Served at <https://dgrventures.github.io/masterclass.github.io/>.
 
 ## Casus app — source & build (CW / DS)

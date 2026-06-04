@@ -32,9 +32,10 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 ## 2. Repository layout
 
 ```
-/                              GitHub Pages root — what masterclass.github.io serves
-├── index.html                 DEPLOYED casus app (generated — do not hand-edit)
-├── lezing.html                DEPLOYED lecture (generated — JB track)
+/                              repo root
+├── docs/                      SERVED copy for GitHub Pages /docs: index.html · lezing.html · .nojekyll
+├── index.html                 legacy served copy (until Pages switched to /docs) — generated
+├── lezing.html                legacy served copy — generated
 ├── CLAUDE.md                   This file
 ├── projectapps/               THE APPS / PRODUCT (per project)
 │   └── masterclass_fin/
@@ -70,21 +71,22 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 
 ### Deployment & the case website
 
-- This repo is a **GitHub Pages site**. The app runs **directly from GitHub Pages**
-  at **<https://dgrventures.github.io/masterclass.github.io/>** — this is why the case
-  website is named `index.html` (GitHub Pages serves `index.html` at the directory
-  root). Pushing to `main` publishes it. There is no build step.
+- This repo is a **GitHub Pages site** at **<https://dgrventures.github.io/masterclass.github.io/>**.
+  Pushing to `main` publishes it. No build on Pages. The served copy lives in
+  [`docs/`](docs/) (set Pages → "Deploy from branch", `main`/`docs`). Repo-root
+  `index.html`/`lezing.html` are **legacy** copies kept in sync until Pages is switched
+  to `/docs`; once it is, they can be dropped.
 - **The canonical casus-app source is the split parts in**
   [`projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/`](projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/):
   `style.css` (+ shared [`../shared/style/tokens.css`](projectapps/masterclass_fin/src/deliverables/22_casepage/shared/style/)),
   `data.js` (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
   Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
 - **The canonical deploy bundle is** [`projectapps/masterclass_fin/src/output/`](projectapps/masterclass_fin/src/output/)
-  — `index.html` (casus) + `lezing.html` (lecture). The repo-root copies are just that —
-  copies, for now (Pages serves root; ideally we'd point Pages at the bundle later).
+  — `index.html` (casus) + `lezing.html` (lecture). It is **copied** to `docs/` (served)
+  and repo-root (legacy). Ideally Pages serves the bundle directly one day.
 - **Publishing the casus app:** run the assemble step. It inlines the parts into one
-  self-contained file written to `src/output/index.html` (canonical) **and** repo-root
-  `index.html` (the copy Pages serves):
+  self-contained file written to `src/output/index.html` (canonical) **and** copied to
+  `docs/index.html` + repo-root `index.html`:
 
   ```bash
   node projectapps/masterclass_fin/src/deliverables/22_casepage/assemble.mjs
@@ -92,11 +94,13 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 
   The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
   folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
-  generated `src/output/*` or root copies — edit the parts and re-assemble.
-- **Publishing the lecture** (JB track): copy its source into the bundle, then to root:
+  generated `src/output/*`, `docs/*` or root copies — edit the parts and re-assemble.
+- **Publishing the lecture** (JB track): copy its source into the bundle, then to the
+  served copies:
 
   ```bash
   cp …/src/deliverables/10_lezing/02_lezing.html …/src/output/lezing.html
+  cp …/src/output/lezing.html docs/lezing.html
   cp …/src/output/lezing.html lezing.html
   ```
 - **Versions:** to keep a deployed state, copy the served files into
