@@ -16,7 +16,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { stampBuild, BUILD } from '../../build.mjs';             // shared build no. (build.json)
+import { stampBuild, injectGate, BUILD } from '../../build.mjs'; // shared build no. + login gate
 
 const dir    = path.dirname(fileURLToPath(import.meta.url));     // .../23_casusintro
 const source = path.join(dir, 'intro.html');
@@ -26,6 +26,7 @@ const docs   = path.join(root, 'docs');                         // served copy (
 
 let out = fs.readFileSync(source, 'utf8');
 out = stampBuild(out);                                          // __BUILD__ -> build no. from build.json
+out = injectGate(out);                                          // soft login overlay (see src/gate.mjs)
 
 fs.mkdirSync(output, { recursive: true });
 fs.mkdirSync(docs, { recursive: true });

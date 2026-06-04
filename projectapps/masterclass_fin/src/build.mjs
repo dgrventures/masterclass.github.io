@@ -10,8 +10,14 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { GATE_HTML, GATE_HASH } from './gate.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));      // src/
 export const BUILD = JSON.parse(fs.readFileSync(path.join(here, 'build.json'), 'utf8')).build;
 export const PLACEHOLDER = '__BUILD__';
 export const stampBuild = s => s.split(PLACEHOLDER).join(String(BUILD));
+
+// injectGate — inserts the login overlay immediately after <body>
+// The GATE_HASH placeholder in GATE_HTML is replaced with the real hash.
+const gateHtml = GATE_HTML.replace('${GATE_HASH}', GATE_HASH);
+export const injectGate = s => s.replace(/<body([^>]*)>/, (m, attrs) => `<body${attrs}>\n${gateHtml}`);

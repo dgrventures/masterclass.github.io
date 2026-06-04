@@ -18,7 +18,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { stampBuild } from '../../build.mjs';                    // shared build no. (build.json)
+import { stampBuild, injectGate } from '../../build.mjs';        // shared build no. + login gate
 
 const dir    = path.dirname(fileURLToPath(import.meta.url));     // .../22_casepage
 const parts  = path.join(dir, 'appdeliverables');
@@ -47,6 +47,7 @@ out = inject(out, '<script src="vendor-qrcode.js"></script>',  '<script>\n' + ve
 out = inject(out, '<script src="data.js"></script>',           '<script>\n' + data   + '\n</script>');
 out = inject(out, '<script src="app.js"></script>',            '<script>\n' + app    + '\n</script>');
 out = stampBuild(out);                                          // __BUILD__ -> build no. from build.json
+out = injectGate(out);                                          // soft login overlay (see src/gate.mjs)
 
 fs.mkdirSync(output, { recursive: true });
 fs.mkdirSync(docs, { recursive: true });
