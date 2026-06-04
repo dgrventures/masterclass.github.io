@@ -174,8 +174,10 @@ commit:       YYMMDD-<TAG><NN>-<slug>
 - `YYMMDD` — date (e.g. `260604`).
 - `<TAG>` — **track** (a workstream, not a person). Registry + owned paths:
   [`dev/projects/masterclass_fin/tracks/README.md`](dev/projects/masterclass_fin/tracks/README.md). In brief:
-  - `MA` — master/manager: repo-wide, infra, planning, integration. **Default** for
+  - `MA` — master/manager: repo-wide, infra, integration. **Default** for
     cross-cutting work (this convention update is `MA`).
+  - `PLAN` — planning: the brief, backlog & context under
+    `dev/projects/masterclass_fin/plan/`. Parallel-safe, commits straight to `main`.
   - `CW` — casus-website app (`22_casepage` + published `index.html`/`src`).
   - `JB` — lezing / lecture (`10_lezing` + `lezing.html`/`src`).
   - `DS` — design/style: shared style resources (`…/22_casepage/shared/style/`). *(planned)*

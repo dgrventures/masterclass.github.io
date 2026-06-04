@@ -11,7 +11,10 @@ Done items move to the relevant run log (`dev/projects/masterclass_fin/runs/`), 
 
 ## Next
 
+- [ ] **Seperate case instructions from lecture so lecture and case are selfcontained. Add an introductory presentation to the entry page and link to the intro in all case pages**
+- [ ] **Rename data folder projectdata folder**
 - [ ] **Pdf export functionality for the lecture**
+- [ ] **Add consistent data and model layer to the project setup**
 - [ ] **Validate the content of the presentation**
 - [ ] **Refine financial-model defaults** (`CW`). Now editable in
   `…/22_casepage/appdeliverables/data.js` (FINMODEL `data-def`s). Reconcile share
