@@ -105,6 +105,8 @@ ul.points li.o::before{background:var(--orange)}
 .chrome .counter{color:var(--green-deep);font-weight:500}.chrome .hint b{color:var(--orange)}.chrome .bld{color:#9aa39d}
 .homebtn{position:fixed;top:14px;left:14px;z-index:55;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;color:var(--green);background:rgba(255,255,255,.85);border:1.5px solid var(--line);border-radius:100px;padding:.45rem .85rem;backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
 .homebtn:hover{border-color:var(--green);color:var(--green-deep)}
+.pdfbtn{position:fixed;top:14px;right:14px;z-index:55;font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-decoration:none;color:var(--green);background:rgba(255,255,255,.85);border:1.5px solid var(--line);border-radius:100px;padding:.45rem .85rem;cursor:pointer;backdrop-filter:blur(6px);transition:border-color .15s,color .15s}
+.pdfbtn:hover{border-color:var(--green);color:var(--green-deep)}
 .navzone{position:fixed;top:0;bottom:6.5vh;width:16vw;z-index:30;cursor:pointer}.navzone.left{left:0}.navzone.right{right:0}
 .navbtns{position:fixed;right:8vw;bottom:calc(6.5vh + 14px);display:flex;gap:.5rem;z-index:55}
 .navbtns button{font-family:var(--mono);font-size:1.3rem;line-height:1;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--green);background:#fff;color:var(--green);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,color .15s,transform .1s}
@@ -117,6 +119,18 @@ ul.points li.o::before{background:var(--orange)}
 #notes li::before{content:"\2013";position:absolute;left:0;color:var(--orange)}
 .notes-src{display:none}
 @media (max-width:760px){.slide{padding:6vh 6vw 13vh}.cols{grid-template-columns:1fr;gap:.9rem}.stmts{gap:1.4rem}.navzone{width:20vw}}
+/* PDF-export: elke slide één liggende pagina. Browser → Afdrukken → Opslaan als PDF (of de ⤓ PDF-knop / toets P). */
+@media print{
+  @page{size:1280px 720px;margin:0}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{height:auto;overflow:visible;background:#fff}
+  .homebtn,.pdfbtn,#progress,.chrome,.navzone,.navbtns,#notes{display:none!important}
+  .deck{position:static;height:auto;width:auto}
+  .slide{position:relative;inset:auto;width:1280px;height:720px;display:flex!important;
+         page-break-after:always;break-after:page;page-break-inside:avoid;break-inside:avoid;
+         overflow:hidden;animation:none!important;transform:none!important;opacity:1!important}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+}
 </style>
 </head>
 <body>
@@ -190,6 +204,7 @@ ul.points li.o::before{background:var(--orange)}
 })();
 </script>
 <a class="homebtn" href="index.html" title="Terug naar het startscherm">← Start</a>
+<button class="pdfbtn" id="btnPdf" title="Exporteer als PDF (toets P) — kies in het printvenster 'Opslaan als PDF'">⤓ PDF</button>
 <div id="progress"></div>
 <div class="deck" id="deck">
 
@@ -595,7 +610,7 @@ ul.points li.o::before{background:var(--orange)}
 <div class="chrome">
   <span class="counter"><span id="cur">01</span> / <span id="tot">25</span> · © Impact Institute</span>
   <span>Finance &amp; Impact voor RvC's 101 · <span class="bld">build 13</span></span>
-  <span class="hint">klik om door te gaan · <b>&larr;</b> <b>&rarr;</b> · <b>N</b> notities · <b>F</b> scherm</span>
+  <span class="hint">klik om door te gaan · <b>&larr;</b> <b>&rarr;</b> · <b>N</b> notities · <b>F</b> scherm · <b>P</b> pdf</span>
 </div>
 <div class="navbtns"><button id="btnPrev" aria-label="Vorige">&#8249;</button><button id="btnNext" aria-label="Volgende">&#8250;</button></div>
 <div id="notes"><div class="nk">Presenter notes</div><div id="notesBody"></div></div>
@@ -622,12 +637,14 @@ function onKey(e){
   else if(e.key==='Home'){go(0);}else if(e.key==='End'){go(tot-1);}
   else if(k==='n'){notesOn=!notesOn;notes.classList.toggle('show',notesOn);}
   else if(k==='f'){if(!document.fullscreenElement){document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}else{document.exitFullscreen&&document.exitFullscreen();}}
+  else if(k==='p'){e.preventDefault();window.print();}
 }
 window.addEventListener('keydown',onKey);
 document.getElementById('navR').addEventListener('click',e=>{e.stopPropagation();next();});
 document.getElementById('navL').addEventListener('click',e=>{e.stopPropagation();prev();});
 document.getElementById('btnPrev').addEventListener('click',e=>{e.stopPropagation();prev();});
 document.getElementById('btnNext').addEventListener('click',e=>{e.stopPropagation();next();});
+document.getElementById('btnPdf').addEventListener('click',e=>{e.stopPropagation();window.print();});
 document.getElementById('deck').addEventListener('click',e=>{if(e.target.closest('.opt'))return;next();});
 function grab(){try{window.focus();}catch(_){}}
 window.addEventListener('load',grab);document.addEventListener('click',grab);grab();

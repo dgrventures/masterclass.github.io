@@ -13,7 +13,7 @@ deal facts and the content skeleton — the **single source of truth** — is th
 [`plan/brief/00_project_brief_masterclass_finance_impact.md`](plan/brief/00_project_brief_masterclass_finance_impact.md).
 Working method (runs, tracks, locks, deploy) is in [`/CLAUDE.md`](../../../CLAUDE.md).
 
-## Artifacts & status — build 12
+## Artifacts & status — build 13
 
 | Artifact | Canonical source (edit here) | Served | Status |
 |---|---|---|---|
@@ -31,7 +31,7 @@ Working method (runs, tracks, locks, deploy) is in [`/CLAUDE.md`](../../../CLAUD
 
 - **Tracks** (who owns which paths): [`tracks/README.md`](tracks/README.md) — `MA`, `PLAN`, `CW`, `JB`, `DS`.
 - **Runs** (one focused session = one commit): [`runs/`](runs/) (see [`runs/README.md`](runs/README.md)).
-  Most recent: MA22 (`data` → `projectdata` rename), MA21 (drop repo-root copies), MA19 (casus-intro split).
+  Most recent: JB27 (PDF-export publish, build 13), JB26 (PDF-export source), MA25 (remove-2100).
 - **Open work:** [`plan/backlog/backlog.md`](plan/backlog/backlog.md).
 - **Architecture:** [`plan/architecture.md`](plan/architecture.md) (this project) ·
   [`../../general/architecture/`](../../general/architecture/) (reusable patterns).

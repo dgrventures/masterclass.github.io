@@ -5,13 +5,8 @@ Done items move to the relevant run log (`dev/projects/masterclass_fin/runs/`), 
 
 ## Now / next
 
-- [X] **Casus refactor → split + assemble** (`MA`, locked) — *done, runs `MA09`+`MA11`.*
-  Carved into `src/appdeliverables/{shell.html,style.css,data.js,app.js,vendor}` +
-  `src/shared/style/tokens.css` + `src/pages/`; behaviour verified identical.
-
 ## Next
 
-- [ ] **Pdf export functionality for the lecture**
 - [ ] **Add consistent data and model layer to the project setup**
 - [ ] **Validate the content of the presentation**
 - [ ] **Refine financial-model defaults** (`CW`). Now editable in
@@ -44,3 +39,12 @@ Done items move to the relevant run log (`dev/projects/masterclass_fin/runs/`), 
 - 2026-06-04 — Restructure: `general/` vs `project/` (run `MA10`); then `project/data/`
   (input·process·projectdeliverables), `src/appdeliverables`+`shared`+`pages`, dropped
   root `src/` mirror, formalised `versions/`, split architecture (run `MA11`).
+
+## Done
+
+- [X] **Pdf export voor de lezing** (`JB`) — *done, runs `JB26`+`JB27`.* Print-CSS
+  (`@media print`, `@page 1280×720`), `⤓ PDF`-knop top-right, toets `P`; gepubliceerd
+  build 13.
+- [X] **Casus refactor → split + assemble** (`MA`, locked) — *done, runs `MA09`+`MA11`.*
+  Carved into `src/appdeliverables/{shell.html,style.css,data.js,app.js,vendor}` +
+  `src/shared/style/tokens.css` + `src/pages/`; behaviour verified identical.
