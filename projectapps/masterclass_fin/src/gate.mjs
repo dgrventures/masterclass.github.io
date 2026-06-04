@@ -41,7 +41,7 @@ export const GATE_HTML = `
 </style>
 <div id="_gate">
   <div class="_gbox">
-    <span class="eyebrow">2100 Masterclass</span>
+    <span class="eyebrow">Masterclass</span>
     <h2>Finance &amp; Impact</h2>
     <p>Voer de toegangscode in om verder te gaan.</p>
     <input id="_gpin" class="_ginput" type="password" inputmode="numeric" maxlength="20"
