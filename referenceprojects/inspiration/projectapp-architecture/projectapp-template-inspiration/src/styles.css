@@ -1,0 +1,89 @@
+/* App shell styles — built on the Impact Institute brand tokens (brand/brand.css) */
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--font-body);
+  color: var(--fg);
+  background: var(--bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- Top bar ---- */
+.app-bar {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+  padding: var(--space-4) var(--space-6);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+.app-bar__brand { display: flex; align-items: center; gap: var(--space-3); }
+.app-bar__brand img { height: 30px; width: auto; display: block; }
+.app-bar__project {
+  font-family: var(--font-display); font-weight: 600; color: var(--ii-green);
+  font-size: var(--text-md); padding-left: var(--space-3); margin-left: var(--space-1);
+  border-left: 1px solid var(--border);
+}
+.app-bar__user { display: flex; align-items: center; gap: var(--space-3); }
+
+.who { text-align: right; line-height: 1.2; }
+.who__name { font-weight: 700; font-size: var(--text-sm); color: var(--ii-ink); }
+.who__role { font-size: var(--text-xs); color: var(--fg-muted); }
+
+.role-chip {
+  display: inline-block; font-family: var(--font-display); font-weight: 600;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .08em;
+  padding: 3px 10px; border-radius: var(--radius-pill);
+}
+.role-chip--staff   { background: var(--ii-green-tint); color: var(--ii-green); }
+.role-chip--client  { background: var(--ii-orange-tint); color: var(--ii-orange-press); }
+.role-chip--prospect{ background: var(--ii-grey-100); color: var(--ii-grey-600); }
+.role-chip--local   { background: var(--ii-grey-100); color: var(--ii-slate); }
+
+/* ---- Page ---- */
+main { max-width: 980px; margin: 0 auto; padding: var(--space-8) var(--space-6) var(--space-9); }
+.hero { margin-bottom: var(--space-8); }
+.hero .ii-eyebrow { display: block; margin-bottom: var(--space-3); }
+.hero h1 { margin: 0 0 var(--space-4); }
+.hero .ii-lead { max-width: 60ch; margin: 0; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-5); }
+
+.card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  padding: var(--space-6); box-shadow: var(--shadow-sm);
+}
+.card h3 { margin: 0 0 var(--space-3); }
+.card p { margin: 0; }
+.card--gated { position: relative; }
+.card__lock {
+  font-size: var(--text-xs); color: var(--fg-muted); margin-top: var(--space-4);
+  padding-top: var(--space-3); border-top: 1px dashed var(--border);
+}
+
+.notice {
+  margin-top: var(--space-7); padding: var(--space-5) var(--space-6);
+  background: var(--bg-subtle); border-radius: var(--radius-md); color: var(--ii-green-deep);
+}
+.notice strong { font-family: var(--font-display); }
+
+footer {
+  max-width: 980px; margin: 0 auto; padding: var(--space-6); color: var(--fg-muted);
+  font-size: var(--text-xs); border-top: 1px solid var(--border);
+}
+
+.signin-wrap { display: grid; place-items: center; min-height: 70vh; padding: var(--space-6); }
+.signin-card {
+  background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md); padding: var(--space-8); max-width: 420px; text-align: center;
+}
+.signin-card img { height: 36px; margin-bottom: var(--space-6); }
+.signin-card h2 { margin: 0 0 var(--space-3); }
+.signin-card p { margin: 0 0 var(--space-6); }
+
+.muted-link { color: var(--fg-muted); text-decoration: none; font-size: var(--text-sm); }
+.muted-link:hover { color: var(--ii-orange-hover); }
+
+@media (max-width: 640px) {
+  .app-bar { flex-wrap: wrap; }
+  main { padding: var(--space-6) var(--space-4) var(--space-8); }
+}

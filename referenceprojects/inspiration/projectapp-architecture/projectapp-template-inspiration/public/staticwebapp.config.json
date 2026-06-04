@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json.schemastore.org/staticwebapp.config.json",
+
+  "//comment-auth": "Tenant-locked Entra (Easy Auth). Replace <TENANT_ID>; set AAD_CLIENT_ID and AAD_CLIENT_SECRET as application settings on the Static Web App. A tenant-specific openIdIssuer (not /common) restricts sign-in to our organisation. Requires the SWA Standard plan.",
+  "auth": {
+    "identityProviders": {
+      "azureActiveDirectory": {
+        "registration": {
+          "openIdIssuer": "https://login.microsoftonline.com/<TENANT_ID>/v2.0",
+          "clientIdSettingName": "AAD_CLIENT_ID",
+          "clientSecretSettingName": "AAD_CLIENT_SECRET"
+        }
+      }
+    }
+  },
+
+  "//comment-routes": "Access is granted per app via custom roles (staff / client / prospect) assigned in THIS app's SWA (Role management → Invite, or an assign-roles function). Role assignments are scoped to each SWA resource, which is what isolates one project app from another — including for B2B guests. A signed-in user with no assigned role is denied.",
+  "routes": [
+    { "route": "/.auth/login/aad", "allowedRoles": ["anonymous", "authenticated"] },
+    { "route": "/.auth/logout", "allowedRoles": ["anonymous", "authenticated"] },
+    { "route": "/staff/*", "allowedRoles": ["staff"] },
+    { "route": "/client/*", "allowedRoles": ["client", "staff"] },
+    { "route": "/*", "allowedRoles": ["staff", "client", "prospect"] }
+  ],
+
+  "responseOverrides": {
+    "401": { "statusCode": 302, "redirect": "/.auth/login/aad" }
+  },
+
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/assets/*", "*.{css,js}", "*.{png,jpg,svg,ico}", "*.{otf,ttf,woff,woff2}"]
+  },
+
+  "globalHeaders": {
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "DENY",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  }
+}

@@ -1,0 +1,36 @@
+# Azure DevOps pipeline — build the app and deploy to Azure Static Web Apps.
+#
+# Prerequisites (one-time, see README):
+#   - An Azure Static Web App resource created in an EU region (e.g. West Europe).
+#   - A secret pipeline variable SWA_DEPLOYMENT_TOKEN holding that resource's
+#     deployment token (Static Web App -> Manage deployment token).
+#
+# The Azure DevOps organisation/project should itself be created in an EU region.
+
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+  - task: NodeTool@0
+    displayName: Use Node 20
+    inputs:
+      versionSpec: '20.x'
+
+  - script: |
+      npm ci
+      npm run build
+    displayName: Install and build
+
+  - task: AzureStaticWebApp@0
+    displayName: Deploy to Azure Static Web Apps
+    inputs:
+      app_location: '/'        # repo root
+      output_location: 'dist'  # Vite build output
+      skip_app_build: true     # we already ran the build above
+    env:
+      azure_static_web_apps_api_token: $(SWA_DEPLOYMENT_TOKEN)
