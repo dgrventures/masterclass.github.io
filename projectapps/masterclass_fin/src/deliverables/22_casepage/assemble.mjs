@@ -9,19 +9,21 @@
  * Layout (this folder = .../22_casepage):
  *   appdeliverables/  shell.html, style.css, data.js, app.js, vendor-qrcode.js  (edit here)
  *   shared/style/tokens.css                                                     (shared brand tokens)
- *   pages/            assembled index.html (canonical built artefact)
  *   assemble.mjs      this script
- * Also writes repo-root index.html (what GitHub Pages serves). The assembled
- * files are generated — never hand-edit them. See dev/projects/masterclass_fin/plan/architecture.md.
+ * Writes the assembled file to the canonical output bundle src/output/index.html,
+ * then copies it to repo-root index.html (what GitHub Pages serves, for now). The
+ * assembled files are generated — never hand-edit them.
+ * See dev/projects/masterclass_fin/plan/architecture.md.
  */
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const dir   = path.dirname(fileURLToPath(import.meta.url));      // .../22_casepage
-const parts = path.join(dir, 'appdeliverables');
+const dir    = path.dirname(fileURLToPath(import.meta.url));     // .../22_casepage
+const parts  = path.join(dir, 'appdeliverables');
 const tokens = path.join(dir, 'shared', 'style', 'tokens.css');
-const root  = path.resolve(dir, '../../../../..');              // repo root
+const output = path.resolve(dir, '../../output');               // src/output (canonical bundle)
+const root   = path.resolve(dir, '../../../../..');             // repo root (copy, for now)
 const read = p => fs.readFileSync(p, 'utf8');
 const inject = (s, marker, body) => {                            // string replace, no regex
   if (!s.includes(marker)) throw new Error('marker not found: ' + marker);
@@ -43,8 +45,8 @@ out = inject(out, '<script src="vendor-qrcode.js"></script>',  '<script>\n' + ve
 out = inject(out, '<script src="data.js"></script>',           '<script>\n' + data   + '\n</script>');
 out = inject(out, '<script src="app.js"></script>',            '<script>\n' + app    + '\n</script>');
 
-fs.mkdirSync(path.join(dir, 'pages'), { recursive: true });
-for (const dest of [path.join(dir, 'pages', 'index.html'), path.join(root, 'index.html')]) {
+fs.mkdirSync(output, { recursive: true });
+for (const dest of [path.join(output, 'index.html'), path.join(root, 'index.html')]) {
   fs.writeFileSync(dest, out);
   console.log('wrote', path.relative(root, dest), out.length, 'bytes');
 }

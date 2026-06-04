@@ -40,13 +40,14 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 │   └── masterclass_fin/
 │       ├── specs/.gitkeep      Specs (placeholder)
 │       ├── versions/           Kept output snapshots (see versions/README.md)
-│       └── src/deliverables/
-│           ├── 10_lezing/02_lezing.html   Lecture source (→ lezing.html)
-│           └── 22_casepage/    CANONICAL casus app:
-│               ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
-│               ├── shared/style/      tokens.css (brand tokens, inlined)
-│               ├── pages/             assembled index.html (generated)
-│               └── assemble.mjs       inlines parts → pages/ + root index.html
+│       └── src/
+│           ├── deliverables/
+│           │   ├── 10_lezing/02_lezing.html   Lecture source (→ output/lezing.html)
+│           │   └── 22_casepage/    CANONICAL casus app:
+│           │       ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
+│           │       ├── shared/style/      tokens.css (brand tokens, inlined)
+│           │       └── assemble.mjs       inlines parts → output/index.html + root
+│           └── output/            CANONICAL deploy bundle (generated): index.html · lezing.html → copied to root
 └── dev/                        WORKING MATERIALS (not served)
     ├── about.md
     ├── general/                REUSABLE across projects (see dev/general/README.md)
@@ -78,9 +79,12 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   `style.css` (+ shared [`../shared/style/tokens.css`](projectapps/masterclass_fin/src/deliverables/22_casepage/shared/style/)),
   `data.js` (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
   Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
-- **Publishing** the casus app = run the assemble step, which inlines the parts into one
-  self-contained file written to `the app's pages/index.html` (canonical artefact) **and**
-  repo-root `index.html` (what Pages serves):
+- **The canonical deploy bundle is** [`projectapps/masterclass_fin/src/output/`](projectapps/masterclass_fin/src/output/)
+  — `index.html` (casus) + `lezing.html` (lecture). The repo-root copies are just that —
+  copies, for now (Pages serves root; ideally we'd point Pages at the bundle later).
+- **Publishing the casus app:** run the assemble step. It inlines the parts into one
+  self-contained file written to `src/output/index.html` (canonical) **and** repo-root
+  `index.html` (the copy Pages serves):
 
   ```bash
   node projectapps/masterclass_fin/src/deliverables/22_casepage/assemble.mjs
@@ -88,9 +92,13 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 
   The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
   folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
-  generated `index.html` / `the app's pages/index.html` — edit the parts and re-assemble.
-- The **lecture** publishes by plain `cp projectapps/masterclass_fin/src/deliverables/10_lezing/02_lezing.html lezing.html`
-  (JB track). There is no longer a repo-root `src/` mirror.
+  generated `src/output/*` or root copies — edit the parts and re-assemble.
+- **Publishing the lecture** (JB track): copy its source into the bundle, then to root:
+
+  ```bash
+  cp …/src/deliverables/10_lezing/02_lezing.html …/src/output/lezing.html
+  cp …/src/output/lezing.html lezing.html
+  ```
 - **Versions:** to keep a deployed state, copy the served files into
   `projectapps/masterclass_fin/versions/version_<YYMMDD>_<label>/output/`
   (see [`versions/README.md`](projectapps/masterclass_fin/versions/README.md)).

@@ -19,16 +19,17 @@ a tiny local build step:
 
 ```
 src/
-  appdeliverables/   shell.html · style.css · data.js (content+model) · app.js (logic) · vendor-*.js
-  shared/            shared brand tokens (style/tokens.css), @import-ed by style.css
-  pages/             assembled output (generated)
-  assemble.mjs       string-substitution: <link>→<style>, <script src>→<script>; resolves @import
+  deliverables/<app>/
+    appdeliverables/   shell.html · style.css · data.js (content+model) · app.js (logic) · vendor-*.js
+    shared/            shared brand tokens (style/tokens.css), @import-ed by style.css
+    assemble.mjs       string-substitution: <link>→<style>, <script src>→<script>; resolves @import
+  output/              assembled deploy bundle (generated): one file per page
 ```
 
-- The **parts are canonical**; the **assembled file is generated** and never hand-edited.
+- The **parts are canonical**; the **assembled bundle is generated** and never hand-edited.
 - `assemble.mjs` is pure string replacement — no bundler, no npm, no CI. Run it like a
-  copy step. It writes the assembled file to `pages/` (canonical artefact) and to the
-  deploy location the host serves (e.g. repo-root `index.html`).
+  copy step. It writes the assembled file to the `output/` bundle (canonical artefact) and
+  to the deploy location the host serves (e.g. repo-root `index.html`).
 - The dev form runs by opening `appdeliverables/shell.html` from `file://` (classic tags).
 - Shared tokens are inlined at assemble time, so the shipped file has no external deps.
 
