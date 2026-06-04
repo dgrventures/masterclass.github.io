@@ -33,32 +33,36 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
 
 ```
 /                              GitHub Pages root — what masterclass.github.io serves
-├── index.html                 DEPLOYED case website (published copy — do not hand-edit)
-├── src/index.html             Mirror of the deployed file (published copy)
+├── index.html                 DEPLOYED casus app (generated — do not hand-edit)
+├── lezing.html                DEPLOYED lecture (generated — JB track)
 ├── CLAUDE.md                   This file
-├── specs/                     Specs (placeholder)
-└── dev/                        All working materials (not served, except via copies)
+├── specs/.gitkeep             Specs (placeholder)
+├── versions/                  Kept output snapshots (see versions/README.md)
+└── dev/                        All working materials (not served)
     ├── about.md
-    ├── general/                REUSABLE across projects (§ see dev/general/README.md)
+    ├── general/                REUSABLE across projects (see dev/general/README.md)
     │   ├── workflow.md         Generalized workflow (runs/tracks/locks/isolation/publish)
     │   ├── design.md           Generalized design approach (house style, split+assemble)
     │   ├── skills/             Packaged Claude skills (impact-institute-design.skill)
-    │   └── architecture/       architecture.md + general artefacts
-    ├── shared/style/           Shared brand tokens (tokens.css) — inlined at assemble
+    │   └── architecture/       Reusable build/deploy patterns
     ├── project/                PROJECT-specific
     │   ├── plan/
     │   │   ├── brief/          Source of truth (project brief)
-    │   │   ├── context/        Supporting reference material
-    │   │   └── backlog/        backlog.md
-    │   ├── tracks/             Track registry (README.md)
-    │   └── deliverables/       The actual outputs ↓
-    │       ├── 10_lezing/      Lecture deck (.html, 29 slides) + examples + validation
-    │       ├── 21_casus/       Case materials: opzet, draaiboek, rolkaarten, MKBA, spiekkaart
-    │       └── 22_casepage/src/  CANONICAL case site: shell.html · style.css · data.js · app.js · assemble.mjs
-    └── runs/                   Numbered work sessions (see §4)
-        ├── _template/          Templates for new runs
-        ├── 00_handoff_claudechat/
-        └── NN_TAG_slug/
+    │   │   ├── context/.gitkeep   Supporting reference material
+    │   │   ├── backlog/backlog.md
+    │   │   └── architecture.md    This project's concrete architecture
+    │   ├── tracks/README.md    Track registry
+    │   ├── data/
+    │   │   ├── input/.gitkeep · process/.gitkeep
+    │   │   └── projectdeliverables/  Source materials NOT used by the app (21_casus, 10_lezing/*.md+xlsx)
+    │   └── deliverables/
+    │       ├── 10_lezing/02_lezing.html       Lecture source (→ lezing.html)
+    │       └── 22_casepage/src/   CANONICAL casus app:
+    │           ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
+    │           ├── shared/style/      tokens.css (brand tokens, inlined)
+    │           ├── pages/             assembled index.html (generated)
+    │           └── assemble.mjs       inlines parts → pages/ + root index.html
+    └── runs/                   Numbered work sessions (see §4); _template/, NN_TAG_slug/
 ```
 
 ### Deployment & the case website
@@ -67,22 +71,26 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
   at **<https://dgrventures.github.io/masterclass.github.io/>** — this is why the case
   website is named `index.html` (GitHub Pages serves `index.html` at the directory
   root). Pushing to `main` publishes it. There is no build step.
-- **The canonical case-website source is the split parts in**
-  [`dev/project/deliverables/22_casepage/src/`](dev/project/deliverables/22_casepage/src/):
-  `style.css` (+ shared [`dev/shared/style/tokens.css`](dev/shared/style/)), `data.js`
-  (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
-  Edit those. The dev form runs by opening `src/shell.html` directly (file://).
-- **Publishing** the case website = run the assemble step, which inlines the parts
-  into one self-contained `index.html` written to **both** root and `src/`:
+- **The canonical casus-app source is the split parts in**
+  [`dev/project/deliverables/22_casepage/src/appdeliverables/`](dev/project/deliverables/22_casepage/src/appdeliverables/):
+  `style.css` (+ shared [`../shared/style/tokens.css`](dev/project/deliverables/22_casepage/src/shared/style/)),
+  `data.js` (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
+  Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
+- **Publishing** the casus app = run the assemble step, which inlines the parts into one
+  self-contained file written to `src/pages/index.html` (canonical artefact) **and**
+  repo-root `index.html` (what Pages serves):
 
   ```bash
   node dev/project/deliverables/22_casepage/src/assemble.mjs
   ```
 
-  The shipped `index.html` is self-contained (works on Pages **and** double-clicked
-  from a folder — no fetch/ES-module import, both blocked on file://). Never
-  hand-edit root `index.html` or `src/index.html` — they are generated; edit the
-  parts and re-assemble. (The lecture still publishes by plain `cp` — see its track.)
+  The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
+  folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
+  generated `index.html` / `src/pages/index.html` — edit the parts and re-assemble.
+- The **lecture** publishes by plain `cp dev/project/deliverables/10_lezing/02_lezing.html lezing.html`
+  (JB track). There is no longer a repo-root `src/` mirror.
+- **Versions:** to keep a deployed state, copy the served files into
+  `versions/version_<YYMMDD>_<label>/output/` (see [`versions/README.md`](versions/README.md)).
 
 ---
 
@@ -141,7 +149,7 @@ commit:       YYMMDD-<TAG><NN>-<slug>
     cross-cutting work (this convention update is `MA`).
   - `CW` — casus-website app (`22_casepage` + published `index.html`/`src`).
   - `JB` — lezing / lecture (`10_lezing` + `lezing.html`/`src`).
-  - `DS` — design/style: shared style resources (`dev/shared/style/`). *(planned)*
+  - `DS` — design/style: shared style resources (`…/22_casepage/src/shared/style/`). *(planned)*
   - New track → register it in `dev/project/tracks/README.md`.
 - `<NN>` — **shared global counter** across all tracks: the next integer above the
   highest `NN` used by *any* track. Numbers are unique in principle; when two

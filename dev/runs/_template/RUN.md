@@ -30,7 +30,7 @@ silently reverse.>
 
 ## Website published?
 <If the case website changed: yes — copied canonical casepage → index.html +
-src/index.html. Otherwise: n/a.>
+root index.html (+ src/pages/). Otherwise: n/a.>
 
 ## Verification
 <How you checked the result: numbers cross-checked against the validation

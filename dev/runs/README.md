@@ -38,7 +38,7 @@ predate the tag split — left as-is; the convention applies from `07` onward.
    ```
 4. Fill in **Goal** and **Scope** before starting.
 5. Do the work in `deliverables/`. If the case website changed, run the publish
-   step (copy canonical casepage → root `index.html` + `src/index.html`; see
+   step (casus: `node …/22_casepage/src/assemble.mjs`; lecture: `cp … lezing.html`; see
    [`/CLAUDE.md`](../../CLAUDE.md) §2).
 6. Complete the rest of `RUN.md`: what changed, decisions, verification, open items.
 7. Commit: `YYMMDD-<TAG><NN>-<slug>` (see [`/CLAUDE.md`](../../CLAUDE.md) §4).

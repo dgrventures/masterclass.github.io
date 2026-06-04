@@ -12,10 +12,10 @@ reusable method, see [`../../general/workflow.md`](../../general/workflow.md).
 
 | Tag | Track | Owns (edit here) | Isolation | Usually locks? |
 |---|---|---|---|---|
-| `MA` | Master / manager | `CLAUDE.md`, `dev/runs/`, `dev/general/`, `dev/project/tracks/`, `dev/project/plan/`, `dev/shared/` (cross-cutting), integration & merges | `main` | No — only for repo-wide ops |
-| `CW` | Casus-website app | `dev/project/deliverables/22_casepage/**` → published `index.html` + `src/index.html` | branch/worktree `cw` | Rarely |
+| `MA` | Master / manager | `CLAUDE.md`, `dev/runs/`, `dev/general/`, `dev/project/tracks/`, `dev/project/plan/`, `dev/project/data/`, `versions/` (cross-cutting), integration & merges | `main` | No — only for repo-wide ops |
+| `CW` | Casus-website app | `dev/project/deliverables/22_casepage/**` → assembled to repo-root `index.html` | branch/worktree `cw` | Rarely |
 | `JB` | Lezing / lecture | `dev/project/deliverables/10_lezing/**` → published `lezing.html` + `src/lezing.html` | branch/worktree `jb` | Rarely |
-| `DS` | Design / style *(planned)* | `dev/shared/style/**` (tokens, fonts, shared CSS) | branch/worktree `ds` | Rarely |
+| `DS` | Design / style *(planned)* | `dev/project/deliverables/22_casepage/src/shared/style/**` (tokens, fonts, shared CSS) | branch/worktree `ds` | Rarely |
 
 Notes:
 - `MA` is the **default** when work is cross-cutting or doesn't fit a track (infra,
@@ -23,7 +23,7 @@ Notes:
 - `CW`/`JB`/`DS` are code-heavy → prefer a git **branch or worktree**, merge to `main`.
   (`JB` has so far committed straight to `main`; migrate to a branch when convenient.)
 - `DS` becomes real once the casepage refactor extracts shared style into
-  `dev/shared/style/` (see [`architecture.md`](../../general/architecture/architecture.md)).
+  `…/22_casepage/src/shared/style/` (see [`architecture.md`](../plan/architecture.md)).
 - New track → add a row here, pick a short tag, give it non-overlapping paths.
 
 ## Locks

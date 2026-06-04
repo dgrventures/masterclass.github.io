@@ -1,5 +1,5 @@
 /* casus app — STYLE (DS track). Canonical; edit here. Assembled into index.html. */
-@import url("../../../../shared/style/tokens.css");
+@import url("../shared/style/tokens.css");
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
