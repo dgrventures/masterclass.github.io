@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Casus AkzoNobel × Axalta — fuseren of niet?</title>
 <style>
+/* casus app — STYLE (DS track). Canonical; edit here. Assembled into index.html. */
+/* Impact Institute — shared design tokens (brand colours, type, base resets).
+   Shared source of truth; inlined at assemble time. */
 /* ============ FONTS (self-hosted, Impact Institute brand) ============ */
 
 /* ============ TOKENS ============ */
@@ -22,6 +25,7 @@
   --sh-md:0 4px 16px rgba(42,77,54,.10),0 2px 4px rgba(47,42,42,.06);
   --sh-lg:0 16px 40px rgba(42,77,54,.16),0 4px 10px rgba(47,42,42,.08);
 }
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
@@ -350,6 +354,7 @@ textarea.notes::placeholder{color:#7e988a}
   body.do-print #printRoot{display:block!important}
   .print-card .card,.print-card .callout{box-shadow:none;border:1px solid #ddd;break-inside:avoid}
 }
+
 </style>
 </head>
 <body>
@@ -542,7 +547,7 @@ textarea.notes::placeholder{color:#7e988a}
 <div id="printRoot"></div>
 
 <script>
-/* qrcode-generator (c) Kazuhiko Arase — MIT */
+/* vendored: qrcode-generator (c) Kazuhiko Arase — MIT. Do not edit. */
 //---------------------------------------------------------------------
 //
 // QR Code Generator for JavaScript
@@ -2841,12 +2846,13 @@ var qrcode = function() {
     return qrcode;
 }));
 
+
 </script>
 <script>
-window.onerror=function(m,src,line,col,err){ var d=document.getElementById('diag'); if(d){ d.style.color='#bf211e'; d.textContent='JS-FOUT (regel '+line+'): '+m; } return false; };
-/* ====================================================================
-   GEDEELDE CONTENT
-   ==================================================================== */
+/* casus app — DATA & MODEL: content (rollen, situatie, spiekkaart, toets, bronnen) + the figure models (FINMODEL, IMPACT_MODEL) and their default numbers. Edit numbers/content here.
+   Canonical source — edit here. Assembled into index.html by assemble.mjs.
+   See dev/planning/architecture.md */
+
 const SITUATIE = `
 <div class="block">
   <h2>De situatie</h2>
@@ -3072,9 +3078,40 @@ const IMPACT_MODEL = `
 <div class="callout warn"><span class="lbl">Let op bij gebruik</span>Illustratieve onderwijs-schatting, géén volwaardige MKBA — de euro's zijn redeneer-aannames. Disconto 3% · horizon 4 jr (midden) / 8 jr (extremen). Ter vergelijking: de PPG-overname (2017) scoorde ≈ −€6 mrd. De kunst: welke aanname drijft de uitkomst, en wie heeft die gekozen?</div>
 </div>`;
 
-/* ====================================================================
-   ROLLEN
-   ==================================================================== */
+const SOURCES = `
+<div class="block">
+  <span class="eyebrow">Analist · bronnen</span>
+  <h2 style="margin-top:8px">Bronnen &amp; verantwoording</h2>
+  <p class="lead">De feiten en concepten achter de casus. Externe bronnen zijn aanklikbaar; de modellen op de andere tabs zijn illustratieve onderwijs-schattingen op basis hiervan (zie de disclaimers per tab).</p>
+</div>
+<div class="block"><h2>De casus — dealfeiten</h2>
+  <ul class="kv">
+    <li><strong>AkzoNobel × Axalta — merger of equals</strong> (18 nov 2025): ruil 0,6539 · ~$25 mrd · dual HQ Amsterdam/Philadelphia · leiderschap. <a href="https://www.akzonobel.com/en/media/media-releases/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">AkzoNobel persbericht</a> · <a href="https://ir.axalta.com/news/press-releases/detail/671/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">Axalta IR</a></li>
+    <li><strong>04_mkba_akzo_axalta.xlsx</strong> — het brede-waarde-werkmodel (tab "MKBA 2026 MOE"), bron voor het impact-model. <em>Intern.</em></li>
+    <li><strong>Validatie_getallen_presentatie.xlsx</strong> — validatie van de cijfers in de lezing. <em>Intern.</em></li>
+  </ul>
+</div>
+<div class="block"><h2>Brede waarde &amp; maatschappelijke toetsing</h2>
+  <ul class="kv">
+    <li><strong>De Adelhart Toorop, De Groot Ruiz &amp; Schoenmaker (2017)</strong> — "Maatschappelijke toetsing van overnames is nodig", <em>ESB</em>. De methode achter de toets; analyseerde destijds AkzoNobel–PPG (≈ −€6 mrd). <a href="https://esb.nu/maatschappelijke-toetsing-van-overnames-is-nodig/" target="_blank" rel="noopener">esb.nu</a></li>
+    <li><strong>Sturen op integrale waarde</strong> — beslissen op F+S+E i.p.v. alleen winst (integrated value). <a href="https://esb.nu/bedrijven-moeten-sturen-op-integrale-waarde-en-niet-alleen-op-winst/" target="_blank" rel="noopener">esb.nu</a></li>
+  </ul>
+</div>
+<div class="block"><h2>Impact in geld — frameworks</h2>
+  <ul class="kv">
+    <li><strong>Impact-Weighted Accounts Framework (IWAF)</strong> — Impact Economy Foundation, m.m.v. Impact Institute, Harvard, RSM &amp; SMU. <a href="https://impacteconomyfoundation.org/impactweightedaccountsframework/" target="_blank" rel="noopener">impacteconomyfoundation.org</a></li>
+    <li><strong>True Price</strong> — marktprijs + verborgen sociale &amp; ecologische kosten; methode &amp; monetarisatiefactoren. <a href="https://www.trueprice.org/methodology/" target="_blank" rel="noopener">trueprice.org</a></li>
+    <li><strong>IFVI — International Foundation for Valuing Impacts</strong> — voortzetting van Harvards Impact-Weighted Accounts Initiative (Serafeim). <a href="https://ifvi.org/" target="_blank" rel="noopener">ifvi.org</a></li>
+  </ul>
+</div>
+<div class="block"><h2>Governance &amp; verslaggeving</h2>
+  <ul class="kv">
+    <li><strong>Nederlandse Corporate Governance Code 2022</strong> — lange-termijn waardecreatie &amp; dubbele materialiteit. Monitoring Commissie. <a href="https://www.mccg.nl/documenten/2022/12/20/corporate-governance-code-2022" target="_blank" rel="noopener">mccg.nl</a></li>
+    <li><strong>CSRD / ESRS</strong> — duurzaamheidsverslaggeving met assurance; dubbele materialiteit. EU-standaardzetter EFRAG. <a href="https://www.efrag.org/" target="_blank" rel="noopener">efrag.org</a></li>
+  </ul>
+</div>
+<div class="callout warn"><span class="lbl">Let op</span>Het financieel model en het impact-model op deze pagina zijn <strong>illustratieve onderwijs-schattingen</strong> op basis van publieke dealfeiten en de bovenstaande methoden — geen waardering, beleggingsadvies of volwaardige MKBA.</div>`;
+
 const ROLES = {
   rvb:{ code:'bestuur', aliases:['rvb','bestuur'], chip:'RvB', accent:'var(--orange)',
     title:'Bestuur (RvB) AkzoNobel', tag:'Het dagelijks bestuur · jullie dragen de aanbeveling',
@@ -3155,12 +3192,9 @@ const ROLES = {
     <div class="card"><h3>Jullie sterkste rol</h3><p class="prose">Dwing het bestuur en Axalta tot een hard waardeverhaal. Weeg zekerheid (cash) tegen upside en risico (aandelen), en weeg financieel tegen sociaal/ecologisch.</p></div>
     <div class="callout warn"><span class="lbl">Let op</span>Jullie stem beslist — vijf zetels, elk één stem, meerderheid (3 van 5) wint. "Voor", "tegen", of "alleen tegen betere voorwaarden" zijn alle drie mogelijk. Eén afwijkende zetel kan de doorslag geven.</div>`}
 };
+
 const ROLE_ORDER=['rvb','rvc','or','minister','axalta','aandeelhouders'];
 
-/* ====================================================================
-   FACILITATOR — FASEN & CUES (uit het draaiboek)
-   start = verstreken seconden vanaf 0:00
-   ==================================================================== */
 const PHASES=[
  {start:0,    label:'Intro & rolverdeling', sub:'Situatie schetsen · mappen uit · klok aan', dur:'5 min', cues:`
    <div class="cue"><div class="who">Voorlezen — kort & energiek</div><div class="say">"We staan in de zomer van 2026. Het cash-bod van Nippon Paint en Sherwin-Williams — €73 per aandeel, mét opsplitsing van AkzoNobel — is afgewezen en van tafel. Op tafel ligt nu een fusie van gelijken met Axalta. De aandeelhouders moeten straks stemmen. Jullie taak vanaf nu: bepaal vanuit je rol één standpunt en je sterkste argument. Aan het eind stemmen we echt."</div></div>
@@ -3204,7 +3238,59 @@ const PHASES=[
    <div class="cue"><div class="who">Brug</div><div class="say">"Onthoud je stem. In de reflectie koppelen we dit aan je eigen rol en de zelf-assessment."</div></div>`},
  {start:2700, label:'Einde', sub:'Tijd is om', dur:'—', cues:`<div class="cue note"><div class="say">45 minuten verstreken. Door naar de plenaire reflectie (laatste 15 min van de masterclass).</div></div>`}
 ];
-const TOTAL=2700; // 45 min
+
+const TOTAL=2700;
+
+const SEATS=[
+  {id:'blackrock',name:'BlackRock',sub:'lange termijn · governance'},
+  {id:'apf',name:'Pensioenfonds APF',sub:'rendement én NL-banen'},
+  {id:'nlfonds',name:'Groot NL-pensioenfonds',sub:'fiduciair + ESG'},
+  {id:'veb',name:'VEB',sub:'kleine beleggers'},
+  {id:'activist',name:'Activistische belegger',sub:'de swing-stem'}
+];
+
+const VLAB={voor:'Voor',tegen:'Tegen',voorw:'Voorw.'};
+
+const ANALIST_TABS=[
+  ['fin','Financieel model',FINMODEL],
+  ['impact','Impact-model',IMPACT_MODEL],
+  ['situatie','De situatie',SITUATIE],
+  ['spiek','Spiekkaart finance',SPIEKKAART],
+  ['bronnen','Bronnen',SOURCES]
+];
+
+</script>
+<script>
+/* casus app — LOGIC: views, hash router, role/analist render, live model calc, facilitator timer, vote tool, QR, printing, actions. Reads the consts from data.js.
+   Canonical source — edit here. Assembled into index.html by assemble.mjs.
+   See dev/planning/architecture.md */
+
+window.onerror=function(m,src,line,col,err){ var d=document.getElementById('diag'); if(d){ d.style.color='#bf211e'; d.textContent='JS-FOUT (regel '+line+'): '+m; } return false; };
+/* ====================================================================
+   GEDEELDE CONTENT
+   ==================================================================== */
+
+
+
+
+
+
+
+
+
+
+/* ====================================================================
+   ROLLEN
+   ==================================================================== */
+
+
+
+/* ====================================================================
+   FACILITATOR — FASEN & CUES (uit het draaiboek)
+   start = verstreken seconden vanaf 0:00
+   ==================================================================== */
+
+ // 45 min
 
 /* ====================================================================
    ROUTING + LOGIN
@@ -3266,47 +3352,9 @@ function renderRole(key){
 /* ====================================================================
    ANALIST — model-details (financieel + impact)
    ==================================================================== */
-const SOURCES = `
-<div class="block">
-  <span class="eyebrow">Analist · bronnen</span>
-  <h2 style="margin-top:8px">Bronnen &amp; verantwoording</h2>
-  <p class="lead">De feiten en concepten achter de casus. Externe bronnen zijn aanklikbaar; de modellen op de andere tabs zijn illustratieve onderwijs-schattingen op basis hiervan (zie de disclaimers per tab).</p>
-</div>
-<div class="block"><h2>De casus — dealfeiten</h2>
-  <ul class="kv">
-    <li><strong>AkzoNobel × Axalta — merger of equals</strong> (18 nov 2025): ruil 0,6539 · ~$25 mrd · dual HQ Amsterdam/Philadelphia · leiderschap. <a href="https://www.akzonobel.com/en/media/media-releases/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">AkzoNobel persbericht</a> · <a href="https://ir.axalta.com/news/press-releases/detail/671/akzonobel-and-axalta-to-combine-in-all-stock-merger-of-equals-creating-a-premier-global-coatings-company" target="_blank" rel="noopener">Axalta IR</a></li>
-    <li><strong>04_mkba_akzo_axalta.xlsx</strong> — het brede-waarde-werkmodel (tab "MKBA 2026 MOE"), bron voor het impact-model. <em>Intern.</em></li>
-    <li><strong>Validatie_getallen_presentatie.xlsx</strong> — validatie van de cijfers in de lezing. <em>Intern.</em></li>
-  </ul>
-</div>
-<div class="block"><h2>Brede waarde &amp; maatschappelijke toetsing</h2>
-  <ul class="kv">
-    <li><strong>De Adelhart Toorop, De Groot Ruiz &amp; Schoenmaker (2017)</strong> — "Maatschappelijke toetsing van overnames is nodig", <em>ESB</em>. De methode achter de toets; analyseerde destijds AkzoNobel–PPG (≈ −€6 mrd). <a href="https://esb.nu/maatschappelijke-toetsing-van-overnames-is-nodig/" target="_blank" rel="noopener">esb.nu</a></li>
-    <li><strong>Sturen op integrale waarde</strong> — beslissen op F+S+E i.p.v. alleen winst (integrated value). <a href="https://esb.nu/bedrijven-moeten-sturen-op-integrale-waarde-en-niet-alleen-op-winst/" target="_blank" rel="noopener">esb.nu</a></li>
-  </ul>
-</div>
-<div class="block"><h2>Impact in geld — frameworks</h2>
-  <ul class="kv">
-    <li><strong>Impact-Weighted Accounts Framework (IWAF)</strong> — Impact Economy Foundation, m.m.v. Impact Institute, Harvard, RSM &amp; SMU. <a href="https://impacteconomyfoundation.org/impactweightedaccountsframework/" target="_blank" rel="noopener">impacteconomyfoundation.org</a></li>
-    <li><strong>True Price</strong> — marktprijs + verborgen sociale &amp; ecologische kosten; methode &amp; monetarisatiefactoren. <a href="https://www.trueprice.org/methodology/" target="_blank" rel="noopener">trueprice.org</a></li>
-    <li><strong>IFVI — International Foundation for Valuing Impacts</strong> — voortzetting van Harvards Impact-Weighted Accounts Initiative (Serafeim). <a href="https://ifvi.org/" target="_blank" rel="noopener">ifvi.org</a></li>
-  </ul>
-</div>
-<div class="block"><h2>Governance &amp; verslaggeving</h2>
-  <ul class="kv">
-    <li><strong>Nederlandse Corporate Governance Code 2022</strong> — lange-termijn waardecreatie &amp; dubbele materialiteit. Monitoring Commissie. <a href="https://www.mccg.nl/documenten/2022/12/20/corporate-governance-code-2022" target="_blank" rel="noopener">mccg.nl</a></li>
-    <li><strong>CSRD / ESRS</strong> — duurzaamheidsverslaggeving met assurance; dubbele materialiteit. EU-standaardzetter EFRAG. <a href="https://www.efrag.org/" target="_blank" rel="noopener">efrag.org</a></li>
-  </ul>
-</div>
-<div class="callout warn"><span class="lbl">Let op</span>Het financieel model en het impact-model op deze pagina zijn <strong>illustratieve onderwijs-schattingen</strong> op basis van publieke dealfeiten en de bovenstaande methoden — geen waardering, beleggingsadvies of volwaardige MKBA.</div>`;
 
-const ANALIST_TABS=[
-  ['fin','Financieel model',FINMODEL],
-  ['impact','Impact-model',IMPACT_MODEL],
-  ['situatie','De situatie',SITUATIE],
-  ['spiek','Spiekkaart finance',SPIEKKAART],
-  ['bronnen','Bronnen',SOURCES]
-];
+
+
 let analistBuilt=false;
 function buildAnalist(){
   document.documentElement.style.setProperty('--accent','var(--teal)');
@@ -3464,14 +3512,8 @@ function esc(s){ return String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','
 /* ====================================================================
    STEM-TOOL (vijf zetels · 3 van 5)
    ==================================================================== */
-const SEATS=[
-  {id:'blackrock',name:'BlackRock',sub:'lange termijn · governance'},
-  {id:'apf',name:'Pensioenfonds APF',sub:'rendement én NL-banen'},
-  {id:'nlfonds',name:'Groot NL-pensioenfonds',sub:'fiduciair + ESG'},
-  {id:'veb',name:'VEB',sub:'kleine beleggers'},
-  {id:'activist',name:'Activistische belegger',sub:'de swing-stem'}
-];
-const VLAB={voor:'Voor',tegen:'Tegen',voorw:'Voorw.'};
+
+
 let vote={}, voteNotes='';
 
 function buildSeats(){
@@ -3595,6 +3637,7 @@ function route(){ applyHash(location.hash); }
 window.addEventListener('hashchange',route);
 route();
 (function(){ var d=document.getElementById('diag'); if(d){ d.style.color='#4e7459'; d.textContent='build 12 · interactief ✓ — klik op een rol'; } })();
+
 </script>
 </body>
 </html>

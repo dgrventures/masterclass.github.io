@@ -46,7 +46,7 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
     │   └── deliverables/       The actual outputs ↓
     │       ├── 10_lezing/      Lecture deck (.html, 29 slides) + examples + validation
     │       ├── 21_casus/       Case materials: opzet, draaiboek, rolkaarten, MKBA, spiekkaart
-    │       └── 22_casepage/    casus-akzonobel-axalta.html — CANONICAL case website source
+    │       └── 22_casepage/src/  CANONICAL case site: shell.html · style.css · data.js · app.js · assemble.mjs
     └── runs/                   Numbered work sessions (see §4)
         ├── _template/          Templates for new runs
         ├── 00_handoff_claudechat/
@@ -59,19 +59,22 @@ the handoff: [`dev/runs/00_handoff_claudechat/HANDOFF.md`](dev/runs/00_handoff_c
   at **<https://dgrventures.github.io/masterclass.github.io/>** — this is why the case
   website is named `index.html` (GitHub Pages serves `index.html` at the directory
   root). Pushing to `main` publishes it. There is no build step.
-- **The canonical case-website source is**
-  [`dev/project/deliverables/22_casepage/casus-akzonobel-axalta.html`](dev/project/deliverables/22_casepage/casus-akzonobel-axalta.html).
-  Edit it there.
-- **Publishing** the case website = copy that file to **both** root `index.html`
-  **and** `src/index.html`. These three files must stay byte-identical:
+- **The canonical case-website source is the split parts in**
+  [`dev/project/deliverables/22_casepage/src/`](dev/project/deliverables/22_casepage/src/):
+  `style.css` (+ shared [`dev/shared/style/tokens.css`](dev/shared/style/)), `data.js`
+  (content + figure models/numbers), `app.js` (logic), `shell.html` (links them).
+  Edit those. The dev form runs by opening `src/shell.html` directly (file://).
+- **Publishing** the case website = run the assemble step, which inlines the parts
+  into one self-contained `index.html` written to **both** root and `src/`:
 
   ```bash
-  cp dev/project/deliverables/22_casepage/casus-akzonobel-axalta.html index.html
-  cp dev/project/deliverables/22_casepage/casus-akzonobel-axalta.html src/index.html
+  node dev/project/deliverables/22_casepage/src/assemble.mjs
   ```
 
-  Never hand-edit root `index.html` or `src/index.html` directly — your change
-  would be lost on the next publish and the canonical source would drift.
+  The shipped `index.html` is self-contained (works on Pages **and** double-clicked
+  from a folder — no fetch/ES-module import, both blocked on file://). Never
+  hand-edit root `index.html` or `src/index.html` — they are generated; edit the
+  parts and re-assemble. (The lecture still publishes by plain `cp` — see its track.)
 
 ---
 

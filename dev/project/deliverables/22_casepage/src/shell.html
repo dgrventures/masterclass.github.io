@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casus AkzoNobel × Axalta — fuseren of niet?</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===================== LANDING ===================== -->
+<section id="landing" class="view active">
+  <div class="landing-wrap">
+    <header class="landing-head">
+      <span class="eyebrow">2100 Masterclass</span>
+      <h1>Finance &amp; Impact<br>voor commissarissen</h1>
+      <p class="sub">Eerst de lezing, dan de casus. Kies waar je begint — je kunt altijd terug naar dit startscherm.</p>
+    </header>
+    <div class="landing-tiles">
+      <a class="tile" href="lezing.html">
+        <span class="tnum">01 · Lezing</span>
+        <h2>De lezing</h2>
+        <p>Finance &amp; Impact voor RvC's 101 — interactieve presentatie van ±30 min, met spreker-notities.</p>
+        <span class="tgo">Start de presentatie →</span>
+      </a>
+      <button type="button" class="tile" data-act="go" data-arg="casus">
+        <span class="tnum">02 · Casus</span>
+        <h2>De casus</h2>
+        <p>AkzoNobel × Axalta — fuseren of niet? Rollenspel met echte stemming, ±45 min.</p>
+        <span class="tgo">Kies je rol →</span>
+      </button>
+    </div>
+    <p class="landing-foot">Impact Institute × 2100 · <span class="bld">build 12</span></p>
+  </div>
+</section>
+
+<!-- ===================== LOGIN (casus · rolkeuze) ===================== -->
+<section id="login" class="view">
+  <div class="login-card">
+    <button class="backstart" data-act="home">← Terug naar start</button>
+    <span class="eyebrow">2100 Masterclass · Casus</span>
+    <h1>AkzoNobel × Axalta</h1>
+    <p class="sub">Fuseren of niet? Kies je rol om te beginnen.</p>
+    <div class="rolepick">
+      <button class="rolebtn" style="--rb:var(--orange)" data-act="go" data-arg="rvb"><span class="d"></span>Bestuur (RvB)</button>
+      <button class="rolebtn" style="--rb:var(--green)" data-act="go" data-arg="rvc"><span class="d"></span>RvC</button>
+      <button class="rolebtn" style="--rb:var(--teal)" data-act="go" data-arg="or"><span class="d"></span>Ondernemingsraad</button>
+      <button class="rolebtn" style="--rb:var(--navy)" data-act="go" data-arg="minister"><span class="d"></span>Minister (EZ)</button>
+      <button class="rolebtn" style="--rb:var(--amber)" data-act="go" data-arg="axalta"><span class="d"></span>Board Axalta</button>
+      <button class="rolebtn" style="--rb:var(--sage)" data-act="go" data-arg="aandeelhouders"><span class="d"></span>Grootaandeelhouders</button>
+    </div>
+    <div class="faclrow">
+      <button class="facbtn" data-act="go" data-arg="facilitator">Facilitator · regie &amp; timer</button>
+      <button class="facbtn alt" data-act="go" data-arg="analist">Analist · model-details</button>
+    </div>
+    <div class="hint"><b>Eén taak:</b> bepaal vanuit je rol je standpunt en je sterkste argument — aan het eind stemmen we echt. <b>Facilitator &amp; Analist</b> zijn voor de begeleiding.</div>
+    <div id="diag" style="margin-top:14px;font-family:var(--mono,monospace);font-size:.74rem;color:#9aa39d">build 12 — laden…</div>
+  </div>
+</section>
+
+<!-- ===================== ROLE PAGE ===================== -->
+<section id="rolePage" class="view">
+  <div class="topbar">
+    <span class="crumb">Casus · AkzoNobel × Axalta</span>
+    <span class="spacer"></span>
+    <span class="rolechip" id="roleChip"><span class="dot"></span><span id="roleChipTxt"></span></span>
+    <button class="logout" data-act="printrole">Print</button>
+    <button class="logout" data-act="logout">Andere rol</button>
+    <button class="logout" data-act="home">↩ Start</button>
+  </div>
+  <div class="wrap">
+    <div class="role-head">
+      <span class="stance" id="roleStance"></span>
+      <h1 id="roleTitle"></h1>
+      <p class="tag" id="roleTag"></p>
+    </div>
+    <div class="tabs" id="roleTabs"></div>
+    <div id="rolePanels"></div>
+  </div>
+  <footer class="foot">Een goede vraag is meer waard dan schijnzekerheid · Impact Institute × 2100</footer>
+</section>
+
+<!-- ===================== FACILITATOR ===================== -->
+<section id="facPage" class="view fac">
+  <div class="topbar">
+    <span class="crumb">Facilitator · Regie</span>
+    <span class="spacer"></span>
+    <span class="rolechip" style="background:var(--orange)"><span class="dot"></span>Draaiboek</span>
+    <button class="logout" data-act="logout" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">← Casus</button>
+    <button class="logout" data-act="home" style="color:#dfeae0;border-color:rgba(255,255,255,.25)">↩ Start</button>
+  </div>
+  <div class="fac-grid">
+    <!-- LEFT: timer + track -->
+    <div>
+      <div class="timerbox">
+        <div class="phasenow" id="phaseNow">Klaar om te starten</div>
+        <div class="clock" id="clock">00:00</div>
+        <div class="subclock" id="subclock">Totaal 45:00 · druk op Start als de groepen zitten</div>
+        <div class="pbar"><i id="pbar"></i></div>
+        <div class="tctrl">
+          <button class="tbtn go" id="startBtn" data-act="toggletimer">▶ Start</button>
+          <button class="tbtn reset" data-act="resettimer">↺ Reset</button>
+        </div>
+        <div class="soundtoggle"><span>Geluidssignaal bij fase-overgang</span><button id="soundBtn" data-act="togglesound">aan</button></div>
+      </div>
+      <div class="track" id="track"></div>
+    </div>
+    <!-- RIGHT: cues + codes + peek -->
+    <div>
+      <div class="fcard">
+        <h3 id="cueTitle">Cues voor nu</h3>
+        <p class="sub" id="cueSub">Het script schuift mee met de timer.</p>
+        <div id="cueBody"></div>
+        <details class="toolkit">
+          <summary>Facilitator-toolkit</summary>
+          <ul>
+            <li><b>Heilig:</b> de stem (fase 3) wordt nooit ingekort — alles loopt daar naartoe.</li>
+            <li>Loop je uit in fase 1? Start fase 2 toch en knip de verdiepende probes.</li>
+            <li>Blijf neutraal: speel het weerwoord van de tégenpartij als een groep te makkelijk wegkomt.</li>
+            <li>De drie vragen die altijd werken: <i>"Welk getal vertelt het échte verhaal?" · "Voor wie is dit het beste?" · "Wat zien we over vijf jaar terug — niet morgen?"</i></li>
+            <li><b>Fallback 5 groepen:</b> geen Minister-tafel → jij speelt EZ als korte interventie ná de OR + de reprise vóór de stem.</li>
+          </ul>
+        </details>
+      </div>
+      <div class="fcard">
+        <h3>Uitslag vastleggen</h3>
+        <p class="sub">Vijf zetels · meerderheid (3 van 5) beslist · blijft bewaard op dit apparaat.</p>
+        <div id="seats"></div>
+        <div class="tally" id="tally"></div>
+        <div class="verdict" id="verdict">Nog geen stemmen</div>
+        <textarea class="notes" id="voteNotes" placeholder="Voor de reflectie — welk getal was doorslaggevend, en wie bepaalde het? Wie stemde met het hoofd, wie met het hart?"></textarea>
+        <div class="frow">
+          <button class="solid" data-act="votebig">Toon groot</button>
+          <button data-act="votecopy" id="copyBtn">Kopieer</button>
+          <button data-act="voteprint">Print</button>
+          <button data-act="votereset">Wis</button>
+        </div>
+      </div>
+      <div class="fcard">
+        <h3>QR-codes per rol</h3>
+        <p class="sub">Scannen leidt direct naar de rol. Print ze als tentkaartjes voor op tafel.</p>
+        <div class="urlrow">
+          <input id="baseUrl" type="text" placeholder="https://jouwnaam.github.io/casus/" aria-label="Basis-URL van de site">
+          <button class="tbtn go" style="flex:none;min-width:auto;padding:10px 16px;font-size:.9rem" data-act="genqr">Genereer</button>
+        </div>
+        <div class="qrgrid" id="qrGrid"></div>
+        <div class="frow" id="qrActions" style="display:none">
+          <button class="solid" data-act="printqr">Print QR-vel (om te knippen)</button>
+        </div>
+      </div>
+      <div class="fcard">
+        <h3>Zo komt iedereen binnen</h3>
+        <p class="sub">Deelnemers tikken hun rol op het startscherm — of scannen de QR hierboven (gaat direct naar de rol).</p>
+        <ul class="codes" id="codeList"></ul>
+      </div>
+      <div class="fcard">
+        <h3>Materiaal</h3>
+        <p class="sub">Bekijk een rolkaart (read-only) of print alle rolkaarten.</p>
+        <div class="peek" id="peekBtns"></div>
+        <div class="frow"><button class="solid" data-act="printroles">Print alle rolkaarten</button></div>
+      </div>
+    </div>
+  </div>
+  <footer class="foot">Draaiboek 45 min · 6 groepen · operationaliseert de casus-opzet · Impact Institute × 2100</footer>
+</section>
+
+<!-- ===================== ANALIST (facilitatie · model-details) ===================== -->
+<section id="analistPage" class="view">
+  <div class="topbar">
+    <span class="crumb">Casus · Analist</span>
+    <span class="spacer"></span>
+    <span class="rolechip" style="background:var(--teal)"><span class="dot"></span>Model-details</span>
+    <button class="logout" data-act="go" data-arg="casus">← Casus</button>
+    <button class="logout" data-act="home">↩ Start</button>
+  </div>
+  <div class="wrap">
+    <div class="role-head">
+      <span class="stance open">Facilitatie · achter de schermen</span>
+      <h1>De faciliterende analist</h1>
+      <p class="tag">De cijfers áchter de casus — financieel model en impact-model, om vragen te pareren en het gesprek te voeden. Niet voor de deelnemers: dit is de "antwoordsleutel".</p>
+    </div>
+    <div class="tabs" id="analistTabs"></div>
+    <div id="analistPanels"></div>
+  </div>
+  <footer class="foot">Illustratieve onderwijsmodellen — bedoeld om te bevrágen, niet als waardering of advies · Impact Institute × 2100</footer>
+</section>
+
+<!-- ===================== MODAL ===================== -->
+<div class="modal" id="modal" data-modalbg="1">
+  <div class="sheet">
+    <button class="close" data-act="closemodal">×</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="printRoot"></div>
+
+<script src="vendor-qrcode.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

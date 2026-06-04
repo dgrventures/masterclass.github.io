@@ -15,13 +15,15 @@ independent of execution. See also [`backlog.md`](backlog.md) and
     facilitator → analist). One self-contained file (~3,500 lines: CSS + content +
     model + logic). Mirrored to `src/index.html`.
   - `lezing.html` — the **lecture** deck. Mirrored to `src/lezing.html`.
-- **Canonical sources (edit here), today:**
-  - casus → `dev/project/deliverables/22_casepage/casus-akzonobel-axalta.html`
-  - lezing → `dev/project/deliverables/10_lezing/02_lezing.html`
-  - Publish = copy canonical → root + `src/` (see [`/CLAUDE.md`](../../CLAUDE.md) §2).
+- **Canonical sources (edit here):**
+  - casus → **split parts** in `dev/project/deliverables/22_casepage/src/`
+    (`shell.html`, `style.css`, `data.js`, `app.js`, `assemble.mjs`) + shared
+    `dev/shared/style/tokens.css`. **Done** — run `MA09`.
+  - lezing → `dev/project/deliverables/10_lezing/02_lezing.html` (still monolithic).
+  - Publish: casus → `node …/src/assemble.mjs`; lezing → `cp`
+    (see [`/CLAUDE.md`](../../CLAUDE.md) §2).
 
-**Problem for parallel work:** the casus app is one monolithic file, so every track
-(style, content, model, logic) collides on it. That's what the refactor below fixes.
+The casus split below is **implemented**; this section documents the realised design.
 
 ---
 

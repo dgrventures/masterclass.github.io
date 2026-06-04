@@ -4,11 +4,11 @@ Open work, roughly prioritised. `MA`-owned; any track can pull an item into a ru
 Done items move to the relevant run log (`dev/runs/`), not here.
 
 ## Now / next
-- [ ] **Casus refactor → split + assemble** (`MA`, **locked**). Carve the monolithic
-      casus app into `src/{shell.html,style.css,data.js,app.js}` + `assemble.mjs`;
-      extract shared tokens to `dev/shared/style/`; verify assembled output is
-      identical; publish. Design: [`architecture.md`](architecture.md).
-- [ ] **Refine financial-model defaults** (`CW`). Reconcile share count (~179 mln),
+- [x] **Casus refactor → split + assemble** (`MA`, locked) — *done, run `MA09`.*
+      Carved into `src/{shell.html,style.css,data.js,app.js,assemble.mjs}` + shared
+      `dev/shared/style/tokens.css`; behaviour verified identical (jsdom nav/model/sources).
+- [ ] **Refine financial-model defaults** (`CW`). Now editable in
+      `22_casepage/src/data.js` (FINMODEL `data-def`s). Reconcile share count (~179 mln),
       multiple (~8×), realisatie (85%), fundamentele opslag (€4) against `04_mkba`.
 - [ ] **PPTX export of the lecture** (`JB`, handoff §5.1): `02_lezing.html` → `.pptx`,
       keeping green title slide, house style, presenter notes.

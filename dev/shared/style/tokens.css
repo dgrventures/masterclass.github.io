@@ -1,0 +1,19 @@
+/* Impact Institute — shared design tokens (brand colours, type, base resets).
+   Shared source of truth; inlined at assemble time. */
+/* ============ FONTS (self-hosted, Impact Institute brand) ============ */
+
+/* ============ TOKENS ============ */
+:root{
+  --orange:#FC5901;--orange-press:#D94B00;--orange-tint:#FFE7D6;
+  --green:#2A4D36;--green-deep:#1E3A28;--green-tint:#ECF0E9;
+  --sage:#6E9079;--sage-600:#4E7459;--teal:#4B9A95;--amber:#F7B538;--navy:#172E43;
+  --red:#BF211E;
+  --ink:#2F2A2A;--ink-soft:#4A4646;--slate:#6E6A6A;
+  --line:#DAD7D6;--line-soft:#E9E6E5;--paper:#FBFBFA;--grey-100:#F4F3F2;--white:#FFFFFF;
+  --disp:'Futura PT','Jost','Century Gothic',sans-serif;
+  --body:'Lato',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --r-sm:6px;--r-md:10px;--r-lg:16px;--r-pill:999px;
+  --sh-sm:0 1px 3px rgba(47,42,42,.08),0 1px 2px rgba(47,42,42,.06);
+  --sh-md:0 4px 16px rgba(42,77,54,.10),0 2px 4px rgba(47,42,42,.06);
+  --sh-lg:0 16px 40px rgba(42,77,54,.16),0 4px 10px rgba(47,42,42,.08);
+}
