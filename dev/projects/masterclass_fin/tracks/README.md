@@ -14,7 +14,7 @@ reusable method, see [`../../../general/workflow.md`](../../../general/workflow.
 |---|---|---|---|---|
 | `MA` | Master / manager | `CLAUDE.md`, `dev/projects/masterclass_fin/runs/`, `dev/general/`, `dev/projects/masterclass_fin/tracks/`, `dev/projects/masterclass_fin/data/`, `projectapps/masterclass_fin/{specs,versions}/` (cross-cutting), integration & merges | `main` | No — only for repo-wide ops |
 | `PLAN` | Planning | `dev/projects/masterclass_fin/plan/**` (brief, backlog, context, architecture) | `main` | No — parallel-safe |
-| `CW` | Casus-website app | `projectapps/masterclass_fin/src/deliverables/22_casepage/**` → assembled to repo-root `index.html` | branch/worktree `cw` | Rarely |
+| `CW` | Casus-website app | `projectapps/masterclass_fin/src/deliverables/22_casepage/**` → assembled to `src/output/` → `docs/index.html` | branch/worktree `cw` | Rarely |
 | `JB` | Lezing / lecture | `projectapps/masterclass_fin/src/deliverables/10_lezing/**` → published `lezing.html` (root) | branch/worktree `jb` | Rarely |
 | `DS` | Design / style *(planned)* | `projectapps/masterclass_fin/src/deliverables/22_casepage/shared/style/**` (tokens, fonts, shared CSS) | branch/worktree `ds` | Rarely |
 

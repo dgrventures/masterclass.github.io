@@ -9,7 +9,6 @@
  * Source (edit here):   deliverables/23_casusintro/intro.html
  * Canonical bundle:     src/output/intro.html
  * Served copy (Pages):  docs/intro.html
- * Legacy root copy:     intro.html   (until Pages is switched to /docs)
  * The build number is shared with the casus + lecture via src/build.json — bump it
  * there, never hand-edit __BUILD__ or a number in the generated files.
  * See dev/projects/masterclass_fin/plan/architecture.md.
@@ -22,7 +21,7 @@ import { stampBuild, BUILD } from '../../build.mjs';             // shared build
 const dir    = path.dirname(fileURLToPath(import.meta.url));     // .../23_casusintro
 const source = path.join(dir, 'intro.html');
 const output = path.resolve(dir, '../../output');               // src/output (canonical bundle)
-const root   = path.resolve(dir, '../../../../..');             // repo root
+const root   = path.resolve(dir, '../../../../..');             // repo root (for relative logging + docs path)
 const docs   = path.join(root, 'docs');                         // served copy (Pages /docs)
 
 let out = fs.readFileSync(source, 'utf8');
@@ -30,8 +29,8 @@ out = stampBuild(out);                                          // __BUILD__ -> 
 
 fs.mkdirSync(output, { recursive: true });
 fs.mkdirSync(docs, { recursive: true });
-// src/output = canonical; docs/ = served copy (Pages /docs); root = legacy copy (until Pages switched)
-for (const dest of [path.join(output, 'intro.html'), path.join(docs, 'intro.html'), path.join(root, 'intro.html')]) {
+// src/output = canonical; docs/ = served copy (Pages serves /docs)
+for (const dest of [path.join(output, 'intro.html'), path.join(docs, 'intro.html')]) {
   fs.writeFileSync(dest, out);
   console.log('wrote', path.relative(root, dest), out.length, 'bytes', '(build ' + BUILD + ')');
 }

@@ -11,9 +11,8 @@
  *   shared/style/tokens.css                                                     (shared brand tokens)
  *   assemble.mjs      this script
  * Writes the assembled file to the canonical output bundle src/output/index.html,
- * then copies it to docs/index.html (served via Pages /docs) and repo-root
- * index.html (legacy copy, until Pages is switched). The assembled files are
- * generated — never hand-edit them.
+ * then copies it to docs/index.html (served via Pages /docs). The assembled files
+ * are generated — never hand-edit them.
  * See dev/projects/masterclass_fin/plan/architecture.md.
  */
 import fs from 'fs';
@@ -25,7 +24,7 @@ const dir    = path.dirname(fileURLToPath(import.meta.url));     // .../22_casep
 const parts  = path.join(dir, 'appdeliverables');
 const tokens = path.join(dir, 'shared', 'style', 'tokens.css');
 const output = path.resolve(dir, '../../output');               // src/output (canonical bundle)
-const root   = path.resolve(dir, '../../../../..');             // repo root
+const root   = path.resolve(dir, '../../../../..');             // repo root (for relative logging + docs path)
 const docs   = path.join(root, 'docs');                         // served copy (Pages /docs)
 const read = p => fs.readFileSync(p, 'utf8');
 const inject = (s, marker, body) => {                            // string replace, no regex
@@ -51,8 +50,8 @@ out = stampBuild(out);                                          // __BUILD__ -> 
 
 fs.mkdirSync(output, { recursive: true });
 fs.mkdirSync(docs, { recursive: true });
-// src/output = canonical; docs/ = served copy (Pages /docs); root = legacy copy (until Pages switched)
-for (const dest of [path.join(output, 'index.html'), path.join(docs, 'index.html'), path.join(root, 'index.html')]) {
+// src/output = canonical; docs/ = served copy (Pages serves /docs)
+for (const dest of [path.join(output, 'index.html'), path.join(docs, 'index.html')]) {
   fs.writeFileSync(dest, out);
   console.log('wrote', path.relative(root, dest), out.length, 'bytes');
 }

@@ -33,9 +33,7 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 
 ```
 /                              repo root
-├── docs/                      SERVED copy for GitHub Pages /docs: index.html · lezing.html · .nojekyll
-├── index.html                 legacy served copy (until Pages switched to /docs) — generated
-├── lezing.html                legacy served copy — generated
+├── docs/                      SERVED by GitHub Pages (/docs): index.html · lezing.html · intro.html · .nojekyll
 ├── CLAUDE.md                   This file
 ├── projectapps/               THE APPS / PRODUCT (per project)
 │   └── masterclass_fin/
@@ -47,8 +45,8 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 │           │   └── 22_casepage/    CANONICAL casus app:
 │           │       ├── appdeliverables/   shell.html · style.css · data.js · app.js · vendor-qrcode.js
 │           │       ├── shared/style/      tokens.css (brand tokens, inlined)
-│           │       └── assemble.mjs       inlines parts → output/index.html + root
-│           └── output/            CANONICAL deploy bundle (generated): index.html · lezing.html → copied to root
+│           │       └── assemble.mjs       inlines parts → output/index.html → docs/
+│           └── output/            CANONICAL deploy bundle (generated): index.html · lezing.html · intro.html → copied to docs/
 └── dev/                        WORKING MATERIALS (not served)
     ├── about.md
     ├── general/                REUSABLE across projects (see dev/general/README.md)
@@ -72,10 +70,9 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 ### Deployment & the case website
 
 - This repo is a **GitHub Pages site** at **<https://dgrventures.github.io/masterclass.github.io/>**.
-  Pushing to `main` publishes it. No build on Pages. The served copy lives in
-  [`docs/`](docs/) (set Pages → "Deploy from branch", `main`/`docs`). Repo-root
-  `index.html`/`lezing.html` are **legacy** copies kept in sync until Pages is switched
-  to `/docs`; once it is, they can be dropped.
+  Pushing to `main` publishes it. No build on Pages. The served files live **only** in
+  [`docs/`](docs/) (Pages → "Deploy from branch", `main`/`docs`; `docs/.nojekyll` serves
+  raw HTML). There are **no repo-root copies** — canonical is `src/output/`, served is `docs/`.
 - **The canonical casus-app source is the split parts in**
   [`projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/`](projectapps/masterclass_fin/src/deliverables/22_casepage/appdeliverables/):
   `style.css` (+ shared [`../shared/style/tokens.css`](projectapps/masterclass_fin/src/deliverables/22_casepage/shared/style/)),
@@ -83,10 +80,11 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   Edit those. The dev form runs by opening `appdeliverables/shell.html` directly (file://).
 - **The canonical deploy bundle is** [`projectapps/masterclass_fin/src/output/`](projectapps/masterclass_fin/src/output/)
   — `index.html` (casus) + `lezing.html` (lecture) + `intro.html` (casus-intro deck). It is
-  **copied** to `docs/` (served) and repo-root (legacy). Ideally Pages serves the bundle directly one day.
+  **copied** to `docs/` (served). Each publish step writes its canonical file in `src/output/`
+  then copies it to `docs/`.
 - **Publishing the casus app:** run the assemble step. It inlines the parts into one
   self-contained file written to `src/output/index.html` (canonical) **and** copied to
-  `docs/index.html` + repo-root `index.html`:
+  `docs/index.html`:
 
   ```bash
   node projectapps/masterclass_fin/src/deliverables/22_casepage/assemble.mjs
@@ -94,11 +92,10 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
 
   The shipped `index.html` is self-contained (works on Pages **and** double-clicked from a
   folder — no fetch/ES-module import, both blocked on file://). Never hand-edit the
-  generated `src/output/*`, `docs/*` or root copies — edit the parts and re-assemble.
+  generated `src/output/*` or `docs/*` — edit the parts and re-assemble.
 - **Publishing the lecture** (JB track): run its publish script. It stamps the
   shared build number into `02_lezing.html` and writes the canonical bundle
-  `src/output/lezing.html` plus the served copies `docs/lezing.html` + repo-root
-  `lezing.html`:
+  `src/output/lezing.html` plus the served copy `docs/lezing.html`:
 
   ```bash
   node projectapps/masterclass_fin/src/deliverables/10_lezing/publish.mjs
@@ -108,7 +105,7 @@ the handoff: [`dev/projects/masterclass_fin/runs/00_handoff_claudechat/HANDOFF.m
   case briefing is no longer part of it — it lives in the casus-intro deck below.
 - **Publishing the casus-intro** (the case briefing as its own short deck — same deck
   engine as the lecture): run its publish script. It stamps the shared build number into
-  `intro.html` and writes `src/output/intro.html` + `docs/intro.html` + repo-root `intro.html`:
+  `intro.html` and writes `src/output/intro.html` + `docs/intro.html`:
 
   ```bash
   node projectapps/masterclass_fin/src/deliverables/23_casusintro/publish.mjs

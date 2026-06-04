@@ -20,4 +20,4 @@ console.log('\n— lezing (publish.mjs)');
 await import('./deliverables/10_lezing/publish.mjs');
 console.log('\n— casus-intro (publish.mjs)');
 await import('./deliverables/23_casusintro/publish.mjs');
-console.log('\nDone — build ' + BUILD + ' published to src/output/, docs/ and repo-root.');
+console.log('\nDone — build ' + BUILD + ' published to src/output/ (canonical) and docs/ (served).');

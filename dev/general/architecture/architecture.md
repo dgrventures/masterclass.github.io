@@ -29,7 +29,7 @@ src/
 - The **parts are canonical**; the **assembled bundle is generated** and never hand-edited.
 - `assemble.mjs` is pure string replacement — no bundler, no npm, no CI. Run it like a
   copy step. It writes the assembled file to the `output/` bundle (canonical artefact) and
-  to the deploy location the host serves (e.g. repo-root `index.html`).
+  to the deploy location the host serves (e.g. a `docs/` folder for GitHub Pages).
 - The dev form runs by opening `appdeliverables/shell.html` from `file://` (classic tags).
 - Shared tokens are inlined at assemble time, so the shipped file has no external deps.
 
